@@ -1,0 +1,2 @@
+module StaticArticlesHelper
+end
