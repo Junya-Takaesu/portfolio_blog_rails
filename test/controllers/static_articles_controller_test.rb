@@ -2,12 +2,12 @@ require "test_helper"
 
 class StaticArticlesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get static_articles_index_url
+    get articles_url
     assert_response :success
   end
 
   test "should get show" do
-    get static_articles_show_url
+    get "/articles/1"
     assert_response :success
   end
 end
