@@ -7,6 +7,6 @@ class StaticArticlesController < ApplicationController
   end
 
   def show
-    render "pages/article#{params[:id]}"
+    render "article#{params[:id]}"
   end
 end
