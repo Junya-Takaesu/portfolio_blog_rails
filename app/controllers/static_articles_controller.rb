@@ -1,4 +1,7 @@
 class StaticArticlesController < ApplicationController
+  def about
+  end
+
   def index
     @articles = [
       {id: 1, title: "初めての記事"}
