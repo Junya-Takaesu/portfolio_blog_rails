@@ -8,6 +8,7 @@ class StaticArticlesController < ApplicationController
   end
 
   def show
+    @article = @articles[params[:id].to_i-1]
   end
 
   private
