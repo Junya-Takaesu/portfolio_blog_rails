@@ -1,0 +1,15 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <% if 0 < params[:id].to_i-1 %>
+      <button type="button" class="btn btn-light col-4 text-center border p-0 m-0 shadow">
+        <%= link_to "<<< 前の記事: #{@articles[params[:id].to_i-2][:title]}", "#{params[:id].to_i-1}", class: "p-4 m-0 h5 d-inline-block" %>
+      </button>
+    <% end %>
+    <div class="col-1"></div>
+    <% if params[:id].to_i+1 <= @articles.length %>
+      <button type="button" class="btn btn-light col-4 text-center border p-0 m-0 shadow">
+        <%= link_to "次の記事: #{@articles[params[:id].to_i][:title]} >>>", "#{params[:id].to_i+1}", class: "p-4 m-0 h5 d-inline-block" %>
+      </button>
+    <% end %>
+  </div>
+</div>
