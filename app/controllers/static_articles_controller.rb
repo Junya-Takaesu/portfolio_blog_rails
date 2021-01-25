@@ -8,7 +8,6 @@ class StaticArticlesController < ApplicationController
   end
 
   def show
-    render "article#{params[:id]}"
   end
 
   private
