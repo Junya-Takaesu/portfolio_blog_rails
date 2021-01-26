@@ -7,3 +7,41 @@
     line-height: 1.8;
   }
 }
+
+// about page (home page)
+.jumbotron {
+  letter-spacing: .3rem;
+}
+
+span.badge {
+  letter-spacing: 0;
+  height: 1.5rem;
+}
+
+#excel-icon {
+  background-color: rgb(1,110,56);
+}
+
+#php-icon {
+  background-color: #6674b3;
+  color: black;
+}
+
+#mysql-icon {
+  background-color: #255278;
+}
+
+#javascript-icon {
+  background-color: #ffe100;
+  color: black;
+}
+
+#ruby-icon {
+  background-color: rgb(179, 24, 24);
+}
+
+@media (max-width: 576px) {
+  #about-sub-header {
+    font-size: 0.9rem;
+  }
+}
