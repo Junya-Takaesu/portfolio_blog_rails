@@ -1,7 +1,7 @@
 <div class="container-fluid p-0 m-0">
   <%# image %>
   <div class="row">
-    <div class="col hero-container">
+    <div class="col image-container">
       <%= image_tag @article[:hero_image], id: "article-hero" %>
     </div>
   </div>
@@ -11,7 +11,7 @@
   <div class="row mx-3 mx-md-5">
     <p class="text-muted">更新日: <%= get_modified_date(__FILE__) %></p>
   </div>
-  <div class="row mx-3 mx-md-5">
+  <div class="row mx-3 mx-md-5 lh-lg">
     <%= render "article#{params[:id]}" %>
   </div>
 </div>
