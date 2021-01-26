@@ -2,10 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+// show article
 #show-article {
   p {
     line-height: 1.8;
   }
+}
+
+.hero-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#article-hero {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
 }
 
 // about page (home page)
