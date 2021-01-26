@@ -1,0 +1,18 @@
+<p>
+  自己紹介のホームページをレスポンシブに作成してみました。bootstrap 5.0 で定義されているクラスを使って、だいたい実装できました。<br>
+  スマホの画面幅で表示したときに、文字の配置などは、まあまあ良かったのですが、<br>
+  画面幅が狭いとき、表示が段組みになると、項目ごとの境界がわからず、見づらい感じになりました。<br>
+</p>
+
+<p>
+  そこで、bootstrap の js の機能を使って、画面幅が狭くなったときだけ、表示項目の境界を示す &lt;hr&gt; を表示する機能を実装しました。<br>
+  コードにすると下記のような感じです。
+</p>
+
+<iframe class="my-5" width="100%" height="400" src="//jsfiddle.net/jun_taka/3zjgyvcb/11/embedded/js,html,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
+<p>
+  collapseList に bootstrap のオブジェクトのインスタンスを入れているのは、<a href="https://getbootstrap.com/docs/5.0/components/collapse/#via-javascript">公式の説明</a>の通りです。<br>
+  その後、ブラウザの resize イベントが発火したタイミングで、ブラウザの画面幅を window.innerwidth で取得して、そのサイズに応じて、collapseElement を show するか、hide するか分岐させています。<br>
+  しかし、このコードだと、あくまで resize イベントが発火しないと動かないので、はじめからスマホで開くと、何も動かないというバグ付きです・・・
+</p>
