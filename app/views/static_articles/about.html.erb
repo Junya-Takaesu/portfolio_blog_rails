@@ -64,22 +64,33 @@
 </div>
 
 <script>
-window.addEventListener('load', function () {
-  const collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
-  const collapseList = collapseElementList.map((collapseEl) => {
-    return new bootstrap.Collapse(collapseEl, {toggle: false})
-  })
+(() => {
+  function initilizeCollapseList() {
+    const collapseElementList = [].slice.call(document.querySelectorAll('.collapse'));
+    return collapseElementList.map((collapseEl) => {
+      return new bootstrap.Collapse(collapseEl, {toggle: false});
+    });
+  }
+
+  function toggleDvider() {
+    const breakPoint = 576;
+    const collapseList = initilizeCollapseList();
+
+    collapseList.forEach((collapseElement) => {
+      if(window.innerWidth <= breakPoint) {
+        collapseElement.show();
+      } else if(breakPoint < window.innerWidth) {
+        collapseElement.hide();
+      }
+    });
+  };
 
   window.addEventListener("resize", () => {
-    if(window.innerWidth <= 576) {
-      collapseList.forEach((collapseElement) => {
-        collapseElement.show();
-      });
-    } else {
-      collapseList.forEach((collapseElement) => {
-        collapseElement.hide();
-      });
-    }
-  })
-})
+    toggleDvider();
+  });
+
+  window.addEventListener('load', () => {
+    toggleDvider();
+  });
+})();
 </script>
