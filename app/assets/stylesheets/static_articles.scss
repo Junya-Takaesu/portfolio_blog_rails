@@ -3,9 +3,14 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 // show article
-#show-article {
-  p {
-    line-height: 1.8;
+#article-container {
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  #article-container.px-md-5 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
   }
 }
 
