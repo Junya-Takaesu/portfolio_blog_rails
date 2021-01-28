@@ -1,17 +1,17 @@
-<div class="container-fluid px-md-5 m-0" id="article-container">
+<div class="container-fluid px-0 px-md-5 m-0" id="article-container">
   <%# image %>
   <div class="row">
     <div class="col image-container">
       <%= image_tag @article[:hero_image], id: "article-hero" %>
     </div>
   </div>
-  <div class="row mx-3 mx-md-5">
+  <div class="row mx-2 mx-md-5">
     <h1 class="col"><%= @article[:title] %></h1>
   </div>
-  <div class="row mx-3 mx-md-5">
+  <div class="row mx-2 mx-md-5">
     <p class="text-muted">更新日: <%= get_modified_date(__FILE__) %></p>
   </div>
-  <div class="row mx-3 mx-md-5 lh-lg">
+  <div class="row mx-2 mx-md-5 lh-lg">
     <%= render "article#{params[:id]}" %>
   </div>
   <div class="row mt-5 py-5 g-0 justify-content-md-around">
