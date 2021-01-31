@@ -2,6 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+// articles index
+#articles-index {
+  width: 100%;
+  a {
+    text-decoration: none;
+    color: #ad8b22;
+    &:hover {
+      color: #41340d;
+    }
+  }
+  @media (min-width: 768px) {
+    width: 600px;
+  }
+}
+
 // show article
 #article-container {
   font-size: 18px;

@@ -1,7 +1,14 @@
-<h1>ブログ投稿一覧</h1>
-
-<% @articles.each do |article| %>
-  <ul>
-    <li><%= link_to article[:title], "articles/#{article[:id]}" %></li>
-  </ul>
-<% end %>
+<div id="articles-index" class="container pt-md-5">
+  <h1 class="row">ブログ投稿一覧</h1>
+  <% @articles.each do |article| %>
+    <div class="row my-5">
+      <div class="col-md-3">
+        <a href="<%= "articles/#{article[:id]}" %>"><%= image_tag article[:hero_image], class: "img-fluid" %></a>
+      </div>
+      <div class="col-md-9">
+        <p class="fs-3"><%= link_to article[:title], "articles/#{article[:id]}" %></p>
+        <p class="fs-6">更新日: 2021/1/31</p>
+      </div>
+    </div>
+  <% end %>
+</div>
