@@ -11,6 +11,9 @@ class StaticArticlesController < ApplicationController
     @article = @articles[params[:id].to_i-1]
   end
 
+  def bugs
+  end
+
   private
     def set_atricles
       @articles = [
