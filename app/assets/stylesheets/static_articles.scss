@@ -17,6 +17,20 @@
   }
 }
 
+.thumbnail-frame {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.thumbnail {
+  transition: all .1s;
+}
+
+.thumbnail:hover {
+  transform: scale(1.2);
+}
+
 // show article
 #article-container {
   font-size: 18px;
