@@ -6,6 +6,7 @@
 #articles-index {
   width: 100%;
   a {
+    font-size: 1.2rem;
     text-decoration: none;
     color: #ad8b22;
     &:hover {
@@ -18,8 +19,6 @@
 }
 
 .thumbnail-frame {
-  width: 200px;
-  height: 200px;
   overflow: hidden;
 }
 
