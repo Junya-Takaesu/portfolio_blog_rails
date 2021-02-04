@@ -1,0 +1,8 @@
+# コードスニペットをブログに取り入れる
+
+更新日:
+
+記事内でコードスニペットを表示する方法を考えていたら、埋め込みを使えばいいなと思い、調べたらありました。
+どうやら、ruby のコード実行もできるようです。これから勉強して学んだコードがあったら、これで書いていこう。
+
+<iframe src="http://onlinegdb.com/embed/rk9pQdp1u?theme=dark" class="ogdb_iframe" width="100%" frameborder="0" style="width: 1px;max-width: 100%;min-width: 100%;overflow: hidden;" height="255"></iframe>

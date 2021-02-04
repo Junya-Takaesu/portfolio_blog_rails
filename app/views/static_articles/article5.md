@@ -1,0 +1,16 @@
+# 画面の幅がブレイクポイントに達したら、レイアウトを変える
+
+更新日:
+
+自己紹介のホームページをレスポンシブに作成してみました。bootstrap 5.0 で定義されているクラスを使って、だいたい実装できました。
+スマホの画面幅で表示したときに、文字の配置などは、まあまあ良かったのですが、
+画面幅が狭いとき、表示が段組みになると、項目ごとの境界がわからず、見づらい感じになりました。
+
+そこで、bootstrap の js の機能を使って、画面幅が狭くなったときだけ、表示項目の境界を示す <hr> を表示する機能を実装しました。
+コードにすると下記のような感じです。
+
+<iframe class="my-5" width="100%" height="400" src="//jsfiddle.net/jun_taka/3zjgyvcb/11/embedded/js,html,result/" allowfullscreen="allowfullscreen" allowpaymentrequest="" frameborder="0"></iframe>
+
+collapseList に bootstrap のオブジェクトのインスタンスを入れているのは、[公式の説明](https://getbootstrap.com/docs/5.0/components/collapse/#via-javascript)の通りです。
+その後、ブラウザの resize イベントが発火したタイミングで、ブラウザの画面幅を window.innerwidth で取得して、そのサイズに応じて、collapseElement を show するか、hide するか分岐させています。
+しかし、このコードだと、あくまで resize イベントが発火しないと動かないので、はじめからスマホで開くと、何も動かないというバグ付きです・・・
