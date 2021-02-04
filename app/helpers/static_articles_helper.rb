@@ -6,7 +6,4 @@ module StaticArticlesHelper
     distance_of_time_in_words(Time.now, date_of_birth)
   end
 
-  def get_modified_date(file)
-    File.mtime("#{File.dirname(file)}/_article#{params[:id]}.html.erb")
-  end
 end
