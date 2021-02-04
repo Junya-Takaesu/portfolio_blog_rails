@@ -8,7 +8,8 @@ class StaticArticlesController < ApplicationController
   end
 
   def show
-    @article = @articles[params[:id].to_i-1]
+    @articles.each_with_index {|article, index| @article = article if article[:id] == params[:id].to_i }
+    @html = perse_markdown(file_path: "#{Rails.root}/app/views/static_articles/article#{params[:id].to_i}.md")
   end
 
   private
