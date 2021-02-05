@@ -1,59 +1,117 @@
-## HTMLでブログを書くのは疲れる。
-ブログの記事を最初は直接htmlで書いていました。
-ヘッダーやレイアウトなどは、`Rails` のテンプレートの仕組みを使っているので、実際に `html` で書くのは `p` タグで段落分けたり、
-`ul` , `li` を使って、箇条書きを作る程度でした。[^3]
-しかし、それでもやっぱり `html` で書くのは面倒になってきたので、 `markdown` で書くことにしました。
+## HTML より簡単に書けるので、Markdown が使いたい。
+HTML でブログを書いていましたが、大変なので、`markdown` を使っていきたいと思います。
 実際にこの文章も `markdown` で書いています。
 
-https://qiita.com/oreo/items/82183bfbaac69971917f
+`markdown` の記法については、下記の記事でおさらい
+[Markdown記法一覧](https://qiita.com/oreo/items/82183bfbaac69971917f)
 
 
-[^1]: ここにいろいろ書いてみよう http://example.com
-[^2]: ~~ここにいろいろ書いてみよう~~ ２回めも書いてみよう
-[^3]: `[^n]` と本文中に書いて、footnotes には `[^n]: hogehoge` と書くよ
+## ブログにどうやって Markdown を導入したか
+`redcarpet` という gem を使って導入しました。
+依存ライブラリを必要としないので、`gem install redcarpet` ですぐに使い始められました。
 
-https://github.com/vmg/redcarpet
-a699c82
-on 16 Dec 2020
-Git stats
+* https://github.com/vmg/redcarpet
 
-* Markdown オブジェクトの生成のオプションに autolink: true をつけると、url が アンカータグに変換される。
+## `redcarpet` を使う手順
+    1. `Redcarpet::Render::HTML` インスタンスを作る
+    2. `Redcarpet::Render::HTML` インスタンスと、拡張機能のオプションをまとめたハッシュを引数に `Redcarpet::Markdown` のインスタンスを作る
+    3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
 
-[Qiita](http://qiita.com)
-
-escape_html: true, を 使うと、<h2>HTML タグはエスケープされる。</h2>
-filter_html: true を使うと、htmlタグを取り除く(escape_html:true)が設定されていると、そちらが優先される。ｌ
-
+### 1. `Redcarpet::Render::HTML` インスタンスを作る
 ```ruby
-renderer = Redcarpet::Render::HTML.new(render_options = {escape_html: true, hard_wrap: true, with_toc_data: true, prettify: true})
-@markdown = Redcarpet::Markdown.new(renderer, extensions = {autolink: true})
+renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
+```
+* 引数なしでも、インスタンスが作れる
+  * よく使いそうな引数：
+
+        | 引数 | 意味 |
+        | :------ | :------ |
+        | escape_html   |  html タグをエスケープして、レンダーする  |
+        | hard_wrap   |  文字列中の改行を <br> に変換する  |
+        | with_toc_data   |  ヘッダー要素の id 属性に ヘッダーの文字列が設定される  |
+        | link_attributes   |  aタグの属性をハッシュで指定する(例: {target: "_blank"})  |
+
+* `width_toc_data` については、日本語の見出しのとき、ハッシュ値が id に設定される。英語の場合は、英語のスペースをハイフン区切りした、見出しが id に設定される。
+
+    * `<h2 id="part-263d3c7416ea4e01">これは日本語のヘッダー</h2>`
+    * `<h2 id="this-is-an-english-header">this is an english header</h2>`
+
+### 2. `Redcarpet::Render::HTML` インスタンスと、拡張機能のオプションをまとめたハッシュを引数に `Redcarpet::Markdown` のインスタンスを作る
+```ruby
+markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+```
+* `renderer` は 1 の手順で生成したインスタンス
+* `extensions` に色々拡張機能を指定できる（というか指定しないと、機能がほとんどなくて意味がない。)
+  * 使いたい拡張機能
+
+    | extensions | 内容 |
+    | :------ | :------- |
+    | autolink   | http や https で始まる文字列が自動的にaタグに変換される   |
+    | fenced_code_blocks   | バッククオートx3 でコードブロックが書ける  |
+    | tables   | テーブル記法が有効になる |
+    | underline   |  下線の記法が有効になる  |
+    | strikethrough   |  取り消し線の記法が有効になる  |
+    | disable_indented_code_blocks   |  インデントによるコードブロック記法を無効にする(バッククオートを使いたいので)  |
+    | highlight   |  ハイライト記法が有効になる  |
+    | footnotes   |  脚注が有効になる  |
+
+
+### 3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
+```ruby
+markdown.render("# markdown のフォーマットで書かれた文字列")
 ```
 
-hard_wrap: true を使うと、markdown 無いの改行が、<br> タグに変換される。markdown 内の空行は、pタグによって分けられます。
+## ブログへの実装
+* 記事本文を md ファイルで作成
+* コントローラで、md ファイルを読み込み、パースして HTML に変換
+* コントローラから、ビューに 変換された 本文の HTML を渡して、パーシャル風にビューに取り込む
 
-fenced_code_blocks: true を使うと、```ruby で <pre><code> ブロックを生成したときに、<code class="ruby"> とすることができる。
+以下のような perse_markdown メソッドを ApplicationController に作って、記事を扱う StaticArticlesController で、このメソッドを使ってHTMLに変換します。
 
-with_toc_data: true　を使うと、見出しタグに id 属性が自動でつくようになる。id属性を使って、そのヘッダーにリンクすることができる。
-でも、日本語でヘッダを書くと、何やらハッシュっぽい値がidとして設定される。使い勝手が悪いかもしれない。
+```ruby
+  def perse_markdown(
+    file_path: "",
+    escape_html: true,
+    hard_wrap: true,
+    with_toc_data: true,
+    link_attributes: {target: "_blank"},
+    autolink: true,
+    fenced_code_blocks: true,
+    tables: true,
+    underline: true,
+    strikethrough: true,
+    disable_indented_code_blocks: true,
+    highlight: true,
+    footnotes: true
+  )
+    return "" if file_path.empty?
+    renderer = Redcarpet::Render::HTML.new(
+      render_options = {
+        escape_html: escape_html,
+        hard_wrap: hard_wrap,
+        with_toc_data: with_toc_data,
+        link_attributes: link_attributes,
+      },
+    )
+    markdown = Redcarpet::Markdown.new(
+      renderer,
+      extensions = {
+        autolink: autolink,
+        fenced_code_blocks: fenced_code_blocks,
+        tables: tables,
+        underline: underline,
+        strikethrough: strikethrough,
+        disable_indented_code_blocks: disable_indented_code_blocks,
+        highlight: highlight,
+        footnotes: footnotes,
+      },
+    )
+    markdown.render(File.read(file_path))
+  end
+```
 
-おまけ、vscode の `Markdown all in one` を使って、TOC を生成ができる
+この関数を Application コントローラに書くという判断が正しかったか、自信が無いです。view で使えるように、ヘルパー関数として定義するか、lib ディレクトリにモジュールとして作成するという判断もあったかと思うので・・・。
 
-| Column1 | Column2 | Column3 |
-| :-----: | :-----: | :-----: |
-| test    | Item1   | Item1   |
+Rails の理解が浅くて、結構適当になってしまいましたが、なんとかブログの Markdown 化ができました。
 
-Markdown Snippets をインストールして、テーブルの snippets を使えるようにした
-table と売って、ctrl + space で intellisence 使うと、テーブルの snippets が入力できる。
-
-**太字** です
-_下線_ です **_下線太字です_**
-~~取り消し線です~~  ~~_**取り消し太字下線です**_~~
-
-    `:disable_indented_code_blocks` で 行の先頭4文字にスペースを入れても、コードブロックとして解釈されない
-
-==ハイライトです== ブートストラップのcssが聞いているので、いい感じにハイライトしてくれました。
-
-This is a sentence[^1]
-This is an another sentence[^2]
-
-
+次は、コードをきれいに表示できるように、コードハイライトのライブラリを導入したい。
