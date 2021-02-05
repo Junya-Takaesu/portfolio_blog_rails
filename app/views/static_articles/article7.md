@@ -1,0 +1,33 @@
+更新日:
+
+bootstrap の justify-content utilities を使って、フッダーのボタンを調整したので、備忘録。
+
+##### 修正前
+
+![](http://localhost:3000/assets/7/footer-image-before-164e5e28c1d9974d9d30179eb70848dc1602229a0580b54050c6a22a01d814d4.jpg)
+
+##### 修正後
+
+![](http://localhost:3000/assets/7/footer-image-after-ed3bd3f070733e4da5b32b01471aca7cb14dc31b6ec38d18fb6a741e75e519f2.jpg)
+
+##### Bootstarp の justify-content utilities とは
+
+* responsive flexbox utilities の 一つ
+
+* responsive flexbox utilities はレイアウトや要素の配置、要素のサイズ変更などを柔軟に行える bootstrap の仕組み
+* bootstrap で flexbox を使うには ある要素に対して d-*-flex のクラスを設定するだけ
+
+    <small class="fw-lighter">(※ <span class="badge bg-secondary rounded">d-*-flex</span>の * は適用させたい display プロパティ、breakpointを入れる)</small>
+
+* そうすると、その要素は、flex container になる
+* それで、その子要素が flex な配置になる
+* justify-content utilities を使うには、
+
+* d-*-flex のクラスで flex-container にした要素に対して、justify-content-* をつけるだけ
+
+justify-content-* の * の部分は、どのような配置にしたいかで、適宜置き換える。
+例えば、このブログのフッターについては、要素の幅いっぱいにボタンが広がって圧迫感があったボタンに対して、隙間を与えるために、justify-content-aroundを使用しました。
+
+  具体的なコードは jsfiddle に書いてあるとおりです。
+
+<iframe width="100%" height="300" src="//jsfiddle.net/jun_taka/b5wqg973/embedded/html,result/" allowfullscreen="allowfullscreen" allowpaymentrequest="" frameborder="0"></iframe>

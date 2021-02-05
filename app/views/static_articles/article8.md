@@ -1,0 +1,47 @@
+更新日:
+
+css を練習して、↑の画像の様なサイト(サイト？）を作ってみました。トランスパイラの方ではなく、映画の Babel です。
+
+### 備忘録のメモ
+
+* 親要素に対して display: flexを設定すると、flex container になり、子要素が水平方向に並べられる。
+* 画像中央に寄せて、要素全体に表示する
+
+    ```
+    .dummy {
+        background: url("./bg/top.jpg") center/cover;
+      }
+    ```
+
+*         ブラウザの幅いっぱいに要素を表示するのは以外と簡単
+
+    ```
+    .full {
+        width: 100%; /* 幅をいっぱいに使う */
+        height: 50vh; /* 100vh を指定すると、画面いっぱいに要素が広がる */
+        background: linear-gradient(to bottom left, rgba(0,0,0,0.1), rgba(0,0,0,1));
+      }
+    ```
+
+*         文字には影響を与えず、背景だけを暗くする
+
+    ```
+    #top {
+        position: relative;
+      }
+
+      #top::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background: url("./bg/top.jpg") center/cover;
+        filter: brightness(30%);
+      }
+    ```
+
+    * ある要素の背景に対して filter: brightness(n%) を使うと、その要素の背景を暗くできる
+    * 背景画像の明るさは、その子要素にも継承される => 子要素の文字の明るさにも影響が出てしまう。
+    * 疑似要素を使って、疑似要素に対して、明るさを設定すると、明るさの継承が回避できる。

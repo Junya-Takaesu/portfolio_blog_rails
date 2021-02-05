@@ -1,8 +1,7 @@
-<p>
-  <pre class="code-block">
-    <code>
-      <hr>
-      require 'pg'
+更新日:
+
+```
+require 'pg'
 
       if ARGV.length == 0 then
         puts "Usage: prepare_statement.rb rowId"
@@ -29,15 +28,8 @@
         rs.clear if rs
         conn.close if conn
       end
-      <hr>
-    </code>
-  </pre>
-</p>
+```
 
-<P>
-  <ul>
-    <li>pg gem を require</li>
-    <li>prepare で、prepared statement を作成</li>
-    <li>exec_prepared で prepared statement を実行。プレースホルダーにバインドする値は、配列で渡す。</li>
-  </ul>
-</P>
+* pg gem を require
+* prepare で、prepared statement を作成
+* exec_prepared で prepared statement を実行。プレースホルダーにバインドする値は、配列で渡す。

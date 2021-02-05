@@ -1,0 +1,10 @@
+更新日: 2021/02/04
+
+初めてブログをゼロから作成してみました！
+rails6 を使っています。
+とりあえず、見た目については最低限のレベルを実装するため、bootstrap を使っています。
+rails6 を使っているので、webpack を使って bootstrap のライブラリをトランスパイルするのが、正しい作法っぽいですが、
+webpack の使い方がまだ良くわからないため、とりあえず cdn で対応しています。
+
+* [参考: Webpacker is the new default in Rails 6 (未読)](https://blog.saeloun.com/2020/01/15/rails-6-adds-webpacker-as-default-js-compiler.html)
+* [参考: Getting Started | webpack](https://webpack.js.org/guides/getting-started/)
