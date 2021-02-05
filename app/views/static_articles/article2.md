@@ -1,5 +1,3 @@
-# Webpack と CDN の比較
-
 更新日:
 
 Rails で web サイトを作成しようと、bootstrap などのツール(ライブラリ)を使おうとするときに、

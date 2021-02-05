@@ -1,5 +1,3 @@
-# bootstrap 5 の justify-content utilities を使う
-
 更新日:
 
 bootstrap の justify-content utilities を使って、フッダーのボタンを調整したので、備忘録。
