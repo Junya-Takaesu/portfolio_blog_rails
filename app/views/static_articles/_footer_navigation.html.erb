@@ -1,13 +1,15 @@
+<%# title の影響 %>
 <div class="col-6 col-md-5 d-flex">
-  <% if 0 < params[:id].to_i-1 %>
+  <% if 0 < params[:id].to_i-1 && !(@articles.select {|article| article[:id] == (params[:id].to_i-1)}).empty? %>
     <%= link_to "<<< 前の記事: #{@articles[params[:id].to_i-2][:title]}", "#{params[:id].to_i-1}", class: "btn btn-outline-warning col-12", role: "button" %>
   <% else %>
     <a class="btn btn-outline-secondary col-12 disabled" href="#">記事がありません</a>
   <% end%>
 </div>
 
+<%# title の影響 %>
 <div class="col-6 col-md-5 d-flex">
-  <% if params[:id].to_i+1 <= @articles.length %>
+  <% if params[:id].to_i < @articles.length && !(@articles.select {|article| article[:id] == (params[:id].to_i+1)}).empty? %>
     <%= link_to "次の記事: #{@articles[params[:id].to_i][:title]} >>>", "#{params[:id].to_i+1}", class: "btn btn-outline-warning col-12", role: "button" %>
   <% else %>
     <a class="btn btn-outline-secondary col-12 disabled" href="#">記事がありません</a>
