@@ -7,7 +7,7 @@
   }
 
   function toggleDvider() {
-    const breakPoint = 576;
+    const breakPoint = 768;
     const collapseList = initilizeCollapseList();
 
     collapseList.forEach((collapseElement) => {
