@@ -1,11 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<%# fixed-bottom だけなら、下にフッターがくっつく。スマホのとき良さそう %>
+<nav class="fixed-bottom sticky-top">
   <div class="container">
-    <a class="navbar-brand" href="/">Junya Takaesu</a>
-    <div class="navbar-nav">
-      <a class="nav-link" aria-current="page" href="<%= articles_path %>">Blog</a>
-      <a class="nav-link" href="https://github.com/" target="_blank">
-        <%= image_tag "GitHub-Mark-32px.png", style: "width: 20px; height: 20px" %>
-      </a>
+    <div class="row text-center py-4">
+      <div class="col">
+        <a href="#" class="text-decoration-none text-reset">Junya Takaesu</a>
+      </div>
+      <div class="col">
+        <a href="#" class="text-decoration-none text-reset">BLOG</a>
+      </div>
+      <div class="col">
+        <a href="https://github.com/" target="_blank">
+          <%= image_tag "GitHub-Mark-32px.png", style: "width: 20px; height: 20px"  %>
+        </a>
+      </div>
     </div>
   </div>
 </nav>
