@@ -1,4 +1,5 @@
 class StaticArticlesController < ApplicationController
+  include MarkdownParser
   DIR_ARTICLES = "/app/views/static_articles/"
   before_action :set_atricles
 
@@ -10,7 +11,9 @@ class StaticArticlesController < ApplicationController
 
   def show
     @articles.each_with_index {|article, index| @article = article if article[:id] == params[:id].to_i }
-    @html = perse_markdown(file_path: Rails.root.to_s + DIR_ARTICLES + @article[:article_path])
+    markdown_string = File.read(Rails.root.to_s + DIR_ARTICLES + @article[:article_path])
+    markdown_string = ERB.new(markdown_string).result(binding)
+    @html = parse(string: markdown_string)
   end
 
   private
