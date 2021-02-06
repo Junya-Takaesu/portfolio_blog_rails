@@ -1,3 +1,4 @@
+# <%= @article[:title] %>
 ## HTML より簡単に書けるので、Markdown が使いたい。
 HTML でブログを書いていましたが、大変なので、`markdown` を使っていきたいと思います。
 実際にこの文章も `markdown` で書いています。
@@ -66,10 +67,10 @@ markdown.render("# markdown のフォーマットで書かれた文字列")
 * コントローラで、md ファイルを読み込み、パースして HTML に変換
 * コントローラから、ビューに 変換された 本文の HTML を渡して、パーシャル風にビューに取り込む
 
-以下のような perse_markdown メソッドを ApplicationController に作って、記事を扱う StaticArticlesController で、このメソッドを使ってHTMLに変換します。
+以下のような parse メソッドを ApplicationController に作って、記事を扱う StaticArticlesController で、このメソッドを使ってHTMLに変換します。
 
 ```ruby
-  def perse_markdown(
+  def parse(
     file_path: "",
     escape_html: true,
     hard_wrap: true,
@@ -115,3 +116,4 @@ markdown.render("# markdown のフォーマットで書かれた文字列")
 Rails の理解が浅くて、結構適当になってしまいましたが、なんとかブログの Markdown 化ができました。
 
 次は、コードをきれいに表示できるように、コードハイライトのライブラリを導入したい。
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJunya-Takaesu%2Fsaba-sand&count_bg=%2386927C&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
