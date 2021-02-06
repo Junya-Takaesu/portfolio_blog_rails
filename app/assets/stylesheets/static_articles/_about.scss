@@ -1,0 +1,39 @@
+#about-top {
+  letter-spacing: .3rem;
+  .container {
+    height: 100vh;
+    margin-top: -5%;
+  }
+
+  .badge {
+    letter-spacing: 0;
+    height: 1.5rem;
+  }
+
+  .sql-icon {
+    background-color: rgb(34, 32, 32);
+  }
+
+  .excel-icon {
+    background-color: rgb(1,110,56);
+  }
+
+  .php-icon {
+    background-color: #6674b3;
+    color: black;
+  }
+
+  .mysql-icon {
+    background-color: #255278;
+  }
+
+  .javascript-icon {
+    background-color: #ffe100;
+    color: black;
+  }
+
+  .ruby-icon {
+    background-color: rgb(179, 24, 24);
+  }
+}
+

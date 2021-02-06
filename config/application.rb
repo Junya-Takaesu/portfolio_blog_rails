@@ -18,5 +18,8 @@ module Junyablog
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Disable it so the autoload paths for Zeitwerk are not gonna added to the $LOAD_PATH for ruby
+    config.add_autoload_paths_to_load_path = false
   end
 end

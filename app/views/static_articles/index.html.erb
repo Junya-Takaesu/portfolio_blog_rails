@@ -1,13 +1,19 @@
-<div id="articles-index" class="container pt-md-5">
-  <h1 class="row mb-5">ブログ投稿一覧</h1>
+<div class="container-fluid" id="articles-index">
+  <h1>BLOG</h1>
   <% @articles.reverse.each do |article| %>
-    <div class="article-card row mb-5 mb-md-3">
-      <div class="col-md-3 thumbnail-frame">
-        <a href="<%= "articles/#{article[:id]}" %>"><%= image_tag article[:hero_image], class: "img-fluid thumbnail" %></a>
+    <div class="row gx-0 mb-5">
+      <div class="col-md-3 image-frame">
+        <a href="<%= "#{articles_path}/#{article[:id]}" %>">
+          <%= image_tag article[:hero_image], class: "img-fluid" %>
+        </a>
       </div>
-      <div class="col-md-9">
-        <p class="mb-0"><%= link_to article[:title], "articles/#{article[:id]}" %></p>
-        <p class="">更新日: 2021/1/31</p>
+      <div class="col-md-7 mx-md-3 article-description">
+        <p>
+          <%= link_to article[:title], "#{articles_path}/#{article[:id]}", class: "article-title" %>
+        </p>
+        <p class="text-muted">
+          書いた日: 2021/1/31
+        </p>
       </div>
     </div>
   <% end %>
