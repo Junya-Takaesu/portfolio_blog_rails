@@ -26,6 +26,7 @@ class StaticArticlesController < ApplicationController
         {id: 7, title: "bootstrap 5 の justify-content utilities を使う", hero_image: "7/bootstrap.jpg", article_path: "article7.md.erb"},
         {id: 8, title: "CSS練習(flex-box, 背景画像の設定, 疑似要素による明るさ設定)", hero_image: "8/flex-box-practice.jpg", article_path: "article8.md.erb"},
         {id: 9, title: "markdown ブログを書き始める。", hero_image: "9/markdown-logo.jpg", article_path: "article9.md.erb"},
+        {id: 10, title: "ダーツバーのウェブサイトを作成(練習)", hero_image: "10/saba-sand.gif", article_path: "article10.md.erb"},
       ]
     end
 end
