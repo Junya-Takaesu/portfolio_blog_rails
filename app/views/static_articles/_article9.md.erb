@@ -1,0 +1,84 @@
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJunya-Takaesu%2Fsaba-sand&count_bg=%2386927C&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+# <%= @article[:title] %>
+## HTML より簡単に書けるので、Markdown が使いたい。
+HTML でブログを書いていましたが、大変なので、`markdown` で書けるようにしました。
+実際にこの文章も `markdown` で書いています。
+
+`markdown` の記法については、下記の記事でおさらい
+[Markdown記法一覧](https://qiita.com/oreo/items/82183bfbaac69971917f)
+
+
+## ブログにどうやって Markdown を導入したか
+`redcarpet` という gem を使って導入しました。
+依存ライブラリを必要としないので、`gem install redcarpet` ですぐに使い始められました。
+
+* https://github.com/vmg/redcarpet
+
+## `redcarpet` を使う手順
+1. `Redcarpet::Render::HTML` インスタンスを作る
+2. `Redcarpet::Render::HTML` インスタンスと、拡張機能のオプションをまとめたハッシュを引数に `Redcarpet::Markdown` のインスタンスを作る
+3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
+
+### 1. `Redcarpet::Render::HTML` インスタンスを作る
+```ruby
+renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
+```
+* 引数なしでも、インスタンスが作れる
+* よく使いそうな引数：
+
+| 引数 | 意味 |
+| :------ | :------ |
+| escape_html   |  html タグをエスケープして、レンダーする  |
+| hard_wrap   |  文字列中の改行を <br> に変換する  |
+| with_toc_data   |  ヘッダー要素の id 属性に ヘッダーの文字列が設定される  |
+| link_attributes   |  aタグの属性をハッシュで指定する(例: {target: "_blank"})  |
+
+* `width_toc_data` については、日本語の見出しのとき、ハッシュ値が id に設定される。英語の場合は、英語のスペースをハイフン区切りした、見出しが id に設定される。
+
+    * `<h2 id="part-263d3c7416ea4e01">これは日本語のヘッダー</h2>`
+    * `<h2 id="this-is-an-english-header">this is an english header</h2>`
+
+### 2. `Redcarpet::Render::HTML` インスタンスと、拡張機能のオプションをまとめたハッシュを引数に `Redcarpet::Markdown` のインスタンスを作る
+```ruby
+markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+```
+* `renderer` は 1 の手順で生成したインスタンス
+* `extensions` に色々拡張機能を指定できる（というか指定しないと、機能がほとんどなくて意味がない。)
+* 使いたい拡張機能
+
+| extensions | 内容 |
+| :------ | :------- |
+| no_intra_emphasis | example_emphasis_string のように書いたときに<em>に変換されない |
+| autolink   | http や https で始まる文字列が自動的にaタグに変換される http://example.com  |
+| fenced_code_blocks   | バッククオートx3 でコードブロックが書ける  |
+| tables   | テーブル記法が有効になる |
+| underline   |  _下線の記法が有効になる_  |
+| strikethrough   |  ~~取り消し線の記法が有効になる~~  |
+| disable_indented_code_blocks   |  インデントによるコードブロック記法を無効にする(バッククオートを使いたいので)  |
+| highlight   |  ==ハイライト記法が有効になる==  |
+| footnotes   |  脚注[^1]が有効[^2]になる  |
+
+[^1]: ただの脚注の例
+[^2]: 複数行も
+    インデントを使えばできるようです。
+    `インラインコードもかけます。もちろんブロックコードも`
+
+### 3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
+```ruby
+markdown.render("# markdown のフォーマットで書かれた文字列")
+```
+
+## ブログへの実装
+ブログのヘッダーナビゲーションの部分は、共通のレイアウトとして、view ファイルに書いて、
+記事本文の部分を、md のパーシャルにしました。
+
+
+* パーシャルは、`.erb` の拡張子をつけて、md ファイル内の <%%> で書かれた ruby コードを実行できるようにしています。
+* そのため、render すると、<%%> の ruby コードが実行されます。
+* ruby コードが実行された後のテンプレートを `parse_markdown` を実行して、md から html  へ変換します
+* parse_markdown は、MarkdownParser という自作のモジュールのメソッドです。
+  * 実際には、redcarpet のインスタンスで markdown を html へ変換しているのですが、redcarpet のインスタンスを生成するのに、いろいろとパラメータを渡さないと行けないので、パラメータを渡すコードを`parse_markdown`のラッパーメソッドにまとめています。
+
+<%= image_tag "5/ezgif-3-3463b321f157.gif" %>
+
+次は、コードをきれいに表示できるように、コードハイライトのライブラリを導入したい。
