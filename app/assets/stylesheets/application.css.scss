@@ -13,9 +13,36 @@
  *= require_self
  */
 
-@import "./variables";
-@import "./global";
+// Bootstrap v5: Required
+@import "../bootstrap/scss/functions";
+@import "../bootstrap/scss/variables";
+@import "../bootstrap/scss/mixins";
+
+// Bootstrap v5: Optional
+@import "../bootstrap/scss/bootstrap-grid.scss";
+@import "../bootstrap/scss/bootstrap-reboot.scss";
+@import "../bootstrap/scss/bootstrap-utilities.scss";
+@import "../bootstrap/scss/reboot";
+@import "../bootstrap/scss/badge";
+@import "../bootstrap/scss/containers";
+@import "../bootstrap/scss/grid";
+@import "../bootstrap/scss/helpers/";
+@import "../bootstrap/scss/images";
+@import "../bootstrap/scss/nav";
+@import "../bootstrap/scss/navbar";
+@import "../bootstrap/scss/tables";
+@import "../bootstrap/scss/transitions";
+@import "../bootstrap/scss/type";
+@import "../bootstrap/scss/utilities/";
+@import "../bootstrap/scss/button-group";
+@import "../bootstrap/scss/buttons";
+
+
+@import "./variables/variables";
+@import "./common/common";
 @import "./static_articles/navigation";
 @import "./static_articles/about";
 @import "./static_articles/index";
+@import "./static_articles/show";
+
 @import "./static_articles/responsive/responsive";

@@ -2,7 +2,7 @@
   max-width: 70vw;
 
   h1 {
-    border-bottom: rgb(170, 100, 14) 4px double;
+    border-bottom: $color-gold 4px double;
     width: fit-content;
     margin: 6vh auto;
   }
@@ -25,12 +25,6 @@
 
       .article-title {
         font-size: 1.2rem;
-        text-decoration: none;
-        color: rgb(170, 100, 14);
-
-        &:hover {
-          color: cadetblue;
-        }
       }
     }
   }
