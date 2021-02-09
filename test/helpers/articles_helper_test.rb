@@ -1,4 +1,4 @@
-class StaticArticlesHelperTest < ActionView::TestCase
+class ArticlesHelperTest < ActionView::TestCase
   # 実行の仕方は？ -> rails test path/to/this/file
   # assert の種類は? -> https://guides.rubyonrails.org/testing.html#available-assertions
 

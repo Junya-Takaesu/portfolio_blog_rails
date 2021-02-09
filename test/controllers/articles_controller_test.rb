@@ -1,6 +1,6 @@
 require "test_helper"
 
-class StaticArticlesControllerTest < ActionDispatch::IntegrationTest
+class ArticlesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get articles_url
     assert_response :success

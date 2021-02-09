@@ -1,4 +1,4 @@
-module StaticArticlesHelper
+module ArticlesHelper
 include MarkdownParser
 
   def generate_navigation_anchor(articles, current_article_id, direction)

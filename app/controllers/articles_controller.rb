@@ -1,6 +1,6 @@
-class StaticArticlesController < ApplicationController
+class ArticlesController < ApplicationController
   include MarkdownParser
-  DIR_ARTICLES = "/app/views/static_articles/"
+  DIR_ARTICLES = "/app/views/articles/"
   before_action :set_atricles
 
   def about
