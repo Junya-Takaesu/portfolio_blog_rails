@@ -4,6 +4,7 @@ include MarkdownParser
   def generate_navigation_anchor(articles, current_article_id, direction)
     directions = {prev: -1, next: 1}
 
+    # articles を総当りで見ているので、計算量が多い
     article = articles.select {|article| article[:id] == (current_article_id + directions[direction.to_sym])}
 
     if article.empty?
