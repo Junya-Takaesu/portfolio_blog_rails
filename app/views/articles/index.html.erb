@@ -2,12 +2,7 @@
   <h1>BLOG</h1>
   <% @articles.reverse.each do |article| %>
     <div class="row gx-0 mb-5">
-      <div class="col-md-3 image-frame">
-        <a href="<%= "#{articles_path}/#{article[:id]}" %>">
-          <%= image_tag article[:hero_image], class: "img-fluid" %>
-        </a>
-      </div>
-      <div class="col-md-7 mx-md-3 article-description">
+      <div class="col-md-10 mx-md-3 article-description">
         <p>
           <%= link_to article[:title], "#{articles_path}/#{article[:id]}", class: "article-title" %>
         </p>

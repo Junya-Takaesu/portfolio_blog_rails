@@ -1,4 +1,4 @@
-module MarkdownParser
+module Markdown::MarkdownParser
   def parse_markdown(
     string: "",
     escape_html: true,
@@ -16,7 +16,7 @@ module MarkdownParser
     footnotes: true
   )
     return "" if string.empty?
-    renderer = CustomRenderer.new(
+    renderer = Markdown::CustomRenderer.new(
       render_options = {
         escape_html: escape_html,
         hard_wrap: hard_wrap,

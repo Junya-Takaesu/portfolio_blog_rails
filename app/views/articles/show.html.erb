@@ -1,9 +1,4 @@
 <div class="container-fluid" id="article-show">
-  <div class="row">
-    <div class="col">
-      <%= image_tag @article[:hero_image], class: "img-fluid", id: "hero-image" %>
-    </div>
-  </div>
   <div class="row mx-2 mx-md-5 lh-lg">
     <%= "#{parse_markdown(string: ((render @article[:article_path])), escape_html: false)}".html_safe %>
   </div>

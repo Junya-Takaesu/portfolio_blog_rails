@@ -1,4 +1,4 @@
-class CustomRenderer < Redcarpet::Render::HTML
+class Markdown::CustomRenderer < Redcarpet::Render::HTML
 
   # redcarpet の メソッドをオーバーライド
   # markdown の image を html の img に変換するときに、

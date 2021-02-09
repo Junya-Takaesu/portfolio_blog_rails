@@ -1,5 +1,5 @@
 module ArticlesHelper
-include MarkdownParser
+include Markdown::MarkdownParser
 
   def generate_navigation_anchor(articles, current_article_id, direction)
     directions = {prev: -1, next: 1}
