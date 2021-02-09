@@ -13,8 +13,6 @@
  *= require_self
  */
 
-// @import "../bootstrap/scss/bootstrap.scss";
-
 // Bootstrap v5: Required
 @import "../bootstrap/scss/functions";
 @import "../bootstrap/scss/variables";
@@ -40,8 +38,8 @@
 @import "../bootstrap/scss/buttons";
 
 
-@import "./variables";
-@import "./global";
+@import "./variables/variables";
+@import "./common/common";
 @import "./static_articles/navigation";
 @import "./static_articles/about";
 @import "./static_articles/index";

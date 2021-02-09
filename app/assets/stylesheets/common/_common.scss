@@ -1,0 +1,12 @@
+body, nav {
+  background-color: #d0d6cd !important;
+}
+
+a {
+  text-decoration: none;
+  color: $color-gold;
+  &:hover {
+    color: $color-focused;
+    border-bottom: $color-focused 1px solid;
+  }
+}
