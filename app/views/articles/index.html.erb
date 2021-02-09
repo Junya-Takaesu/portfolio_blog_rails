@@ -1,10 +1,10 @@
 <div class="container-fluid" id="articles-index">
   <h1>BLOG</h1>
-  <% @articles.reverse.each do |article| %>
+  <% @articles.reverse.each do |key, article| %>
     <div class="row gx-0 mb-5">
       <div class="col-md-10 mx-md-3 article-description">
         <p>
-          <%= link_to article[:title], "#{articles_path}/#{article[:id]}", class: "article-title" %>
+          <%= link_to article[:title], "#{articles_path}/#{article[:id].to_s}", class: "article-title" %>
         </p>
         <p class="text-muted">
           書いた日: 2021/1/31
