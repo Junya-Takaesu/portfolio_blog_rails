@@ -18,9 +18,10 @@
 </form>
 ```
 
-* input タグ
-  * type = hidden
-  * name = _method
-  * value = DELETE
+input タグを下記のようにすると、sinatra はこのフォームで送られたリクエストを DELETE として認識する
 
-とすると、sinatra はこのフォームで送られたリクエストを DELETE として認識する
+```language-html.line-numbers
+<input type="hidden" name="_method" value="DELETE">
+```
+
+DELETE だけでなく、PATCH や PUT も同様らしい。
