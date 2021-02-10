@@ -15,6 +15,8 @@ class Articles::List
       10 => {id: 10, title: "21/2/8 ダーツバーのウェブサイトを作成(練習)", article_path: "article10.md.erb"},
       11 => {id: 11, title: "21/2/9 配列と、ハッシュでは計算量に差が出る。", article_path: "article11.md.erb"},
       12 => {id: 12, title: "21/2/10 Sass変数が未定義になってしまう", article_path: "article12.md.erb"},
+      13 => {id: 13, title: "21/2/10 sinatora で get と post 以外の http メソッドを扱う", article_path: "article13.md.erb"},
+      14 => {id: 14, title: "21/2/10 コードハイライトを導入してみる", article_path: "article14.md.erb"},
     }
   end
 
