@@ -1,0 +1,18 @@
+ページのロードが完了したときに js を実行するようにしていた。
+でも js は実行されなかった。
+
+原因は Turbolinks の仕様。
+
+rails は デフォルトで Turbolinks を使っているので、js の中身に変更が無い限り、js ファイルの再読み込みは行わない。
+そのため、静的ファイルの読みこみも行われたタイミングで発火する　load イベントは最初にサイトにアクセスしたときだけ。
+ページロード完了をきっかけに js を仕込んでも実行されない。
+
+load イベントのリファレンス
+https://developer.mozilla.org/ja/docs/Web/API/Window/load_event
+
+Trubolinks の仕様：
+https://github.com/turbolinks/turbolinks#installing-javascript-behavior
+
+> You may be used to installing JavaScript behavior in response to the window.onload, DOMContentLoaded, or jQuery ready events. With Turbolinks, these events will fire only in response to the initial page load, not after any subsequent page changes. We compare two strategies for connecting JavaScript behavior to the DOM below.
+
+解決策としては、ページ遷移のたびに js を実行する必要がある場合、`turbolinks:load` イベントに対して js を仕込む。

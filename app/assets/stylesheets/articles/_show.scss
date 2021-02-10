@@ -22,4 +22,11 @@
   ul {
     padding-left: 2.5rem;
   }
+
+  blockquote p {
+    border-left: rgba($color: $color-gold, $alpha: 0.2) solid 5px;
+    padding-left: 10px;
+    margin-left: 20px;
+    color: gray;
+  }
 }
