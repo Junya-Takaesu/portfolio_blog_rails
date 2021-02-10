@@ -1,3 +1,4 @@
+require("../../prism/prism")
 import bootstrap from "../../bootstrap/bootstrap.bundle.min.js"
 (() => {
   const initilaize = () => {
@@ -21,7 +22,13 @@ import bootstrap from "../../bootstrap/bootstrap.bundle.min.js"
       });
     }
 
+    const initilaizePrism = () => {
+      window.Prism = window.Prism || {};
+      Prism.highlightAll();
+    }
+
     toggleDvider();
+    initilaizePrism();
 
     window.addEventListener("resize", () => {
       toggleDvider();
