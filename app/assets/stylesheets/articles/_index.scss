@@ -23,8 +23,14 @@
     }
     .article-description {
 
-      .article-title {
+      a {
         font-size: 1.2rem;
+        @include hoverable-anchor(
+          $before-color: black,
+          $before-border-bottom: $color-gold 1px solid,
+          $after-color: $color-focused,
+          $after-border-bottom: $color-focused 1px solid
+        );
       }
     }
   }

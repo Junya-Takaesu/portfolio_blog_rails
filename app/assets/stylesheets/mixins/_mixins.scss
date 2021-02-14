@@ -1,0 +1,9 @@
+@mixin hoverable-anchor($before-color, $before-border-bottom, $after-color, $after-border-bottom) {
+  text-decoration: none;
+  color: $before-color;
+  border-bottom: $before-border-bottom;
+  &:hover {
+    color: $after-color;
+    border-bottom: $after-border-bottom;
+  }
+}
