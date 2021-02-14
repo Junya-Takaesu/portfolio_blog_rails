@@ -1,0 +1,31 @@
+## コードブロックの属性指定を簡略化したい
+例えば、下記画像の左側のように `language-` というプリフィクスをつけ、行番号を表示するために更に `line-numbers` という属性を書かないと、コードハイライトが有効にならないプログラムになっていた。(コードハイライトをレンダーする prism.js の仕様)
+Hackmd に慣れていたので、`ruby` とか `javascript` と書くだけで、コードハイライトしてほしかった。
+<%= image_tag "19/git.jpg", class: "img-fluid" %>
+
+## Hackmd っぽく、シンプルにコードブロックを書けるようにするために修正してみた
+markdown パーサー gem の `Redcarpet` の `block_code` のオーバーライドを修正
+
+内容は、
+* 言語の属性を hackmd のように指定したら、自動で プリフィクスを付ける
+* 明示的に無効を指定しない限り、　`line-numbers` の属性も自動で付ける
+
+```ruby
+def block_code(code, language)
+  language_type = "language-none"
+  line_numbers = ""
+
+  unless language.nil?
+    language_params = language.split "."
+    language_type = "language-#{language_params[0]}"
+    line_numbers = "line-numbers" unless language_params[1] == "no-line-numbers"
+  end
+
+  class_list = "#{language_type} #{line_numbers}"
+  %(
+<pre><code class="#{class_list}">#{html_escape code}</code></pre>
+  )
+end
+```
+
+結果、冒頭の画像の右側のように言語だけ指定してコードブロックが書けるようになった。
