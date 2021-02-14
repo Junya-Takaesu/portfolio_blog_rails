@@ -20,6 +20,7 @@ class Articles::List
       15 => {id: 15, title: "21/2/10 Turbolinks は 最初にサイトにアクセスしたときしか load イベントを発しない", article_path: "article15.md.erb"},
       16 => {id: 16, title: "21/2/12 css ファイルサイズを意識する", article_path: "article16.md.erb"},
       17 => {id: 17, title: "21/2/12 vscode 拡張機能 \"Live Sass Compiler\"", article_path: "article17.md.erb"},
+      18 => {id: 18, title: "21/2/14 Google の検索結果に表示されるようにしたい", article_path: "article18.md.erb"},
     }
   end
 
