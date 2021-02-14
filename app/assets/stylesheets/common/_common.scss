@@ -3,10 +3,10 @@ body, nav {
 }
 
 a {
-  text-decoration: none;
-  color: $color-gold;
-  &:hover {
-    color: $color-focused;
-    border-bottom: $color-focused 1px solid;
-  }
+  @include hoverable-anchor(
+    $before-color: $color-gold,
+    $before-border-bottom: none,
+    $after-color: $color-focused,
+    $after-border-bottom: $color-focused 1px solid
+  );
 }
