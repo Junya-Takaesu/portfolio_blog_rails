@@ -26,7 +26,7 @@ markdown から html への変換は `redcarpet` という gem が使えそう�
 3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
 
 ### 1. `Redcarpet::Render::HTML` インスタンスを作る
-```language-ruby.line-numbers
+```ruby
 renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
 ```
 * 引数なしでも、インスタンスが作れる
@@ -45,7 +45,7 @@ renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
     * `<h2 id="this-is-an-english-header">this is an english header</h2>`
 
 ### 2. `Redcarpet::Markdown` のインスタンスを作る
-```language-ruby.line-numbers
+```ruby
 markdown = Redcarpet::Markdown.new(renderer, extensions = {})
 ```
 * `renderer` は 1 の手順で生成したインスタンス
@@ -70,7 +70,7 @@ markdown = Redcarpet::Markdown.new(renderer, extensions = {})
     `インラインコードもかけます。もちろんブロックコードも`
 
 ### 3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
-```language-ruby.line-numbers
+```ruby
 markdown.render("# markdown のフォーマットで書かれた文字列")
 ```
 

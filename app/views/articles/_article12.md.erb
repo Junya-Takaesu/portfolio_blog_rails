@@ -5,7 +5,7 @@
 `/variables`(`./_variables.scss`)では、$color-gold という金色のカラーコードを定義していて、
 それを `/common`(`./_common.scss`)というサイト全体共通のスタイル定義で使用していました。
 
-```language-css.line-numbers
+```css
 @import "./variables";
 @import "./common";
 @import "./static_articles/navigation";
@@ -26,7 +26,7 @@ import 順は、`./variables` を先にインポートしていて、変数を�
 
 ## 解決策
 
-```language-css.line-numbers
+```css
 @import "./variables/variables"; // <- サブディレクトリに入れた
 @import "./common/common";　// <- サブディレクトリに入れた
 @import "./static_articles/navigation";
