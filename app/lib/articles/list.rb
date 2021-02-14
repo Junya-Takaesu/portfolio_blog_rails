@@ -18,6 +18,8 @@ class Articles::List
       13 => {id: 13, title: "21/2/10 sinatora で get と post 以外の http メソッドを扱う", article_path: "article13.md.erb"},
       14 => {id: 14, title: "21/2/10 コードハイライトを導入してみる", article_path: "article14.md.erb"},
       15 => {id: 15, title: "21/2/10 Turbolinks は 最初にサイトにアクセスしたときしか load イベントを発しない", article_path: "article15.md.erb"},
+      16 => {id: 16, title: "21/2/12 css ファイルサイズを意識する", article_path: "article16.md.erb"},
+      17 => {id: 17, title: "21/2/12 vscode 拡張機能 \"Live Sass Compiler\"", article_path: "article17.md.erb"},
     }
   end
 

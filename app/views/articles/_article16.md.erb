@@ -1,0 +1,17 @@
+いくつかのサイトで css ファイルのサイズを開発者ツールで見てみた。
+大体どのサイトも50kb以下だった。サイトによっては、そもそもcss自体ダウンロードしないサイトも有る。（jsがスタイルを作るから？）
+
+自分のサイトの sasss に bootstrap の全機能の sass を取り込むと、出来上がる css は 180kb くらいになった。
+この css はデカイ。
+
+Bootstrap はよくつかうので、工夫して軽量化しないといけない。
+
+## 無駄なcssを書かない
+[csscss](https://github.com/zmoazeni/csscss/) という gem のツールを使うと、重複した css を指摘してくれる。
+
+
+## minify する
+[cssnano](https://cssnano.co/) という npm パッケージを使うと、minify できる。
+sass で生成した 180kb の css をこれで　minify すると、140kb くらいにはなった。
+
+
