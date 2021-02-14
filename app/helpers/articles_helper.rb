@@ -2,7 +2,7 @@ module ArticlesHelper
   include Markdown::MarkdownParser
 
   def generate_navigation_anchor(article: , direction:)
-    class_attributes = "btn btn-outline-warning col-12"
+    class_attributes = "btn col-12"
 
     if direction == "prev" && article.prev_id
       link_label = "<<< 前の記事: #{article.title}"
@@ -13,7 +13,7 @@ module ArticlesHelper
     else
       link_label = "記事がありません"
       href = "#"
-      class_attributes = "btn btn-outline-secondary col-12 disabled"
+      class_attributes = "btn col-12 disabled"
     end
 
     link_to link_label, href, class: class_attributes, role: "button"
