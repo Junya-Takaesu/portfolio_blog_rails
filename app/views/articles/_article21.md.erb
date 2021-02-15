@@ -1,0 +1,13 @@
+Bootstrap の `pl-*, pr-*` や `ml-*, mr-*` のクラスを使ってレイアウトを調整しようとしたら、これらのクラスが消えていることに気づいた。
+開発者ツールで Bootstrap の css のソースコードを見たら `pl-*` などのクラスが存在しない。
+css 全体で padding-left とか padding-right を探すと、`ps-*` や `pe-*` などのクラスがあって、
+それで padding や margin が調整できそう。
+
+調べてみてると、Bootstrap 5では、left が start になって、right が end になったようです。
+
+参照:
+https://getbootstrap.com/docs/5.0/migration/
+
+なので、padding left　を設定するには、 `pl-*` ではなく、`ps-*` を使う必要がある。
+
+ちなみに `mx-*`, `px-*` のような軸の両側に padding、margin を設定するクラスはまだ使える。

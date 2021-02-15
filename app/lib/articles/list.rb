@@ -22,6 +22,8 @@ class Articles::List
       17 => {id: 17, title: "21/2/12 vscode 拡張機能 \"Live Sass Compiler\"", article_path: "article17.md.erb"},
       18 => {id: 18, title: "21/2/13 Google の検索結果に表示されるようにしたい", article_path: "article18.md.erb"},
       19 => {id: 19, title: "21/2/14 Markdown のコードブロックを簡単に書けるようにする", article_path: "article19.md.erb"},
+      20 => {id: 20, title: "21/2/15 このブログは Google のインデックスに登録されているのか", article_path: "article20.md.erb"},
+      21 => {id: 21, title: "21/2/15 Bootstrap5に pl-* のようなクラスは存在しない", article_path: "article21.md.erb"},
     }
   end
 
