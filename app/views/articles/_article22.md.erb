@@ -1,0 +1,63 @@
+```ruby
+require 'net/http'
+require 'uri'
+require 'json'
+
+
+class Twitter
+  BEARER = "Bearer #{ENV["TWITTER_API_BEARER_TOKEN"]}"
+
+  def search(keyword: "", max_results: "10")
+    params = [["expansions", "author_id"],["query", keyword],["max_results", max_results],["tweet.fields", "entities"]]
+    params = URI.encode_www_form params
+    uri = URI.parse("https://api.twitter.com/2/tweets/search/recent?#{params}")
+
+    header = {"Authorization" => BEARER}
+
+    response = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+      http.open_timeout = 5
+      http.read_timeout = 10
+      http.get(uri.request_uri, header)
+    end
+
+    case
+    when response.kind_of?(Net::HTTPSuccess)
+      JSON.parse(response.body)
+    when response.kind_of?(Net::HTTPClientError) || response.kind_of?(Net::HTTPServerError)
+      "HTTP ERROR: code=#{response.code} message=#{response.message}"
+    else
+      raise RuntimeError, "Something went wrong"
+    end
+  end
+end
+```
+
+twitter API の `GET /2/tweets/search/recent` という endpoint を使ってみた
+ドキュメント
+https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
+
+## 特徴
+* Bearer Token による認証方式が使われる
+  * HTTP の Authorization ヘッダーに、Bearer トークンを設定してリクエストする方式
+* クエリパラメータの `query` にキーワードを渡すことで、tweet の検索ができる。
+* 他にもクエリパラメータをいろいろ指定することで、取得できる情報の種類を増やしたりできる。
+  * 例えば、`expansions=author_id` のクエリパラメータを設定すると、ツイートしたユーザーの名前など、詳細な情報が取得できる。
+
+
+## Ruby のコードのポイント
+* response のクラスは HTTP のレスポンスコードによって変わるが、成功系(2xx)やサーバーエラー系(5xx)などの結果の種類に応じて共通の親クラスを持つ
+    * そのためリクエストが成功したかどうかは、response のクラスが成功系のクラスかどうかをチェックすればいい(失敗のHTTPレスポンスも同様)
+
+```ruby
+response.kind_of?(Net::HTTPSuccess)
+```
+
+* 下記のコードで HTTP のリクエストを発行できるが、https の URL に対しては、 `:use_ssl => true` の引数が必要
+
+```ruby
+response = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+    http.open_timeout = 5
+    http.read_timeout = 10
+    http.get(uri.request_uri, header)
+end
+```
