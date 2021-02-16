@@ -1,7 +1,7 @@
 require("../../prism/prism")
 import bootstrap from "../../bootstrap/bootstrap.bundle.min.js"
-(() => {
-  const initilaize = () => {
+  (() => {
+  const initialize = () => {
     const initilizeCollapseList = () => {
       const collapseElementList = [].slice.call(document.querySelectorAll('.collapse'));
       return collapseElementList.map((collapseEl) => {
@@ -22,13 +22,13 @@ import bootstrap from "../../bootstrap/bootstrap.bundle.min.js"
       });
     }
 
-    const initilaizePrism = () => {
+    const initializePrism = () => {
       window.Prism = window.Prism || {};
       Prism.highlightAll();
     }
 
     toggleDvider();
-    initilaizePrism();
+    initializePrism();
 
     window.addEventListener("resize", () => {
       toggleDvider();
@@ -36,10 +36,10 @@ import bootstrap from "../../bootstrap/bootstrap.bundle.min.js"
   }
 
   window.addEventListener('load', () => {
-    initilaize();
+    initialize();
   });
 
   window.addEventListener('turbolinks:load', () => {
-    initilaize();
+    initialize();
   });
 })();
