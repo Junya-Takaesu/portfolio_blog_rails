@@ -7,13 +7,13 @@ class Articles::Article
     @article_path = article_path
   end
 
-  def prev_id
+  def previous_article
     return false if @id == 1
-    @id - 1
+    Articles::List::ARTICLES_BY_ID[@id-1]
   end
 
-  def next_id
+  def next_article
     return false if @id == Articles::List::ARTICLES_BY_ID.size
-    @id + 1
+    Articles::List::ARTICLES_BY_ID[@id+1]
   end
 end
