@@ -13,7 +13,7 @@ class Articles::Article
   end
 
   def next_id
-    return false if @id == Articles::List.new.all.size
+    return false if @id == Articles::List::ARTICLES_BY_ID.size
     @id + 1
   end
 end
