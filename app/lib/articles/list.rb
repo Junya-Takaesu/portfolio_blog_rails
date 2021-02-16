@@ -22,6 +22,7 @@ class Articles::List
     20 => Articles::Article.new(id: 20, title: "21/2/15 このブログは Google のインデックスに登録されているのか", article_path: "article20.md.erb"),
     21 => Articles::Article.new(id: 21, title: "21/2/15 Bootstrap5に pl-* のようなクラスは存在しない", article_path: "article21.md.erb"),
     22 => Articles::Article.new(id: 22, title: "21/2/15 twitter の api を使ってみる", article_path: "article22.md.erb"),
+    23 => Articles::Article.new(id: 23, title: "21/2/16 Ruby で HTTP セッションを使ういろいろな方法", article_path: "article23.md.erb"),
   }
 
   def initialize

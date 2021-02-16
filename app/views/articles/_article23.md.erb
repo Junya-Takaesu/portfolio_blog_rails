@@ -1,0 +1,71 @@
+## library cgi/session
+最もベーシックな session ?? 何でしょうか?
+
+* リファレンス
+  * https://rurema.clear-code.com/3.0.0/library/cgi=2fsession.html
+
+```ruby
+# filename: index.rb
+require "cgi/session"
+cgi = CGI.new
+session = CGI::Session.new(cgi)
+
+session["name"] = cgi.params["name"]
+puts session["name"]
+```
+ruby コマンドで上記スクリプトを実行したら、
+`(offline mode: enter name=value pairs on standard input)`
+と表示されて、対話的になる。
+
+実行例：
+
+```
+$ ruby index.rb
+(offline mode: enter name=value pairs on standard input)
+name=hakaseTaro
+hakaseTaro
+```
+
+プログラムを操作するには、
+
+* `key=value` の形式で入力する(standard input へ入力)
+* 入力後、`Enter`
+* 入力が終わったら、`Ctrl + d`  でプログラムを再開
+
+cgi とかついているし、この session の使い方はよくある web の session とは異なるような・・・・
+(そもそも session という概念が理解しきれてないのですが)
+
+## Sinatra で、session を有効にする
+sinatra で session を使うには、`sinatra/cookies` を使って、`enable :sessions` と書くだけ
+
+```ruby
+require 'sinatra/cookies'
+enable :sessions
+```
+* リファレンス
+    * http://sinatrarb.com/configuration.html#sessions---enabledisable-cookie-based-sessions
+
+リファレンスによると
+
+> Support for signed (but not encrypted), cookie-based sessions
+
+とあるので、session は ハッシュ化された cookieだが、暗号化はしないので、セキュリティーのリスクになりうる？
+
+例えば、ユーザー ID とかを session に入れたときに、ハッシュ化された cookie としてクライアントに返されるけど、
+それは暗号化されていないので、そのクッキーが漏れたりして、第三者がクッキーに対してレインボーテーブル攻撃仕掛けて
+ユーザーの ユーザー ID を特定できるということ？
+
+* レインボーテーブル攻撃について
+  * https://it-trend.jp/encryption/article/64-0067#:~:text=が必要です。-,レインボーテーブルを理解してセキュリティ強度を上げ,して使われます。
+
+sinatra で session をどのように使うかは下記のチュートリアルをやるといいかもしれない。(チラ見しただけなんですが^^;)
+http://www.getlaura.com/how-to-enable-sessions-with-sinatra/
+
+
+## Rails のやり方
+特に下準備不要で めっちゃ簡単に session 使える。
+
+蛇足ですが、session に クラスのインスタンスを入れると、後々変更がしづらくなるという弊害があるので、やらないほうがいい。（クラスのインスタンスを入れると、クラスのプロパティでいろいろ値が管理できて便利そうではありますが・・・）
+
+* 参考のブログ
+  * https://www.ombulabs.com/blog/ruby/rails/sessions/session-user-flow.html
