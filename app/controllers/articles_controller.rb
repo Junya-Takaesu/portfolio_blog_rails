@@ -1,16 +1,12 @@
 class ArticlesController < ApplicationController
-  include Markdown::MarkdownParser
-  DIR_ARTICLES = "/app/views/articles/"
-
   def about
   end
 
   def index
-    @articles = Articles::List.new
+    @articles = Articles::List
   end
 
   def show
-    @article = Articles::List.new.get_by(id: params[:id].to_i)
-    @article = Articles::Article.new(id: @article[:id], title: @article[:title], article_path: @article[:article_path])
+    @article = Articles::List::ARTICLES_BY_ID[params[:id].to_i]
   end
 end
