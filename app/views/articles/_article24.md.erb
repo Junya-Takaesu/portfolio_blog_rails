@@ -1,0 +1,60 @@
+## Sinatra の Session 機能 の概要
+* デフォルトで Cookie based（cookie の中に、session のデータが保存される)
+> Note that `enable :sessions` actually stores all data in a cookie
+> [Sinatra README.md](https://github.com/sinatra/sinatra/blob/671f47c6734dde09159b35edbd210e7ec6624424/README.md#choosing-your-own-session-middleware)
+
+* `signed (but not encrypted)` とあり、cookie のデータはダイジェストにはなっているが、暗号化はされていない
+> Support for signed (but not encrypted), cookie-based sessions are included with Sinatra but are disabled by default
+> [Sinatra: Configuring Settings (sinatrarb.com)](http://sinatrarb.com/configuration.html#sessions---enabledisable-cookie-based-sessions)
+
+* `Rack::Session::Cookie` を使って、sinatra のセッションは実装されている
+> Sessions are implemented by inserting the [`Rack::Session::Cookie`](http://www.rubydoc.info/github/rack/rack/Rack/Session/Cookie) component into the application’s middleware pipeline.
+> [Sinatra: Configuring Settings (sinatrarb.com)](http://sinatrarb.com/configuration.html#sessions---enabledisable-cookie-based-sessions)
+
+## `Rack::Session::Cookie` について
+* ドキュメンテーション
+  * https://www.rubydoc.info/github/rack/rack/Rack/Session/Cookie
+* 概要
+  *  Rack::Session::Cookie provides simple cookie based session management.
+  *  _**By default, the session is a Ruby Hash stored as base64 encoded**_
+
+### cookie の中身は base64 でエンコードされているか
+
+下記のスクリプトで検証してみた
+
+```ruby
+# filename is "server.rb"
+require "sinatra"
+require "sinatra/reloader"
+require "sinatra/cookies"
+
+enable :sessions
+
+# http://localhost:4567/?name=junya のようなクエリパラメータ付きURLでアクセス
+get "/" do
+  session[:name] = params[:name]
+  'hello, <a href="session">check session</a>'
+end
+
+# クエリパラメータで渡した name が session[:name] に保存され、それを出力する
+get "/session" do
+  "Your name is #{session[:name]}"
+end
+```
+
+1. `ruby server.rb` でスクリプトを実行して、sinatra のサーバーを起動
+2. ブラウザから http://localhost:4567?name=hogehoge にアクセス
+   * sessin に name の値を保存するため、クエリに name=hogehoge を設定
+3. 開発者ツールで、session のデータが保存されていると思われる cookie の存在を確認
+   * <%= image_tag "24/session_image.png", class: "img-fluid" %>
+4. cookie の値は `BAh7CUkiD3Nlc3Npb25faWQGOgZFVG86...` のような base64 でエンコードされてるっぽい文字列であることを確認
+5. get "/session" のルートにアクセスすると、`Your name is hogehoge` が表示されて、session のデータが機能していることを確認
+6. 肝心の session データが格納されている cookie の中身の確認
+   * `BAh7CUkiD3Nlc3Npb25faWQGOgZFVG86...` を オンラインツールの base64 デコーダーでデコードしてみる
+
+    <%= image_tag "24/session_content.png", class: "img-fluid" %>
+
+`Rack::Session::Cookie` に記載の通り、base64 でエンコードされた状態で session のデータがクッキーに保存されていることが確認できました！
+パスワードとか機密情報をsessionで扱うのはダメそうです。
+session の store 先をサーバーに設定することもできるっぽいけど、今は必要ないから、スルー。
+デコードされた cookie が微妙に文字化けしているのはなぜだろうか・・・。
