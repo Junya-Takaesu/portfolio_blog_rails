@@ -1,0 +1,42 @@
+Ruby で Postgresql のテーブルからレコードを取得するメソッドを実行する処理を書いていて、わかったことを書きます。
+
+書いたコードは下記。
+
+```ruby
+class User
+  def select(hogehoge)
+
+    # いろいろあるが、省略
+    # ︙
+
+    @conn.prepare "prepared", sql
+    result = @conn.exec_prepared "prepared", where.values.empty? ? [] : where.values
+    @conn.exec("DEALLOCATE prepared")
+    result
+  end
+end
+
+session[:user] = user.select(where: {email: params[:email], password: params[:password]}).to_a.first
+
+# session[:user] の中身
+# {
+#   "id"=>"40",
+#   "email"=>"mr-hoge@example.com",
+#   "password"=>"hogehoge",
+#   "name"=>"Mr. Hoge",
+#   "created_at"=>nil,
+#   "updated_at"=>nil
+# }
+```
+
+## 1点目 prepared statement につけた名前は、インスタンスが消滅するまで永続する
+7行目あたりの `@conn.prepare "prepared", sql` で、sql の変数に入った sql を prepared statement として "prepared" の名前をつけました。
+その後、同じインスタンスを用いて、再度 select を実行すると、「prepared の名前がついた prepared statement はすでに存在する」旨のエラーになりました。
+
+prepared statement 実行直後に `@conn.exec("DEALLOCATE prepared")` を実行することで、
+prepared statement がリセットされ、再度同じ名前で prepared statement を作れるようになりました。
+
+## 2点目 PG::result に to_a すると配列で、レコードが取得できる
+`exec_prepared` を実行すると PG::Result オブジェクトが返される。このオブジェクトには色々入っていて、どうやってレコードそのものを抽出するか最初よくわかりませんでした。
+`to_a` を実行すると、配列でレコードが取れるという単純な話でした。
+配列はハッシュで構成されるので、`.firs` でチェイニングすると、select 結果の最初の行をハッシュで取れます。
