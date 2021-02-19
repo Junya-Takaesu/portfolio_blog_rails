@@ -25,6 +25,7 @@ class Articles::List
     23 => Articles::Article.new(id: 23, title: "21/2/16 Ruby で HTTP セッションを使ういろいろな方法", article_path: "article23.md.erb"),
     24 => Articles::Article.new(id: 24, title: "21/2/17 Sinatra の Session について", article_path: "article24.md.erb"),
     25 => Articles::Article.new(id: 25, title: "21/2/18 PG gem の使い方で知ったこと 2点", article_path: "article25.md.erb"),
+    26 => Articles::Article.new(id: 26, title: "21/2/19 CSS not 疑似クラス", article_path: "article26.md.erb"),
   }
 
   def initialize
