@@ -1,0 +1,13 @@
+<%# articles index と共通化したい！ %>
+<div class="container-fluid" id="articles-index">
+  <h1>Portfolio</h1>
+  <% @portfolios.reverse.each do |key, portfolio| %>
+    <div class="row justify-content-md-center gx-0 mb-5">
+      <div class="col-md-6 col-lg-4 mx-md-3 article-description">
+        <p class="text-center">
+          <%= link_to portfolio[:name], portfolio[:url], target: "_blank"%>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
