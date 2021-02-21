@@ -20,13 +20,9 @@ Google の 「 [インデックス登録について](https://developers.google.
     * サイトマップは標準規格に準拠していること
         * [sitemap.org | protocol](https://www.sitemaps.org/protocol.html)
         * ちなみに、URL を列挙したテキストファイルでもいいらしい
-    * PHP のライブラリで [php-sitemap-generator](https://github.com/icamys/php-sitemap-generator) というのがあったので、それを使って生成。
-        * なぜこのライブラリか：
-            * たまには PHP も使ってみたかっただけ
-            * このブログは Rails で作っているのにどうやって組み合わせるか・・・
-1. 生成したサイトマップをサイトのルートのパスに配置する
+2. 生成したサイトマップをサイトのルートのパスに配置する
     * Rails なら `public/` ディレクトリ直下
-1. Google Search Console で、サイトマップを登録する画面があるので、そこで、サイトマップの URL を登録する
+3. Google Search Console で、サイトマップを登録する画面があるので、そこで、サイトマップの URL を登録する
     * 実際に [https://floating-thicket-83470.herokuapp.com/sitemap.xml](https://floating-thicket-83470.herokuapp.com/sitemap.xml) を登録した
     * 登録直後は、「読み込めません」とか表示されたが、しばらくたつと、読み込みしてくれた。
 
