@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Articles::List
+    @articles = Articles::List.reverse
   end
 
   def show
