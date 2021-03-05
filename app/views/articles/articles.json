@@ -26,5 +26,6 @@
   "25": {"id": 25, "title": "21/2/18 PG gem の使い方で知ったこと 2点", "article_path": "article25.md.erb"},
   "26": {"id": 26, "title": "21/2/19 CSS not 疑似クラス", "article_path": "article26.md.erb"},
   "27": {"id": 27, "title": "21/2/20 Google のインデックスに登録されないため、サイトマップを生成してみる", "article_path": "article27.md.erb"},
-  "28": {"id": 28, "title": "21/2/21 PHP サイトマップ生成ライブラリ「php-sitemap-generator」について", "article_path": "article28.md.erb"}
+  "28": {"id": 28, "title": "21/2/21 PHP サイトマップ生成ライブラリ「php-sitemap-generator」について", "article_path": "article28.md.erb"},
+  "29": {"id": 29, "title": "21/3/5 Javascript のモジュールについて", "article_path": "article29.md.erb"}
 }
