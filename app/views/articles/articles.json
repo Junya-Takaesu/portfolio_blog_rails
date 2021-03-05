@@ -24,5 +24,7 @@
   "23": {"id": 23, "title": "21/2/16 Ruby で HTTP セッションを使ういろいろな方法", "article_path": "article23.md.erb"},
   "24": {"id": 24, "title": "21/2/17 Sinatra の Session について", "article_path": "article24.md.erb"},
   "25": {"id": 25, "title": "21/2/18 PG gem の使い方で知ったこと 2点", "article_path": "article25.md.erb"},
-  "26": {"id": 26, "title": "21/2/19 CSS not 疑似クラス", "article_path": "article26.md.erb"}
+  "26": {"id": 26, "title": "21/2/19 CSS not 疑似クラス", "article_path": "article26.md.erb"},
+  "27": {"id": 27, "title": "21/2/20 Google のインデックスに登録されないため、サイトマップを生成してみる", "article_path": "article27.md.erb"},
+  "28": {"id": 28, "title": "21/2/21 PHP サイトマップ生成ライブラリ「php-sitemap-generator」について", "article_path": "article28.md.erb"}
 }
