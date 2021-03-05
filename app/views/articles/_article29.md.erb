@@ -1,0 +1,104 @@
+javascript で HTML（DOM） を描画したり、Event リスナーを使ったりしていると、だんだんとコードの量が増えていきます。
+こうなると、メンテもどんどんしづらくなります。
+
+こうなると、ファイルを分割してメンテしやすくしたい、ということで js のモジュールの仕組み・使い方について調べました。
+
+
+## 概要
+* js のモジュールの仕組みを使うと、下記のようにファイルを分割することができる
+
+```
+.
+├── export1.js
+├── export2.js
+├── export3.js
+└── import.js
+```
+
+* 各 `export*.js` を `import.js` がインポート（取り込み）する
+* アプリケーションは `import.js` だけを実行すれば、全ての js ファイルを実行することになる
+* つまり、htmlファイルから `&lt;script&gt;` タグで js を実行する場合、その src 属性には `import.js` を指定すればいい
+  * **_このとき、`&lt;script&gt;` タグには、`type="module"` の属性を付ける必要がある_**
+
+## 基本: `export` して `import` する
+
+export するスクリプト
+
+```javascript
+// 📁 user.js
+export default class User { // "default" を追加するだけ
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+
+import するスクリプト
+
+```javascript
+// 📁 main.js
+import User from './user.js'; // {User} ではなく User
+
+new User('John');
+```
+
+* `default` キーワードを使って、`User` を export しているので、import 時も、`User` のクラスを指定している
+
+## 名前付きで、 `export` して `import` する
+export するスクリプト
+
+```javascript
+class Foo {
+  whoami() {
+    return this;
+  }
+}
+
+class Bar {
+  whoami() {
+    return this;
+  }
+}
+
+const foo = new Foo();
+const bar = new Bar();
+let hoge = "testvariable";
+
+export {foo, bar, hoge};
+```
+
+```javascript
+import {foo, bar, hoge} from "./export.js";
+
+console.log(foo.whoami());
+console.log(bar.whoami());
+console.log(hoge);
+```
+
+* `export` の後に 波括弧で export するモノを指定すると、指定された名前で export する
+* default export と同じだが、export はいろいろなものに対してできr
+  * クラス、オブジェクト、変数、ストリング etc...
+  * default export は1つの js ファイルで１度しか行えない
+  * 名前付き export は何度でも行える(foo, bar, hoge で3つ export している)
+* export は下記のように宣言の前に書くこともできる
+
+    ```javascript
+    export class Bar() {}
+    export let someObj = {"hoge": 1, "fuga": 2};
+    // importのやりかたに違いはない
+    ```
+
+## モジュールを用いた js のアプリの作り方
+1. **export する js ファイルをいくつか作る**
+  * よくあるパターン(ベストプラクティス？)
+      * export する要素は一つのファイルに付き一つ
+      * class を export する
+      * export する class とファイル名は一致する
+2. **import する 一つの js ファイルを作る(js のエントリポイント)**
+3. **一つの import を行う js ファイルをアプリが実行する**
+  * 例えば、index.html などアプリのエントリポイントとなる場所で `&lt;script type=&quot;module&quot; src=&quot;entrypoint.js&quot;&gt;` を記載する
+
+---
+
+以上です。
+それなりの量の js ファイルを書く時は積極的にモジュールの仕組みを使って、ファイル分割してメンテしやすいようにしていきたいと思いました！
