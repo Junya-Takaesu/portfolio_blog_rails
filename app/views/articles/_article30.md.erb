@@ -1,0 +1,36 @@
+## SQL インジェクションとは(または、SQL インジェクション攻撃とは)
+IPA の説明によると、
+
+>データベースと連携したウェブアプリケーションの多くは、利用者からの入力情報を基にSQL文（データベースへの命令文）を組み立てています。ここで、SQL文の組み立て方法に問題がある場合、攻撃によってデータベースの不正利用をまねく可能性があります。このような問題を「SQLインジェクションの脆弱性」と呼び、問題を悪用した攻撃を、「SQLインジェクション攻撃」と呼びます。
+
+* 参照：
+  * https://www.ipa.go.jp/security/vuln/websecurity-HTML-1_1.html
+
+とのことです。ウェブアプリの利用者の入力情報に悪意ある内容が含まれると、データベースの内容が漏洩したり、破壊されたりする可能性があります。
+ユーザーの入力内容をそのままSQLの組み立てに使うのは危険です。
+
+## Active Record は SQL インジェクション対策されている？
+対策はされている。ただし、Active Record のメソッドの引数に文字列を指定するのは危険(エスケープされず、 as-is で実行されるため)
+
+Active Record の API リファレンスはまだ確認していませんが、[Rails Guides](https://guides.rubyonrails.org/active_record_querying.html) には下記の記載がありました。
+
+> Building your own conditions as pure strings can leave you vulnerable to SQL injection exploits. For example, `Book.where("title LIKE '%#{params[:title]}%'")` is not safe. See the next section for the preferred way to handle conditions using an array.
+
+実際のコードを例に見ると、
+このコードは SQL インジェクションに対して安全で、
+
+```ruby
+Book.where("title = ?", params[:title]) # This is fine
+Book.where("rate < ?", params[:rate]) # Also fine
+```
+
+このコードは、string を引数に渡しているので、ユーザーの入力に SQL が含まれているとインジェクトされます。
+
+```ruby
+Book.where("title = #{params[:title]}") # This is bad
+Book.where("rate < #{params[:rate]}") # Bad again
+```
+
+前者のように、パラメータで引数を指定するのが安全ということでした。
+ほか、Active Record の詳しい使い方は、Rails Guides を見るとよくわかります。
+→ https://guides.rubyonrails.org/active_record_querying.html
