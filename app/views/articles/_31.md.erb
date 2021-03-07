@@ -1,0 +1,103 @@
+ブログを書くとき、いつも同じ作業が必要で手間だったので、自動化を試みました。
+
+## いつも行う定型化された作業は以下の通り。
+
+1. git fetch --all
+   * github のリポジトリと同期
+2. git checkout write-article
+   * ブログを書くための専用ブランチをチェックアウト
+3. git rebase origin/main
+   * ブランチを origin/main で最新化
+4. 記事の情報を管理している json ファイルに新しいエントリを追加する
+5. 追加したエントリに対応した新しい md ファイルを生成
+6. 追加された md ファイルにブログのを書き始めることができる
+
+## rake を使ってこの作業を自動化しました。
+
+```ruby
+namespace :blog do
+  desc "gitリポジトリと同期し、articles.json にエントリを追加し、対応する views/articles/_*.md.erb を作成する"
+  task :new do
+    begin
+      puts "ブログのタイトルを入力してください"
+      print "> "
+      entry_title = gets.chomp
+
+      # 1. git fetch --all
+      system("git fetch --all")
+      # 2. git checkout write-article
+      system("git checkout write-article")
+      # 3. git rebase origin/main
+      system("git rebase origin/main")
+
+      # 4. 記事の情報を管理している json ファイルに新しいエントリを追加する
+      articles_dir = "#{Rails.root.to_s}/app/views/articles/"
+      json_path = "#{articles_dir}articles.json"
+      json = File.read "#{articles_dir}articles.json"
+      parsed_json = JSON.parse json
+
+      new_id = parsed_json.length+1
+      parsed_json[new_id.to_s] = {
+        "id" => new_id,
+        "title" => entry_title
+      }
+
+      File.write json_path, parsed_json.to_json
+
+      # json ファイルをbeautify
+      system("cat #{articles_dir}articles.json | jq . > #{articles_dir}temp_articles.json")
+      system("mv #{articles_dir}temp_articles.json #{articles_dir}articles.json")
+
+      # 5. 追加したエントリに対応した新しい md ファイルを生成
+      file_name = "#{articles_dir}_#{parsed_json[new_id.to_s]["id"]}.md.erb"
+      File.write file_name, ""
+
+      puts "[Success] 以下のブログを作成しました"
+      puts "[File Name] #{file_name}"
+      puts "[File Detail] #{parsed_json[new_id.to_s]}"
+
+    # 例外処理
+    rescue => e
+      puts "[Failed] ブログの作成に失敗しました"
+      puts "#{e.message}"
+      system("cat #{articles_dir}articles.json | jq . > #{articles_dir}temp_articles.json")
+      system("mv #{articles_dir}temp_articles.json #{articles_dir}articles.json")
+    end
+  end
+end
+```
+### 補足/備忘
+* 上記のスクリプトを `lib/tasks/*.rake` の名前で保存
+* `system()` メソッドは、引数の文字列をシェルのコマンドのように実行してくれる
+  * git のコマンドは、これで対応。
+  * 似たメソッドで `exec()` があるが、これは実行したあとにプログラムが停止する点に注意
+* `to_json` で json を保存すると、一行になってしまい、見づらくなるので、`jq` というコマンドラインツールを `system()` メソッドで実行して、beautify している。
+
+## 実行してみた
+```
+$ rails blog:new
+ブログのタイトルを入力してください
+> Rake を使ってブログ記事の雛形生成を自動化してみた
+Fetching heroku
+Fetching origin
+Already on 'write-article'
+Successfully rebased and updated refs/heads/write-article.
+[Success] 以下のブログを作成しました
+[File Name] /home/gandhi/code/rails/portfolio/junyablog/app/views/articles/_31.md.erb
+[File Detail] {"id"=>31, "title"=>"Rake を使ってブログ記事作の雛形生成を自動化してみた"}
+```
+
+うまくいきました
+
+## `rake` のコマンドで自分が作った rake のスクリプトを確認
+
+`rake -T` を実行すると rake コマンド一覧を列挙できる
+自分が作ったものが思い出せないときとかに、使いたいかも。
+
+```
+$ rake -T
+rake about                              # List versions of all Rails frameworks and the environment
+rake action_mailbox:ingress:exim        # Relay an inbound email from Exim to Action Mailbox (URL...
+rake action_mailbox:ingress:postfix     # Relay an inbound email from Postfix to Action Mailbox (...
+︙
+```
