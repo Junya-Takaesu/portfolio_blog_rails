@@ -1,0 +1,61 @@
+ActiveRecord でレコードを検索するとき、返されるレコード数を制限するためのメソッドが2つあります。
+
+* [take](https://guides.rubyonrails.org/active_record_querying.html#take) メソッド
+* [limit](https://guides.rubyonrails.org/active_record_querying.html#limit-and-offset) メソッド
+
+※リンク先は Rails Guide
+
+どちらのメソッドを使っても、SQL としては下記のようなものになります。
+
+```sql
+SELECT * FROM table LIMIT n
+```
+
+そのため、レコードを10件だけ取りたいという場合、`take()` と `limit()` それぞれ下記のように使用できます。
+
+```ruby
+Pokemon.take(10) #=> 10匹のポケモンが返される
+Pokemon.limit(10)　#=> 10匹のポケモンが返される
+```
+
+## ではどちらを使ったらいい？ 🤔
+両者は実行したときの戻り値が違います。
+
+* `take()` の場合、 Array を返す
+* `limit()` の場合、 ActiveRecord::Relation を返す
+
+もし、ActiveRecord::Relation のメソッドやプロパティを使う必要があるなら、`limit()` を使ったほうがいいかな？
+
+* [ActiveRecord::Relation リファレンス](https://api.rubyonrails.org/v6.1.0/classes/ActiveRecord/Relation.html)
+
+
+## 他には、メモリのサイズが違う
+
+ActiveRecord::Relation を使う必要がない場合、どちらをつかうか？ 🤔
+
+メモリのサイズが小さい方？実際に使用されるメモリのサイズを見てみる。
+
+```ruby
+require 'objspace'
+p "Pokemon.take(2): #{Pokemon.take(2)}"
+p "Pokemon.take(2): #{Pokemon.take(2).class}"
+p "Pokemon.take(2): #{ObjectSpace.memsize_of(Pokemon.take(2))}"
+p "--------------------------------------------------"
+p "Pokemon.limit(2): #{Pokemon.limit(2)}"
+p "Pokemon.limit(2): #{Pokemon.limit(2).class}"
+p "Pokemon.limit(2): #{ObjectSpace.memsize_of(Pokemon.limit(2))}"
+```
+
+実行結果：
+
+```
+"Pokemon.take(10): [#<Pokemon id: 1, pokemon_no: 1, name: \"フシギダネ\", stage: 1>, #<Pokemon id: 2, pokemon_no: 2, name: \"フシギソウ\", stage: 2>, #<Pokemon id: 3, pokemon_no: 3, name: \"フシギバナ\", stage: 3>, #<Pokemon id: 4, pokemon_no: 891, name: \"フシギバナ-1\", stage: 3>, #<Pokemon id: 5, pokemon_no: 4, name: \"ヒトカゲ\", stage: 1>, #<Pokemon id: 6, pokemon_no: 5, name: \"リザード\", stage: 2>, #<Pokemon id: 7, pokemon_no: 6, name: \"リザードン\", stage: 3>, #<Pokemon id: 8, pokemon_no: 892, name: \"リザードン-1\", stage: 3>, #<Pokemon id: 9, pokemon_no: 893, name: \"リザードン-2\", stage: 3>, #<Pokemon id: 10, pokemon_no: 7, name: \"ゼニガメ\", stage: 1>]"
+"Pokemon.take(10): Array"
+"Pokemon.take(10): 40"
+"--------------------------------------------------"
+"Pokemon.limit(10): #<Pokemon::ActiveRecord_Relation:0x0000563fb6297420>"
+"Pokemon.limit(10): Pokemon::ActiveRecord_Relation"
+"Pokemon.limit(10): 136"
+```
+
+Array のほうが40バイトでメモリは節約できそうだけど、そもそも`ObjectSpace.memsize_of()`で表示される数字を信じて基準にしていいものかどうかも危うい 😨

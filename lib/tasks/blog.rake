@@ -33,6 +33,8 @@ namespace :blog do
       puts "[File Name] #{file_name}"
       puts "[File Detail] #{parsed_json[new_id.to_s]}"
 
+      system("code #{file_name}")
+
     rescue => e
       puts "[Failed] ブログの作成に失敗しました"
       puts "#{e.message}"
