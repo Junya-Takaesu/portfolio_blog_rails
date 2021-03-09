@@ -16,9 +16,11 @@ namespace :blog do
       parsed_json = JSON.parse json
 
       new_id = parsed_json.length+1
+      today = Date.today
       parsed_json[new_id.to_s] = {
         "id" => new_id,
-        "title" => entry_title
+        "title" => "#{today.strftime("%y/%m/%d")} #{entry_title}",
+        "created_at" => today.iso8601
       }
 
       File.write json_path, parsed_json.to_json
