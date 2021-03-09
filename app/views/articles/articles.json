@@ -126,5 +126,9 @@
   "32": {
     "id": 32,
     "title": "ActiveRecord の Eager Loading を使うと、圧倒的にパフォーマンスが上がる"
+  },
+  "33": {
+    "id": 33,
+    "title": "ActiveRecord: take メソッドと limit メソッドの違い"
   }
 }
