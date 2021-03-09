@@ -42,4 +42,20 @@ namespace :blog do
       system("mv #{articles_dir}temp_articles.json #{articles_dir}articles.json")
     end
   end
+
+  task :submit do
+    system("git status")
+
+    puts "submit しますか？"
+    print "(Y or n) > "
+    user_concent = gets.chomp.strip.gsub(/[[:space:]]/, '')
+    cancels = ["n", "no"]
+    if user_concent.nil? || cancels.include?(user_concent.downcase)
+      puts "submit をキャンセルします"
+      exit
+    end
+    puts "submit します"
+
+    system("git add . && git commit -m \"Write article\" && git push origin write-article")
+  end
 end
