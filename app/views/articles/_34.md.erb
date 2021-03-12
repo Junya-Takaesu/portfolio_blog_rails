@@ -1,0 +1,139 @@
+タイトルに書いてあることをやろうとしたとき、
+パソコンが苦手な私にとっては、いろいろと苦戦してしまったので、同じようなことをする人の参考になればと思い、手順をまとめて見ます。
+
+## A5:SQL Mk-2 とは
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/394201/c8e3c30f-5763-852c-f7d3-d65ecda71155.png)
+
+* 公式サイト:
+
+https://a5m2.mmatsubara.com/
+
+* 各種 DB (mysql や postgresql) に接続してデータベースの管理・操作ができる GUI ツール
+* 無料で使える
+* ER図をリバースエンジニアリングで作成できる(ER図からテーブルの作成もできる？？)
+
+(特に既存のデータベースからER図を作る機能が使いたくて、今回私はインストールしました)
+
+## 環境・バージョンなど
+
+### OS
+
+* エディション	Windows 10 Pro
+* バージョン	21H1
+* OS ビルド	19043.844
+
+### WSL
+
+```
+$ lsb_release --all
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 18.04.5 LTS
+Release:        18.04
+Codename:       bionic
+```
+
+### postgresql (WSL上)
+
+```
+$ psql --version
+psql (PostgreSQL) 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
+```
+
+## インストール手順
+
+1. postgresql 設定ファイルの更新
+1. パスワード変更
+1. A5:SQL Mk-2 をダウンロード・インストール
+1. A5:SQL Mk-2 で接続情報を設定
+
+
+
+## 1. postgresql 設定ファイルの更新
+
+変更するのは下記の2点
+
+- /etc/postgresql/10/main/pg_hba.conf
+- /etc/postgresql/10/main/postgresql.conf
+
+※システムによっては、パスが異なるかもしれません。
+
+それぞれ更新内容は下記の通り。
+
+#### /etc/postgresql/10/main/pg_hba.conf
+```
+# host    all             all             127.0.0.1/32            md5
+host    all             all             all                     md5
+```
+* `pg_hba.conf` はクライアント(A5:SQL Mk-2 など)の認証に関する設定を行うファイルです。
+     * リファレンス: https://www.postgresql.org/docs/10/auth-pg-hba-conf.html
+* 一番左の `host` という値が、 TCP/IP に関する設定を表します。
+* 1行目は、もともと書かれていた設定で、`127.0.0.1/32` とあり、ローカルホストしか認証しません。
+* windows10 から wsl(ubuntu) 上の postgresql に接続するとき、TCP/IP を使うので、ローカルホスト以外でも接続できるようにする必要があります。
+* そのため、2行目の設定をファイルに追加します。
+    * `127.0.0.1/32` となっている値を `all` にすることで、全ての IP アドレスからの接続を認証します。
+
+####  /etc/postgresql/10/main/postgresql.conf
+```
+listen_addresses = '0.0.0.0'
+```
+* デフォルトでは、`listen_addresses` の設定がコメントになっているので、コメントを外す。
+* `0.0.0.0` を設定することで、postgresql がすべての IP アドレスからの接続を待ち受けるようになる
+
+## 2. パスワード変更
+
+A5:SQL Mk-2 のようなクライアントから postgresql に接続する際に、接続するユーザーとして、`postgres` を指定します。
+パスワードは、デフォルトの `postgres` を使いたいです。
+`postgres` ユーザーのパスワードが `postgres` 以外の場合 `postgres` にパスワードを変更します。
+
+```
+$ sudo -u postgres psql
+psql (10.15 (Ubuntu 10.15-0ubuntu0.18.04.1))
+Type "help" for help.
+
+postgres=# ALTER ROLE postgres WITH PASSWORD 'postgres';
+ALTER ROLE
+postgres=#
+```
+
+## 3. A5:SQL Mk-2 をダウンロード・インストール
+
+[公式サイト](https://a5m2.mmatsubara.com/) からダウンロード・インストールできます。
+
+* Zip をダウンロードするやり方と、Microsoft Store からダウンロードするやり方が提供されている
+* Microsoft Store からダウンロードするやり方だと 2クリックくらいの操作でインストールまで完了しました
+
+## 4. A5:SQL Mk-2 で接続情報を設定
+インストール後に A5:SQL Mk-2 を開きます(スタートメニューで`A5:SQL Mk-2`を検索すると見つかります)
+
+#### `データベースの追加と削除` で接続設定を `追加` します
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/394201/46fe7684-1c86-d3e3-10d1-d8d8cf2b762b.png)
+
+#### `PostgreSQL(直接接続)` を選択します。
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/394201/e2117d65-98f9-4580-4d09-fa73f43f8c8f.png)
+
+#### 下記の様に接続設定を入力する
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/394201/a5b81920-f7c0-c2f5-a7f8-61d253f2fc08.png)
+
+* サーバー名
+    * WSL の IP アドレスを入力する
+        * WSL の IP アドレスは ifconfig コマンドで確認しました。
+          * ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/394201/adff0581-cef7-41dd-6412-71136e59ef56.png)
+* ポート番号
+    * デフォルトの `5432` を指定
+* データベース名
+    * 接続したいデータベース名を指定する
+* ユーザーID/パスワード
+    * 両方とも、`postgres` を指定
+    * パスワードは保存するにしたほうが良いかも
+* プロトコルバージョン
+	* 変更しない
+* 色
+	* 好きないろに変更
+
+OK を押して、接続情報を保存した後、メニューの `データベース` > `データベースを開く` から接続できます。
+
