@@ -163,5 +163,10 @@
     "id": 33,
     "title": "21/3/9 ActiveRecord: take メソッドと limit メソッドの違い",
     "created_at": ""
+  },
+  "34": {
+    "id": 34,
+    "title": "21/03/12 WSL2 上の postgresql サーバーに windows10  から A5:SQL Mk-2 を使って接続する",
+    "created_at": "2021-03-12"
   }
 }

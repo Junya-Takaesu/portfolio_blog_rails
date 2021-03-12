@@ -1,5 +1,5 @@
 #articles-index {
-  max-width: 70vw;
+  max-width: 90vw;
 
   h1 {
     border-bottom: $color-gold 4px double;
@@ -12,17 +12,6 @@
     letter-spacing: 0.1rem;
   }
   .row {
-    .image-frame {
-      overflow: hidden;
-
-      .img-fluid {
-        transition: all .3s ease-in-out;
-
-        &:hover {
-          transform: scale(1.8);
-        }
-      }
-    }
     .article-description {
 
       a {

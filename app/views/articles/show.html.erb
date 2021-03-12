@@ -1,6 +1,6 @@
 <div class="container-fluid" id="article-show">
   <div class="row justify-content-md-center lh-lg">
-    <div class="col-md-9 col-lg-7">
+    <div class="col-md-11 col-lg-9">
       <h1 class="text-center pb-5"><%= @article.title %></h1>
       <%= "#{parse_markdown(string: ((render "#{@article.id}.md.erb")), escape_html: false)}".html_safe %>
       <div class="mt-5 py-5 g-0 d-flex justify-content-md-around">
