@@ -45,6 +45,7 @@ namespace :blog do
     end
   end
 
+  desc "git diff を表示し、問題なければ リモートリポジトリの write-article ブランチに push する"
   task :submit do
     system("git status")
 
