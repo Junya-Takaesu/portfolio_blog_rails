@@ -1,9 +1,10 @@
 class Articles::Article
-  attr_reader :id, :title
+  attr_reader :id, :title, :created_at
 
-  def initialize(id:, title:)
+  def initialize(id:, title:, created_at:)
     @id = id
     @title = title
+    @created_at = created_at
   end
 
   def previous_article
