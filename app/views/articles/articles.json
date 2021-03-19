@@ -173,5 +173,10 @@
     "id": 35,
     "title": "ActiveRecord insert_all の制約",
     "created_at": "2021-03-18"
+  },
+  "36": {
+    "id": 36,
+    "title": "21/03/19 Heroku のデプロイ自動化（github連動）",
+    "created_at": "2021-03-19"
   }
 }
