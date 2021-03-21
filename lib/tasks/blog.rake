@@ -19,7 +19,7 @@ namespace :blog do
       today = Date.today
       parsed_json[new_id.to_s] = {
         "id" => new_id,
-        "title" => "#{today.strftime("%y/%m/%d")} #{entry_title}",
+        "title" => "#{entry_title}",
         "created_at" => today.iso8601
       }
 
