@@ -1,0 +1,91 @@
+SQLite3 を使って Rails で簡単なアプリケーションを作りたかったのですが、すぐに手を動かして作業できなかったので、
+今後の備忘のために、SQLite3
+
+※基本的には、Rails ガイドに書いてあるとおり作業するだけです。Rails ガイドの内容の圧縮版としての記事。
+
+**Rails ガイド Getting started**
+
+* https://railsguides.jp/getting_started.html
+* https://guides.rubyonrails.org/getting_started.html (英語版)
+
+下記のサイトは、Ruby のバージョンや、OS の種類などに応じて、細かく Rails アプリの作成の手順を表示してくれるサイト。これ見ればすべてOK。
+
+* https://gorails.com/setup/ubuntu/18.04
+
+
+## Ruby の確認
+`ruby -v` をターミナルで実行
+
+```
+# 実行結果
+ruby 2.6.6p146 (2020-03-31 revision 67876) [x86_64-linux]
+```
+
+* ruby のバージョンはなんでもいい。現時点で最新の3.0.0でもいい
+* ruby なければ、rbenv などを使ってインストールする
+
+
+## SQLite3 の確認
+`sqlite3 --version` をターミナルで実行
+
+```
+# 実行結果
+3.22.0 2018-01-22 18:45:57 0c55d179733b46d8d0ba4d88e01a25e10677046ee3da1d5b1581e86726f2alt1
+```
+
+* なければ、下記コマンドで　sqlite3 をインストールする
+
+```
+sudo apt updated
+sudo apt install libsqlite3-0 libsqlite3-dev sqlite3
+```
+
+## Nodejs と yarn の確認
+`node -v` をターミナルで実行
+
+```
+# 実行結果
+v14.4.0
+```
+
+`yarn -v` をターミナルで実行
+
+```
+# 実行結果
+1.22.5
+```
+
+それぞれ無い場合、下記コマンドでインストール
+
+```
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+sudo apt update
+sudo apt install git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn
+```
+
+## Rails の確認
+
+`rails -v` をターミナルで実行
+
+```
+Rails 6.1.3
+```
+
+* rails なければ、下記コマンドでインストール
+
+```
+gem install rails
+```
+
+## Rails アプリを作る
+
+```
+rails new whatever-the-name-you-want
+```
+
+以降は、Rails ガイドの通り、コントローラ作ったり、マイグレーションファイル作ったりして、SQLite を使った Rails アプリを構築する
+

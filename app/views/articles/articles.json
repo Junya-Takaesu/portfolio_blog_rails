@@ -176,7 +176,12 @@
   },
   "36": {
     "id": 36,
-    "title": "21/03/19 Heroku のデプロイ自動化（github連動）",
+    "title": "Heroku のデプロイ自動化（github連動）",
     "created_at": "2021-03-19"
+  },
+  "37": {
+    "id": 37,
+    "title": "Rails with SQLite3 の新規アプリケーション作成チートシート",
+    "created_at": "2021-03-21"
   }
 }
