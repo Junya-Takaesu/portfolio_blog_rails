@@ -13,14 +13,14 @@ module ArticlesHelper
     if direction == "prev"
       previous_article = article.previous_article
       if previous_article
-        link_label = "<<< 前の記事: #{previous_article.title}"
+        link_label = "<<< 前の記事: #{previous_article.created_at} #{previous_article.title}"
         href = previous_article.id.to_s
         class_attributes = HTML_CLASS_ENABLED
       end
     elsif direction == "next"
       next_article = article.next_article
       if next_article
-        link_label = "#{next_article.title} :次の記事 >>>"
+        link_label = "#{next_article.created_at} #{next_article.title} :次の記事 >>>"
         href = next_article.id.to_s
         class_attributes = HTML_CLASS_ENABLED
       end
