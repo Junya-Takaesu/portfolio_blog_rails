@@ -183,5 +183,10 @@
     "id": 37,
     "title": "Rails with SQLite3 の新規アプリケーション作成チートシート",
     "created_at": "2021-03-21"
+  },
+  "38": {
+    "id": 38,
+    "title": "ActiveRecord で取得したレコード群を Json に変換する",
+    "created_at": "2021-03-26"
   }
 }

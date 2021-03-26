@@ -1,0 +1,107 @@
+ActiveRecord を使ってテーブルからレコードを取得するときに使えるメソッドとして、`where` があります。
+
+```ruby
+# *where の使用例*
+pokemons = pokemons.where("pokemons.pokemon_no < ?", POKEMON_NO_LIMIT)
+```
+
+`where` を実行すると、返り値は `ActiveRecord::Relation` というクラスのオブジェクトです。
+このオブジェクトには、テーブルを表すモデルクラスがレコード件数分格納されているコレクションです。
+
+上記例だと、ポケモンが登録されている pokemons テーブルのに対して where を実行していて、
+下記のようなモデルクラスのコレクションが取得できます。
+
+```
+#<Pokemon:0x00005622e492f9e8>
+#<Pokemon:0x00005622e4a34de8>
+#<Pokemon:0x00005622e4a6e1d8>
+︙
+(略)
+```
+
+上記のように取得したレコードを JSON 形式でレスポンスしたかったので、
+どのようにしたら、JSON 形式に変換できるか調べて見ました。
+
+
+## `to_json`
+ruby の hash を json にするには `to_json` があります。
+`ActiveRecord::Relation`　に対しても、`to_json` が使えるか調べました。
+
+そしたら、下記の記事を見つけて、とても参考になりました。
+
+https://tanaken0515.hatenablog.com/entry/2020/04/24/231922
+
+上記の記事では、to_json のメソッドの定義を実際にライブラリのソースコードを追って確認していってるのがすごい参考になって、面白かったです。
+
+なかなか内容難しくて、全ては理解できませんでしたが、
+恐らく、要約すると、
+**ActiveRecord の モデルクラスで `to_json` を実行すると、内部的には`ActiveModel::Serializers::JSON` で定義されている as_json のメソッドを実行する**
+
+ということで、下記の `ActiveModel::Serializers::JSON` のドキュメントを見てみました。
+
+https://api.rubyonrails.org/classes/ActiveModel/Serializers/JSON.html#method-i-as_json
+
+いろいろと、引数で渡せるオプションの例があって、`to_json` の結果出力される json の内容を色々カスタマイズできる様子。
+
+## ActiveRecord で取得したデータを JSON に変換
+
+この記事の冒頭に書いた pokemons を取得するコードを書き換えました。
+
+```ruby
+pokemons = pokemons.where("pokemons.pokemon_no < ?", POKEMON_NO_LIMIT)
+pokemons.to_json(
+    include: [
+        types: {only: :type_name},
+        abilities: {only: :ability_name},
+        moves: {only: :move_name}
+    ]
+)
+```
+
+* オプションについて
+* `include:`
+  * json に含める関連テーブルを指定する(外部キーで繋がっているテーブル)
+* `only:`
+  * 取得するカラムを指定する(各関連テーブルが持つ id カラムなどは不要なので、必要なものだけを指定している)
+
+**実行結果**
+
+```json
+  {
+    "id": 1,
+    "pokemon_no": 1,
+    "name": "フシギダネ",
+    "stage": 1,
+    "types": [
+      {
+        "type_name": "くさ"
+      },
+      {
+        "type_name": "どく"
+      }
+    ],
+    "abilities": [
+      {
+        "ability_name": "しんりょく"
+      },
+      {
+        "ability_name": "ようりょくそ"
+      }
+    ],
+    "moves": [
+      {
+        "move_name": "たいあたり"
+      },
+      {
+        "move_name": "なきごえ"
+      },
+      {
+        "move_name": "せいちょう"
+      },
+    // ︙
+    // 以下ポケモンの属性情報がつづく
+```
+
+JSON 形式にすることができました。
+最初は、ActiveRecord のオブジェクトをループで回して、値を取りながら JSON を生成するみたいなメソッドを自分で実装するしか無いのかなと思っていたのですが、
+このやり方のほうがかんたんそうです。
