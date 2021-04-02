@@ -1,0 +1,25 @@
+WSL を使う際に、mysql や apache などのサービスを毎回コマンドを実行しないと行けなくて、手間でした。
+例えば下記のように。
+
+```
+sudo service mysql start
+```
+
+.bashrc に上記のコマンドを書いてやれば、bash にログインしたときに自動で実行してくれるかと思い、試しました。
+期待通り、コマンドは実行されるようになりましたが、sudo コマンドなので、ログインするたびにパスワードを要求されてしまうようになってしまいました。
+
+パスワードなしで実行出来ないか google で検索してみたら、ありました。
+
+stack overflow
+https://askubuntu.com/questions/216804/want-to-execute-sudo-command-on-shell-startup
+
+qiita
+https://qiita.com/RyodoTanaka/items/e9b15d579d17651650b7
+
+上記参考に `sudo visude`  を使って、下記行を追記
+
+```
+%sudo   ALL=NOPASSWD: /usr/sbin/service
+```
+
+これにより、.bashrc に書かれた sudo service ~ のコマンドに対してパスワードが聞かれなくなりました。
