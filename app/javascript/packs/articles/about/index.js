@@ -1,6 +1,6 @@
 require("../../prism/prism")
 import bootstrap from "../../bootstrap/bootstrap.bundle.min.js"
-  (() => {
+(() => {
   const initialize = () => {
     const initilizeCollapseList = () => {
       const collapseElementList = [].slice.call(document.querySelectorAll('.collapse'));
