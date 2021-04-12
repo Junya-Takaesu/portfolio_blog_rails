@@ -7,9 +7,27 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-require("./articles/about/")
-require("./articles/show/")
+
+// 自前の js を import していく
+import AboutPage from "../articles/about/AboutPage";
+import ShowPage from "../articles/show/ShowPage";
+import PrismInitializer from "../prism/PrismInitializer";
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// js を初期化していく
+const aboutPage =  new AboutPage();
+const showPage = new ShowPage();
+const prismInitializer = new PrismInitializer();
+
+const events = ["load", "turbolinks:load"];
+
+events.forEach(event => {
+  window.addEventListener(event, () => {
+    aboutPage.initialize();
+    prismInitializer.initialize();
+    showPage.initialize();
+  })
+});

@@ -1,13 +1,6 @@
 class Markdown::CustomRenderer < Redcarpet::Render::HTML
   include ERB::Util
 
-  # redcarpet の メソッドをオーバーライド
-  # markdown の image を html の img に変換するときに、
-  # 任意の class 属性を設定できるようにした。結局使わないが、将来のために残しておく。
-  def image(link, title, alt_text)
-    %(<img src="#{link}" class="img-fluid">)
-  end
-
   # 引数 code は ``` でくくられたコードが入ってくる。
   # 引数 language は ``` の直後に指定された言語が入ってくる。
   # デフォルトの動作: <pre class="language-ruby line-numbers"> のようなタグを生成して、行番号を有効にする
