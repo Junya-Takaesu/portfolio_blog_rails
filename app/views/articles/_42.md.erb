@@ -1,3 +1,40 @@
-https://ruby-music-player.herokuapp.com/
+Youtube の Traversy Media さんの動画見てミュージックプレーヤー作りました。
+作ったモノ: https://ruby-music-player.herokuapp.com/
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png "ホゲホゲ")
+<%= image_tag "42/2021-04-12 231024.png", class: "", alt: "" %>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QTHRWGn_sJw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+音声を扱う API を初めて使ってみたので、備忘のメモ。
+
+## 音声(audio) 要素の作成、音声ファイルとの紐付け
+
+```javascript
+const audio = document.querySelector("#audio");
+audio.src = `music/${song}.mp3`
+```
+* audio タグで、音声ファイルをページに埋め込める
+* src 属性で、音声ファイルの場所を指定する
+
+## 音声(audio) 要素を操作する
+
+```javascript
+// 音声を再生
+audio.play();
+// 音声を停止
+audio.pause();
+
+// 現在の再生位置を返す
+audio.currentTime
+// 音声の長さを返す
+audio.duration;
+
+// ended = 終わったとき、etimeupdate = 音声が再生されているとき
+audio.addEventListener("ended", nextSong);
+audio.addEventListener("timeupdate", updateProgress);
+```
+
+* MDNのドキュメントによると、音声や、動画をページに埋め込むと、HTMLMediaElement のインタフェースを継承したインタフェースのDOMが作られる
+
+    > HTMLMediaElement インターフェイスは、 HTMLElement に音声や動画で一般的なメディアに関する基本的な能力の対応に必要なプロパティやメソッドを追加します。 HTMLVideoElement および HTMLAudioElement 要素はどちらも、このインターフェイスを継承しています。
+    https://developer.mozilla.org/ja/docs/Web/API/HTMLMediaElement
