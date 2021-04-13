@@ -46,13 +46,13 @@ end
 2. ブラウザから http://localhost:4567?name=hogehoge にアクセス
    * sessin に name の値を保存するため、クエリに name=hogehoge を設定
 3. 開発者ツールで、session のデータが保存されていると思われる cookie の存在を確認
-   * <%= image_tag "24/session_image.png", class: "img-fluid" %>
-4. cookie の値は `BAh7CUkiD3Nlc3Npb25faWQGOgZFVG86...` のような base64 でエンコードされてるっぽい文字列であることを確認
-5. get "/session" のルートにアクセスすると、`Your name is hogehoge` が表示されて、session のデータが機能していることを確認
+   * <%= image_tag "24/session_image.png" %>
+4. cookie の値は BAh7CUkiD3Nlc3Npb25faWQGOgZFVG86... のような base64 でエンコードされてるっぽい文字列であることを確認
+5. get "/session" のルートにアクセスすると、Your name is hogehoge が表示されて、session のデータが機能していることを確認
 6. 肝心の session データが格納されている cookie の中身の確認
-   * `BAh7CUkiD3Nlc3Npb25faWQGOgZFVG86...` を オンラインツールの base64 デコーダーでデコードしてみる
+   * BAh7CUkiD3Nlc3Npb25faWQGOgZFVG86... を オンラインツールの base64 デコーダーでデコードしてみる
 
-    <%= image_tag "24/session_content.png", class: "img-fluid" %>
+    <%= image_tag "24/session_content.png" %>
 
 `Rack::Session::Cookie` に記載の通り、base64 でエンコードされた状態で session のデータがクッキーに保存されていることが確認できました！
 パスワードとか機密情報をsessionで扱うのはダメそうです。

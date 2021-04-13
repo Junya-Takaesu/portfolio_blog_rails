@@ -1,7 +1,11 @@
-<div class="col-6 col-md-5 d-flex">
-  <%= generate_navigation_anchor(article: @article, direction: "prev") %>
-</div>
+<footer class="container col-lg-8 px-lg-5">
+  <div class="row">
+    <div class="col-6 col-md-5">
+      <%= generate_navigation_anchor(article: @article, direction: "prev") %>
+    </div>
 
-<div class="col-6 col-md-5 d-flex">
-  <%= generate_navigation_anchor(article: @article, direction: "next") %>
-</div>
+    <div class="col-6 col-md-5">
+      <%= generate_navigation_anchor(article: @article, direction: "next") %>
+    </div>
+  </div>
+</footer>
