@@ -1,7 +1,7 @@
 ## コードブロックの属性指定を簡略化したい
 例えば、下記画像の左側のように `language-` というプリフィクスをつけ、行番号を表示するために更に `line-numbers` という属性を書かないと、コードハイライトが有効にならないプログラムになっていた。(コードハイライトをレンダーする prism.js の仕様)
 Hackmd に慣れていたので、`ruby` とか `javascript` と書くだけで、コードハイライトしてほしかった。
-<%= image_tag "19/git.jpg", class: "img-fluid" %>
+<%= image_tag "19/git.jpg" %>
 
 ## Hackmd っぽく、シンプルにコードブロックを書けるようにするために修正してみた
 markdown パーサー gem の `Redcarpet` の `block_code` のオーバーライドを修正
