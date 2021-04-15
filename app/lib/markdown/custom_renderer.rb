@@ -26,6 +26,6 @@ class Markdown::CustomRenderer < Redcarpet::Render::HTML
   end
 
   def codespan(code)
-    %(<code class="language-none" style="margin-left: 2px; margin-right: 2px;">#{code}</code>)
+    %(<code class="language-none">#{code}</code>)
   end
 end

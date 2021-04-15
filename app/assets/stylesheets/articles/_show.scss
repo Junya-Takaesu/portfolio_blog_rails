@@ -3,31 +3,29 @@
   overflow-wrap: break-word;
 
   #article-body {
+    @include box-shadow;
     background: #e4e3e2;
     border-radius: 15px;
-    box-shadow:0px 3px 8px #81787e;
 
     h1, h2, h3, h4, h5, h6 {
       color: black;
     }
 
     h1 {
-      margin-top: 2rem;
       margin-bottom: 2rem;
     }
 
     h2 {
-      margin-top: 2rem;
       border-bottom: $color-gold solid 2px;
     }
 
-    h3, h4, h5, h6 {
-      margin-top: 2rem;
+    h1, h2, h3, h4, h5, h6 {
+      margin: 2rem 0;
     }
 
     p {
       width: 100%;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
     }
 
     img {
@@ -53,6 +51,17 @@
       padding-left: 10px;
       margin-left: 20px;
       color: gray;
+    }
+
+    pre {
+      @include box-shadow;
+      border-radius: 10px;
+    }
+
+    :not(pre) > code[class*="language-"] {
+      word-wrap: break-word;
+      font-size: 0.8rem;
+      padding: 2px 4px;
     }
 
     iframe {
