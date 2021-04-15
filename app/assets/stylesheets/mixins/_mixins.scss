@@ -7,3 +7,7 @@
     border-bottom: $after-border-bottom;
   }
 }
+
+@mixin box-shadow {
+  box-shadow:0px 3px 8px #81787e;
+}
