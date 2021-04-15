@@ -12,22 +12,20 @@
     }
 
     h1 {
-      margin-top: 2rem;
       margin-bottom: 2rem;
     }
 
     h2 {
-      margin-top: 2rem;
       border-bottom: $color-gold solid 2px;
     }
 
-    h3, h4, h5, h6 {
-      margin-top: 2rem;
+    h1, h2, h3, h4, h5, h6 {
+      margin: 2rem 0;
     }
 
     p {
       width: 100%;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
     }
 
     img {
@@ -55,6 +53,9 @@
       color: gray;
     }
 
+    code[class*="language-"] {
+      word-wrap: break-word;
+    }
     iframe {
       width: 100%;
     }
