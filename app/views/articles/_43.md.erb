@@ -1,0 +1,110 @@
+先日、プログラミングスクールの学習の成果物としてポートフォリオを作成しました。
+
+ポケモン図鑑的な Web アプリで、すでに完成していたのですが、Docker の知識を身に着けたかったということもあり、このアプリを Docker 化してみることにしました。
+公開したアプリのURLはこれです
+
+【ポケモン図鑑】
+http://pokemon-zukan.fun/
+
+## 公式ドキュメントを参考にやってみる
+
+公式ドキュメントの Quick Start で、Rails を docker化するやり方が書いてあります(docker compose を使って)。私が作ったアプリは、Sinatra を使っていたのですが、Rails の手順に沿って適宜必要な箇所を自分のアプリに合わせて変更すればできるかと思いやってみました。
+
+【Quickstart: Compose and Rails】
+https://docs.docker.com/compose/rails/#rebuild-the-application
+
+### Dockerfile を書く
+
+```dockerfile
+FROM ruby:3.0
+RUN apt-get update -qq && apt-get install -y postgresql-client
+WORKDIR /zukan
+COPY Gemfile /zukan/Gemfile
+COPY Gemfile.lock /zukan/Gemfile.lock
+RUN gem install bundler
+RUN bundle install
+COPY . /zukan
+
+EXPOSE 4567
+
+CMD ["ruby", "app.rb"]
+```
+
+* `FROM`
+  * アプリの Gemfile で ruby 3.0.0 を指定していたので、`ruby:3.0` イメージを指定。
+* `RUN`
+  * postgresql-client をインストール(ruby gem の activerecord で postgresql に接続するため必要と思われる)
+* `WORKDIR` ~ `COPY`
+  * Gemfile, Gemfile.lock をコンテナの環境にコピー
+* `RUN gem install bundler`
+  * bundle install をするために、まず、bundler をインストール
+* `RUN bundle install`
+  * Gemfile の内容をインストール
+* `COPY`
+  * アプリのファイルを、コンテナの環境にコピー
+* `EXPOSE`
+  * sinatra のデフォルトポートである、4567 を露出
+* `CMD`
+  * ruby app.rb でコンテナ起動（アプリ起動）
+
+### docker-compose.yml を書く
+
+```yaml
+version: "3.9"
+services:
+    db:
+        image: postgres
+        env_file:
+            - database.env
+        volumes:
+            - ./tmp/db:/var/lib/postgresql/data
+    web:
+        build: .
+        volumes:
+            - .:/zukan
+        ports:
+            - "4567:4567"
+        depends_on:
+            - db
+```
+
+* `db` はデータベースの コンテナ
+  * postgres のパブリック・イメージを使用
+  * postgres にログインするための接続情報の環境変数を `database.env` に定義
+    * `POSTGRES_HOST_AUTH_METHOD=trust` の環境変数を設定しないと、web コンテナから、db コンテナに接続出来ませんでした。これで結構ハマりました。
+      * postgresql の イメージのバージョンを明示して、最新版を使わないようにすることでも回避できるようです。
+        * https://stackoverflow.com/questions/60262635/ci-cd-pipeline-with-postgresql-failed-with-database-is-uninitialized-and-superu
+
+### アプリを修正
+
+docker コンテナ(web)上で起動する Sinatra のアプリケーションサーバーにホストマシンから接続できるようにするために、アプリを修正して、0.0.0.0 にバインドしてすべてのインターフェースで接続できるようにします。
+
+Sinatra であれば、
+
+```ruby
+set :bind, '0.0.0.0'
+```
+
+という1行をアプリに追記するだけです。この行が無いと、デフォルトの値にバインドされ、デフォルトは localhost なので、ホストマシンから接続出来ません。
+
+### 最後に
+
+```
+docker-compose build
+```
+
+をして、問題なくビルドできれば、
+
+```
+docker-compose up
+```
+
+でコンテナを起動出来ます。
+ホストマシンから localhost:4567 でコンテナのアプリにアクセス出来ました。
+
+### 問題
+
+db サービスのコンテナによって作られる volume のディレクトリのオーナーが、コンテナ環境のユーザーのオーナーになっているせいか、docker-composer build を再度行うと、パーミッションエラーになります。毎回、ディレクトリを削除するか、オーナーをホストマシンの自分のユーザーに変更すれば、問題ないのですが、毎回やらないと行けないとなると、大変。entorypoint.sh とかで db コンテナを起動するときに、オーナーを変えるようなスクリプトを仕組むと良さそうだけど、どうすればいいかよくわからない。
+
+よくわからないことが多くて、やっぱり docker 難しいです。
+早くなれるためにも、日頃の開発から使っていかないとヤバそう・・・。
