@@ -1,0 +1,34 @@
+
+```ruby
+require 'pg'
+
+    if ARGV.length == 0 then
+    puts "Usage: prepare_statement.rb rowId"
+    end
+
+    colId = ARGV[0]
+
+    begin
+    conn = PG.connect(
+        :host => 'localhost',
+        :port => '5432', #指定必須ではない
+        :dbname => 'janbodnardb',
+        :user => 'janbodnar',
+        :password => 'janbodnar'
+    )
+
+    conn.prepare 'stm1', "SELECT * FROM cars WHERE id=$1"
+    rs = conn.exec_prepared 'stm1', [colId]
+    puts rs.values
+
+    rescue PG::Error => e
+    puts e.message
+    ensure
+    rs.clear if rs
+    conn.close if conn
+    end
+```
+
+* pg gem を require
+* prepare で、prepared statement を作成
+* exec_prepared で prepared statement を実行。プレースホルダーにバインドする値は、配列で渡す。

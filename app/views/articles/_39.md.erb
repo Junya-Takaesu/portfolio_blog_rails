@@ -1,0 +1,33 @@
+CSS の Grid や Flex を使わなくても、シンプルな CSS でレスポンシブなデザインができることがわかりました。
+
+実際の CSS は下記のような感じです。
+
+<iframe height="465" style="width: 100%;" scrolling="no" title="Responsive Cards without Grid or Flex" src="https://codepen.io/pachipachi/embed/rNjMOaG?height=265&theme-id=dark&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/pachipachi/pen/rNjMOaG'>Responsive Cards without Grid or Flex</a> by pachijun
+  (<a href='https://codepen.io/pachipachi'>@pachipachi</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+
+
+ポイントは `display: inline-block;` で、ページの横幅を全部取る ブロック要素をインラインブロック要素に変更するところです。
+上記例のカードは `&lt;article&gt;` タグで出来ていて、`&lt;article&gt;` はブロック要素です。
+ブロック要素のままだと、横幅をすべて専有してしまい、後続の要素は縦に並びます。
+`display: inline-block;` で `&lt;article&gt;` を ブロック要素にすることで、要素が横に並ぶようになります。
+
+この方法を使うと、スマホのように画面の幅がせまくなっても画面に収まらない要素は次の行に折り返されます。
+（`&lt;p&gt;` で書いたテキストが画面の幅に合わせて折り返されるのと似ています)
+
+上記だけでもレスポンシブになりますが、要素が左よりになるので、複数のカードを含有する親要素(`&lt;main&gt;`) に対して、下記スタイルを適用しました。
+
+```css
+main {
+  margin: 0 auto;
+  max-width: 1300px;
+  text-align: center;
+}
+```
+
+要素全体の幅を決めて(`max-width`)、左右の `margin` を `auto` にすることで、すべての要素が中央に寄ります。
+更に、`text-align: center` で文字の要素を中央に揃えることで全体的にレイアウトが中央揃えになります。
+
+
+レスポンシブなカードデザインを制作しようとするとき、なぜか Grid とか Flex でやってしまいがちなんですが、よく考えたら、普通の CSS でできることに気づけました。

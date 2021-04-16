@@ -1,0 +1,29 @@
+## Sass を使う
+初めて Sass を使ってみました。
+変数や、mixin が使えて便利だと思いました。
+まだ、使いこなしてはいませんが、冗長なスタイルをくくりだして、変数とかmixin にすると、コードがすっきりするなと思いました。
+シンプルに入れ子でスタイル定義できるので、実際のhtmlの構造と対応させると、どこにどんなスタイルがあたっているのかが把握しやすいとも思いました。
+@import を使って、スタイルをカテゴリー毎とかで分けることもできるので、メンテがしやすそう。
+
+## Bootstrap v5 を使う
+最近Bootstrapをよく練習していて、なんとなく grid システムとか flex の使い方がわかってきた気がします。
+下記のように書くだけで、簡単に表組みみたいなレイアウトが作れるので、便利です。
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+</div>
+```
+
+flex についても、d-flex のクラスを使って、flex container を作って、それに justify-content のクラスとか
+flex-column とかの flex 方向を決めるクラス使えば、細かいレイアウトも作れそうです。
+bootstrap 使っていると、css 覚えられないかと思っていましたが、むしろcssをわかりやすく覚える助けになってる感じです。

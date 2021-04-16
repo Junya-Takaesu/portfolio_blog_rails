@@ -1,0 +1,19 @@
+これをインストールして、Watch sass ボタンを押すだけで、コンパイルしてくれる。
+下記のように settings.json を編集すれば、minify も一緒にやってくれる。
+
+```json
+"liveSassCompile.settings.formats": [
+    {
+        "format": "compressed",
+        "extensionName": ".min.css",
+        "savePath": "/dist"
+    }
+],
+"liveSassCompile.settings.generateMap": false,
+```
+
+## 問題
+* vscode の sass 拡張機能でコンパイルすると、 `@import "some.css"` という記述が `url(/home/user/path/to/the/app/some.css)` のように絶対パスで書かれるため、webページでそれを参照しても、cssが見つからないエラーになってしまう。
+
+## とりあえずの workaround
+vscode の機能ではなく dart-sass の sass コマンドでやれば、@import される css ファイルは、コンパイル後の css に展開されるので、cssが適切に動作するので、いつもどおり sass コマンドを使う

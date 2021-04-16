@@ -1,24 +1,28 @@
-# README
+# junyablog の README.md
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## ブログの URL
 
-Things you may want to cover:
+http://junya-takaesu.site/
 
-* Ruby version
+## rails コマンド(rake コマンド)
 
-* System dependencies
+### 新しいブログのエントリーを追加する
 
-* Configuration
+```
+rails blog:new
+```
 
-* Database creation
+* このコマンドにより `lib/tasks/blog.rake` の `task :new`　が実行される
+* `app/views/articles` ディレクトリに、空の Markdown ファイルが作成され、ブログを書き始められる。
+* `app/views/articles/articles.json` に、ブログ記事のメタ情報が記録される（作成日など）
 
-* Database initialization
+### 作成したブログをコミットする
 
-* How to run the test suite
+```
+rails blog:submit
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* このコマンドにより `lib/tasks/blog.rake` の `task :submit`　が実行される
+* git にコミットするかどうかプロンプトされる
+* コミットを承諾すると、git にコミットされ、github リポジトリの所定のブランチに push される
+* github 上で、所定のブランチに push されたコミットを main ブランチにマージすると、連動して heroku にデプロイされる。（記事が一般に公開される）

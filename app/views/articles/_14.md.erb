@@ -1,0 +1,62 @@
+## コードハイライトのライブラリを下調べ
+ググって、最初に出てきた2つを見てみました。
+### 1. [highlight.js](https://highlightjs.org/)
+* `&lt;pre&gt;&lt;code&gt;` で囲われたコードブロックの言語を自動で検知する
+* CDN、ソースコードのダウンロード、npm などいろいろなインストール方法がある
+* カラーテーマはいろいろ選べる（明るいやつ、ダークなやつ etc...）
+* ドキュメントが後述の prism と比べて難解・・・
+* コードブロックに行番号を表示する機能が無い
+* コードブロックに表示される行間が狭く見辛い
+
+### 2. [prism.js](https://prismjs.com/)
+* `&lt;pre&gt;&lt;code&gt;` で囲われたコードブロックの言語を自動で検知はしない？
+* `&lt;pre class="language-html"&gt;&lt;code class="language-ruby"&gt;` のように、class 属性に言語を指定するとしっかりハイライトされる。
+* CDN、ソースコードのダウンロード、npm などいろいろなインストール方法がある
+* カラーテーマはいろいろ選べる（明るいやつ、ダークなやつ etc...）
+* ドキュメントわかりやすい
+* コードブロックに行番号を表示する plugin がある
+* コードハイライトのスタイルは、highlight.js よりも好き
+
+
+実際に両者をテストしたサイト↓
+
+* https://junya-takaesu.github.io/code-highlight-comparison/highlight-js/
+* https://junya-takaesu.github.io/code-highlight-comparison/prism/index.html
+
+prism.js のスタイルが好みだったので、それをブログに取り入れました。
+
+ブログの記事は markdown のフォーマットで保存していたので、コードブロックに `language-ruby` などの任意の class 属性を設定するのに一手間かかりました。
+markdown をパースするライブラリのメソッドの一部をオーバーライドして、コードブロックの html に class 属性を設定できるようにする必要がありました。
+使っているライブラリは、`redcarpet` で [github の README.md](https://github.com/vmg/redcarpet#and-you-can-even-cook-your-own) を見てオーバーライドしてみました
+
+
+#### `markdown`
+
+```
+```html
+<form action="/form" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <div>
+  ︙
+```
+
+#### カスタマイズした `redcarpet` のクラス
+```ruby
+class Markdown::CustomRenderer < Redcarpet::Render::HTML
+  include ERB::Util
+
+  def block_code(code, language)
+    class_list = language.nil? ? "language-none" : ((language.split ".").join " ")
+    %(
+<pre><code class="#{class_list}">#{html_escape code}</code></pre>
+    )
+  end
+
+end
+```
+
+block_code メソッドをオーバーライドして markdown 内の、`&#x60;&#x60;&#x60;` を、&lt;pre&gt;&lt;code&gt; の html タグに変換する際に、引数の language が class 属性に設定されるようにしました。
+markdown 側で　`&#x60;&#x60;&#x60;` を書いた直後にlanguageを指定すると、block_code メソッドに引数として渡せます。
+また、ドットつなぎで、渡された文字列を split して複数の class 属性が設定できるようにしたので、コードハイライトをしつつ、行番号も表示させることができました。
+
+

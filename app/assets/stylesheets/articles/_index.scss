@@ -1,0 +1,28 @@
+#articles-index {
+  max-width: 90vw;
+
+  h1 {
+    border-bottom: $color-gold 4px double;
+    width: fit-content;
+    margin: 6vh auto;
+    letter-spacing: 0.3rem;
+  }
+  p {
+    margin-bottom: 0;
+    letter-spacing: 0.1rem;
+  }
+  .row {
+    .article-description {
+
+      a {
+        font-size: 1.2rem;
+        @include hoverable-anchor(
+          $before-color: black,
+          $before-border-bottom: $color-gold 1px solid,
+          $after-color: $color-focused,
+          $after-border-bottom: $color-focused 1px solid
+        );
+      }
+    }
+  }
+}

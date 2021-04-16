@@ -1,0 +1,13 @@
+@mixin hoverable-anchor($before-color, $before-border-bottom, $after-color, $after-border-bottom) {
+  text-decoration: none;
+  color: $before-color;
+  border-bottom: $before-border-bottom;
+  &:hover {
+    color: $after-color;
+    border-bottom: $after-border-bottom;
+  }
+}
+
+@mixin box-shadow {
+  box-shadow:0px 3px 8px #81787e;
+}

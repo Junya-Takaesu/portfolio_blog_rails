@@ -1,0 +1,18 @@
+<%# fixed-bottom だけなら、下にフッターがくっつく。スマホのとき良さそう %>
+<nav class="fixed-bottom sticky-top">
+  <div class="container">
+    <div class="row text-center py-4">
+      <div class="col">
+        <a href="/" class="text-decoration-none text-reset" id="logo">Junya Takaesu</a>
+      </div>
+      <div class="col">
+        <a href="<%= articles_path %>" class="text-decoration-none text-reset">BLOG</a>
+      </div>
+      <div class="col">
+        <a href="https://github.com/Junya-Takaesu" target="_blank">
+          <%= image_tag "GitHub-Mark-32px.png", style: "width: 20px; height: 20px"  %>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

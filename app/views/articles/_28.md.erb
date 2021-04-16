@@ -1,0 +1,35 @@
+サイトマップ生成して、Google Search Console に登録したかったので、いろいろと調べたら、
+PHP のライブラリで [php-sitemap-generator](https://github.com/icamys/php-sitemap-generator) というのがあった。
+これで生成できるか試してみた。
+
+```php
+<?php
+include "vendor/autoload.php";
+
+$siteUrl = "https://example.com";
+
+$outputDir = "./output";
+
+$generator = new \Icamys\SitemapGenerator\SitemapGenerator($siteUrl, $outputDir);
+
+$generator->enableCompression();
+
+$generator->setSitemapFilename("sitemap.xml");
+
+$generator->addURL('/path/to/page/', new DateTime(), 'always', 0.5);
+
+$generator->flush();
+
+$generator->finalize();
+
+$generator->updateRobots();
+
+print_r($generator->submitSitemap());
+```
+
+てっきり、サイトの URL とかを指定したら、勝手にクロールしてサイトマップ作ってくれる？と思いましたが、さすがに URL 部分は自分で指定しないといけないです。
+14 行目の `addURL` のことです。
+
+引数でページのパスを指定してあげると、生成されるサイトマップに URL を書いてくれます。
+サイトのメタ情報は、JSON で管理しているので、それを使ってサイトマップ生成ができるかこれから検討します。
+

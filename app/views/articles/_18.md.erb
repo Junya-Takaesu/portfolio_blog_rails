@@ -1,0 +1,17 @@
+このサイトがある程度仕上がったので、グーグルでちゃんと検索結果表示されてほしい。
+
+google で検索できるようにするには、google のインデックスに載らないと行けない。
+google のインデックスに載ってるかどうかは、下記のように検索すればすぐわかる
+
+`site:wikipedia.org` や `site:floating-thicket-83470.herokuapp.com`
+
+上記検索で何も結果が表示されない場合、Google のインデックスに載っていないことになるので、
+Google Search Console を使って、google にサイトを認証してもらう。
+
+Google Search Console を開いて `URLプリフィクス` でサイトを設定すると、verification 用の HTML ファイルがダウンロードできる。
+ダウロードした HTML ファイルを サイトのルートパスの場所にアップロードする。
+その後、Google Search Console で、その HTML ファイルの確認を行うと、Google Search Console でサイトが管理できるようになる。
+
+
+
+これで、検索結果にこのブログが表示されるようになるか？？？

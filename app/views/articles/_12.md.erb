@@ -1,0 +1,49 @@
+
+## Undefined variable のエラー
+
+`app/assets/stylesheets/application.css.scss` で Sass のを下記のように定義していました。
+`/variables`(`./_variables.scss`)では、$color-gold という金色のカラーコードを定義していて、
+それを `/common`(`./_common.scss`)というサイト全体共通のスタイル定義で使用していました。
+
+```css
+@import "./variables";
+@import "./common";
+@import "./static_articles/navigation";
+@import "./static_articles/about";
+@import "./static_articles/index";
+@import "./static_articles/show";
+
+@import "./static_articles/responsive/responsive";
+```
+
+**_これで rails server を実行してアクセスすると `./common` で使用されている変数 `$color-gold` が undefined というエラーが発生_**
+
+変数を定義（初期化）する前に、変数を使ったから、undefined になった？と思ったのですが、
+import 順は、`./variables` を先にインポートしていて、変数を参照する前に、定義しているように見えます。
+それに、最後に import している `./static_articles/show` でも `$color-gold` を使っていたのですが、そちらは、undefined なく変数が使えていました。
+(※undefined エラーが発生した箇所をすべてコメントアウトして、`./static_articles/show` の sass コンパイルが問題ないことを確認)
+
+
+## 解決策
+
+```css
+@import "./variables/variables"; // <- サブディレクトリに入れた
+@import "./common/common";　// <- サブディレクトリに入れた
+@import "./static_articles/navigation";
+@import "./static_articles/about";
+@import "./static_articles/index";
+@import "./static_articles/show";
+
+@import "./static_articles/responsive/responsive";
+```
+
+`./static_articles/show` で undefined なく変数が使えていたのは、それがサブディレクトリに入っていたから？と思い試したら解決しました
+
+Rails は Sprockets が sass-rails gem を使って sass をコンパイルするよう。
+Sprokcets は独自の directives を見て、どのファイルを処理するか判断するみたいですが、
+上記 `application.css.scss` では `*= require_self` をしていてこのファイルのみを Sprockets に処理してもらおうと意図していたので、
+上から順に import していけばうまくいくと思っていたのですが、なぜ同階層のscssファイルをimportしようとすると undefined になってしまうかはよくわかりませんでした。
+
+* リファレンス:
+    * https://guides.rubyonrails.org/asset_pipeline.html
+

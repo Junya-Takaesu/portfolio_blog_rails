@@ -1,0 +1,27 @@
+```html
+<form action="/form" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <div>
+    <label for="value1">値1: </label>
+    <input type="text" name="value1">
+  </div>
+  <div>
+    <label for="value2">値2: </label>
+    <input type="text" name="value2">
+  </div>
+  <div>
+    <label for="value3">値3: </label>
+    <textarea name="value3" cols="50" rows="10"></textarea>
+  </div>
+
+  <input type="submit" value="送信">
+</form>
+```
+
+input タグを下記のようにすると、sinatra はこのフォームで送られたリクエストを DELETE として認識する
+
+```html
+<input type="hidden" name="_method" value="DELETE">
+```
+
+DELETE だけでなく、PATCH や PUT も同様らしい。

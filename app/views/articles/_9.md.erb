@@ -1,0 +1,103 @@
+## HTML より簡単に書けるので、Markdown が使いたい。
+HTML でブログを書いていましたが、大変なので、`markdown` でブログがかけないか考えました。
+
+ほしい機能は：
+
+* markdownで書かれたviewファイルを HTML への変換
+* markdown 内に書かれている &#x3C;% %&#x3E; の ruby コード実行
+
+の2点です。
+
+markdown から html への変換は `redcarpet` という gem が使えそうです。
+
+&#x3C;% %&#x3E; で書かれた ruby コードの実行は、rails の render メソッドを使えばできそうです。
+
+## `redcarpet` のインストール
+`redcarpet` という gem をインストールしました。
+依存ライブラリを必要としないので、`gem install redcarpet` ですぐに使い始められました。
+
+* https://github.com/vmg/redcarpet
+
+## `redcarpet` を使う手順
+1. `Redcarpet::Render::HTML` インスタンスを作る
+2. 下記2点を引数にして `Redcarpet::Markdown` のインスタンスを作る
+  * `Redcarpet::Render::HTML` インスタンス
+  * 拡張機能のオプションをまとめたハッシュ
+3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
+
+### 1. `Redcarpet::Render::HTML` インスタンスを作る
+```ruby
+renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
+```
+* 引数なしでも、インスタンスが作れる
+* よく使いそうな引数：
+
+| 引数 | 意味 |
+| :------ | :------ |
+| escape_html   |  html タグをエスケープして、レンダーする  |
+| hard_wrap   |  文字列中の改行を <br> に変換する  |
+| with_toc_data   |  ヘッダー要素の id 属性に ヘッダーの文字列が設定される  |
+| link_attributes   |  aタグの属性をハッシュで指定する(例: {target: "_blank"})  |
+
+* `width_toc_data` については、日本語の見出しのとき、ハッシュ値が id に設定される。英語の場合は、英語のスペースをハイフン区切りした、見出しが id に設定される。
+
+    * `<h2 id="part-263d3c7416ea4e01">これは日本語のヘッダー</h2>`
+    * `<h2 id="this-is-an-english-header">this is an english header</h2>`
+
+### 2. `Redcarpet::Markdown` のインスタンスを作る
+```ruby
+markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+```
+* `renderer` は 1 の手順で生成したインスタンス
+* `extensions` に色々拡張機能を指定できる（というか指定しないと、機能がほとんどなくて意味がない。)
+* 使いたい拡張機能
+
+| extensions | 内容 |
+| :------ | :------- |
+| no_intra_emphasis | example_emphasis_string のように書いたときに<em>に変換されない |
+| autolink   | http や https で始まる文字列が自動的にaタグに変換される http://example.com  |
+| fenced_code_blocks   | バッククオートx3 でコードブロックが書ける  |
+| tables   | テーブル記法が有効になる |
+| underline   |  _下線の記法が有効になる_  |
+| strikethrough   |  ~~取り消し線の記法が有効になる~~  |
+| disable_indented_code_blocks   |  インデントによるコードブロック記法を無効にする(バッククオートを使いたいので)  |
+| highlight   |  ==ハイライト記法が有効になる==  |
+| footnotes   |  脚注[^1]が有効[^2]になる  |
+
+[^1]: ただの脚注の例
+[^2]: 複数行も
+    インデントを使えばできるようです。
+    `インラインコードもかけます。もちろんブロックコードも`
+
+### 3. `Redcarpet::Markdown` インスタンスのメソッド `render` を使って、markdown で書かれた文字列を html にレンダーする
+```ruby
+markdown.render("# markdown のフォーマットで書かれた文字列")
+```
+
+## ブログへの実装
+### 1. rails の　reder メソッドによって、md ファイル内の ruby コード実行
+* ruby コード内容
+  * 変数に代入された記事タイトルを見出しとして表示するため、# &#x3C;%= title %&#x3E; のようなコードを md ファイルに記述
+  * 画像を記事に表示するため、&#x3C;%= image_tag ... %&#x3E; のようなコードを md ファイルに記述
+* 上記の ruby コードを render メソッドを通すことで、html に変換される
+
+### 2. ruby コードが実行された後の markdown を `redcarpet` を使って html に変換
+* 前述の `redcarpet` を使う手順の通り、インスタンスを作って、`redcarpet` の `render` メソッドを使って html に変換
+
+## 問題
+_**rails の render メソッドによる ruby コード実行時に、markdown の code block 内に書かれた &#x3C;% %&#x3E; まで、実行されてしまう**_
+
+先に、markdown を html に変換して、それを rails の render メソッドに通すことも考えましたが、
+redcarpet が markdwon 内にかかれている &#x3C;% %&#x3E; をすべて html エンティティに変換してしまうので、
+ruby コード実行のタイミングで、ruby コードが無効化されてしまうという別の問題がありました。
+
+redcarpet インスタンス生成時のパラメーターで、html_escape: false とすることができるのですが、
+&lt; と &gt;  は、html_escape の内容に関わらず html エンティティに変換されてしまいます。
+
+なので、rails の render をオーバーライドするなどして、markdown 内の block code 内の　&#x3C;% %&#x3E; を エスケープさせた上で、
+rails の render 本来の処理を実行させるなどの対応が必要かもしれない？
+
+## 修正案
+* markdown ファイルの block code 内にかかれている &#x3C;% %&#x3E; のみエスケープする(block code 以外に書かれた &#x3C;% %&#x3E; はそのまま)
+* rails の render を使って markdown ファイルに記述された、&#x3C;% %&#x3E; の ruby コードを実行(block code 内にかかれている &#x3C;% %&#x3E; はエスケープされているので、実行されない)
+* 最後に markdown を redcarpet を使って html に変換
