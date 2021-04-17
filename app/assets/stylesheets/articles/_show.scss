@@ -1,11 +1,12 @@
 #article-show {
-  max-width: 70vw;
+  max-width: 90vw;
   overflow-wrap: break-word;
 
   #article-body {
-    @include box-shadow;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
     background: #e4e3e2;
     border-radius: 15px;
+    width: 1000px;
 
     h1, h2, h3, h4, h5, h6 {
       color: black;
@@ -26,6 +27,7 @@
     p {
       width: 100%;
       font-size: 1.1rem;
+      margin: 2.5rem 0;
     }
 
     img {
