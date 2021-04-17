@@ -3,7 +3,7 @@
   overflow-wrap: break-word;
 
   #article-body {
-    @include box-shadow;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
     background: #e4e3e2;
     border-radius: 15px;
     width: 1000px;
