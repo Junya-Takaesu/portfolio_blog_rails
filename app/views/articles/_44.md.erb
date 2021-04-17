@@ -1,0 +1,39 @@
+下記の記事を参考にして、このブログの Docke 化を試みました。
+
+【Build a Minimal Docker Container for Ruby Apps】
+https://www.cloudbees.com/blog/build-minimal-docker-container-ruby-apps/
+
+## うまくできない。
+
+上記の記事を参考に、ミニマムなイメージを作ろうとしましたが、全然うまくいきませんでした。
+alpine をベースにしたミニマムなイメージを作ろうとしたので、Rails を動かすために必要なライブラリやパッケージを自分で追加しないといけなくて、Rails を動かすために必要なものを確認するのがとても手間がかかりました。
+docker-compose build を繰り返し、表示されたエラーをもとに、足りないライブラリ、パッケージをひとつずつ追加していくという作業を、4時間ぐらいやりましたが、それでも終わらず。
+時間をかけて、ちょっとずつ完成に近づいていたのですが、途中で Ruby のネイティブライブラリがないことが原因で、Ruby のコンパイル？がコケてしまいました。必要なライブラリを alpine にどうやって入れるかが全然わからず、ここで諦めました。
+
+## とりあえず、出来合いの ruby イメージをベースに Dockerfile を書く
+
+[Docker quickstart](https://docs.docker.com/compose/rails/) を参考にしました。
+
+```dockerfile
+FROM ruby:3.0
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - &&\
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client yarn
+WORKDIR /myapp
+COPY Gemfile /myapp/Gemfile
+COPY Gemfile.lock /myapp/Gemfile.lock
+RUN bundle install
+COPY . /myapp
+
+EXPOSE 3000
+
+CMD ["rails", "server", "-b", "0.0.0.0"]
+```
+
+とりあえず、これで `docker-compose build` が通り、`docker-compose up` も動きました。
+`CMD ["rails", "server", "-b", "0.0.0.0"]` で、 0.0.0.0 にバインドしているのは、ローカルホスト以外からもコンテナ上のサイトにアクセスできるようにするためです。
+コンテナから見たときに、よそのコンピューターであるホストのブラウザから `localhost` を使ってアクセスが出来ます。
+
+このコンテナを動かすと毎回、`sudo chown -R $USER:$USER .` を実行して、所有者をホストのユーザーに上書きしないといけません。そうしないと、docker-compose build や docker-compose up で Permission のエラーになります。原因は、DBの volume のファイル・ディレクトリが、db コンテナのユーザーになるためです。
+
+[Docker quickstart](https://docs.docker.com/compose/rails/) では、Rails 特有の問題に対処するために、entrypoint.sh を Dockerfile の ENTRYPOINT に指定していました。Rails 特有の問題というのは、tmp/pids/server.pid がコンテナ停止後も残ってしまい、次回の rails server 実行時に、server already running のエラーが起きてしまうというものです。このENTRYPOINTは不要かと思い、入れませんでした。実際に、docker-compose up して、ctrl + c でコンテナを停止させてみましたが、server.pid のファイルは残っておらず、普通に rails server 起動が出来ました。何らかの理由で、コンテナがクラッシュした場合とかは、server.pid が残ってしまうかもしれませんが、その時は、手動で消せばいいかなと思いました。
