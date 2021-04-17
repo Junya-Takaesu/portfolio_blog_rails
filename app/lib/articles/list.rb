@@ -13,7 +13,4 @@ class Articles::List
   def initialize
   end
 
-  def self.reverse
-    (ARTICLES_BY_ID.sort_by {|k, v| -k}).to_h
-  end
 end
