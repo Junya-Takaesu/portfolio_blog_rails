@@ -1,5 +1,7 @@
+require "json"
+
 class Articles::List
-  require "json"
+
 
   articles = JSON.parse(File.read("#{Rails.root}/app/views/articles/articles.json"))
   articles_array = articles.map do |key, value|
