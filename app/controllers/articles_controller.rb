@@ -3,10 +3,12 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Articles::List.reverse
+    articles_list = Articles::List.new
+    @articles = articles_list.sort(key: "created_at", order: "desc").articles_hash
   end
 
   def show
-    @article = Articles::List::ARTICLES_BY_ID[params[:id].to_i]
+    articles_list = Articles::List.new
+    @article = articles_list.articles_hash[params[:id].to_i]
   end
 end
