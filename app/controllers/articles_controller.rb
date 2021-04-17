@@ -3,8 +3,11 @@ class ArticlesController < ApplicationController
   end
 
   def index
+    key = params[:key].nil? ? "created_at" : params[:key]
+    order = params[:order].nil? ? "desc" : params[:order]
+
     articles_list = Articles::List.new
-    @articles = articles_list.sort(key: "created_at", order: "desc").articles_hash
+    @articles = articles_list.sort(key: key, order: order).articles_hash
   end
 
   def show
