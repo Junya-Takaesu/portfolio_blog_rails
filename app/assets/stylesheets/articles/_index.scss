@@ -1,12 +1,17 @@
+#filter {
+  position: fixed;
+  top: 16%;
+  right: 80%;
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+}
+
 #articles-index {
   max-width: 90vw;
+  margin-top: 80px;
 
-  h1 {
-    border-bottom: $color-gold 4px double;
-    width: fit-content;
-    margin: 6vh auto;
-    letter-spacing: 0.3rem;
-  }
   p {
     margin-bottom: 0;
     letter-spacing: 0.1rem;

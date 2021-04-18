@@ -1,10 +1,29 @@
-<div class="container-fluid" id="articles-index">
-  <h1>BLOG</h1>
+<aside id="filter">
+  <p>Archives</p>
+  <nav>
+    <ul>
+      <li>
+        <a href="?date=2020-04">2020-04</a>
+      </li>
+      <li>
+        <a href="?date=2020-03">2020-03</a>
+      </li>
+      <li>
+        <a href="?date=2020-02">2020-02</a>
+      </li>
+      <li>
+        <a href="?date=2020-01">2020-01</a>
+      </li>
+    </ul>
+  </nav>
+</aside>
+
+<div class="container" id="articles-index">
   <% @articles.each do |article| %>
   <% id, article = article%>
     <div class="row justify-content-md-center gx-0 mb-5">
       <div class="col-md-8 col-lg-6 mx-md-3 article-description">
-        <span class="publish-date"><%= "日付: #{article.created_at}" %></span>
+        <span class="publish-date"><%= "#{article.created_at}" %></span>
         <p>
           <%= link_to article.title, "#{articles_path}/#{article.id.to_s}", class: "article-title" %>
         </p>
