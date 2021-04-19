@@ -10,24 +10,35 @@ import "channels"
 
 // 自前の js を import していく
 import AboutPage from "../about/AboutPage";
-import ShowPage from "../articles/show/ShowPage";
+import ArticlesIndexPage from "../articles/index/ArticlesIndexPage";
+import ArticlesShowPage from "../articles/show/ArticlesShowPage";
 import PrismInitializer from "../prism/PrismInitializer";
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-// js を初期化していく
-const aboutPage =  new AboutPage();
-const showPage = new ShowPage();
-const prismInitializer = new PrismInitializer();
+const initializers = () => {
+  const urlPath = window.location.pathname;
 
-const events = ["load", "turbolinks:load"];
-
-events.forEach(event => {
-  window.addEventListener(event, () => {
+  if (/^\/$/.test(urlPath)) {
+    const aboutPage =  new AboutPage();
     aboutPage.initialize();
+  } else if (/^\/articles$/.test(urlPath)) {
+    const articlesIndexPage = new ArticlesIndexPage();
+    articlesIndexPage.initialize();
+  } else if (/^\/articles\/\d+$/.test(urlPath)) {
+    const prismInitializer = new PrismInitializer();
+    const articlesShowPage = new ArticlesShowPage();
     prismInitializer.initialize();
-    showPage.initialize();
-  })
+    articlesShowPage.initialize();
+  }
+}
+
+document.addEventListener("load", () => {
+  initializers();
+});
+
+document.addEventListener("turbolinks:load", () => {
+  initializers();
 });
