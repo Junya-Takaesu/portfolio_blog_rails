@@ -12,8 +12,10 @@
   position: fixed;
   bottom: 2%;
   right: 2%;
+  z-index: 11;
   cursor: pointer;
   background: rgba(255,255,255,0.8);
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
   border-radius: 3px;
   div {
     background-color: #b7c3ce;

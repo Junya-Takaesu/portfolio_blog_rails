@@ -46,6 +46,7 @@
 @import "./articles/index";
 @import "./articles/show";
 
-@import "./articles/responsive/responsive";
+@import "./common/responsive";
+@import "./articles/responsive";
 
 @import "./prism/prism";
