@@ -6,6 +6,10 @@ namespace :blog do
       print "> "
       entry_title = gets.chomp
 
+      puts "ブログのタグをカンマ区切りで入力してください"
+      print "> "
+      entry_tags = gets.chomp
+
       # Todo: ssh key をコンテナにコピーして、fetch もできるようにする
       # system("git fetch --all")
       system("git checkout write-article")
@@ -21,7 +25,8 @@ namespace :blog do
       parsed_json[new_id.to_s] = {
         "id" => new_id,
         "title" => "#{entry_title}",
-        "created_at" => today.iso8601
+        "created_at" => today.iso8601,
+        "tags" => entry_tags.split(",")
       }
 
       File.write json_path, parsed_json.to_json
