@@ -2,221 +2,411 @@
   "1": {
     "id": 1,
     "title": "初めての記事",
-    "created_at": "2021-1-30"
+    "created_at": "2021-1-30",
+    "tags": [
+      "ruby",
+      "rails"
+    ]
   },
   "2": {
     "id": 2,
     "title": "Webpack と CDN の比較",
-    "created_at": "2021-1-31"
+    "created_at": "2021-1-31",
+    "tags": [
+      "javascript",
+      "webpack"
+    ]
   },
   "3": {
     "id": 3,
     "title": "Rails のレンダリングについて (View の表示)",
-    "created_at": "2021-2-1"
+    "created_at": "2021-2-1",
+    "tags": [
+      "ruby",
+      "rails"
+    ]
   },
   "4": {
     "id": 4,
     "title": "コードスニペットをブログに取り入れる",
-    "created_at": "2021-2-2"
+    "created_at": "2021-2-2",
+    "tags": [
+      "ruby"
+    ]
   },
   "5": {
     "id": 5,
     "title": "画面の幅がブレイクポイントに達したら、レイアウトを変える",
-    "created_at": "2021-2-3"
+    "created_at": "2021-2-3",
+    "tags": [
+      "css",
+      "bootstrap"
+    ]
   },
   "6": {
     "id": 6,
     "title": "ruby で、postgresql のテーブルを検索するやり方",
-    "created_at": "2021-2-4"
+    "created_at": "2021-2-4",
+    "tags": [
+      "ruby",
+      "postgresql",
+      "pg"
+    ]
   },
   "7": {
     "id": 7,
     "title": "bootstrap 5 の justify-content utilities を使う",
-    "created_at": "2021-2-5"
+    "created_at": "2021-2-5",
+    "tags": [
+      "css",
+      "bootstrap"
+    ]
   },
   "8": {
     "id": 8,
     "title": "CSS練習(flex-box, 背景画像の設定, 疑似要素による明るさ設定)",
-    "created_at": "2021-2-6"
+    "created_at": "2021-2-6",
+    "tags": [
+      "css",
+      "flex"
+    ]
   },
   "9": {
     "id": 9,
     "title": "markdown ブログを書き始める。",
-    "created_at": "2021-2-7"
+    "created_at": "2021-2-7",
+    "tags": [
+      "ruby",
+      "rails",
+      "markdown",
+      "redcarpet"
+    ]
   },
   "10": {
     "id": 10,
     "title": "ダーツバーのウェブサイトを作成(練習)",
-    "created_at": "2021-2-8"
+    "created_at": "2021-2-8",
+    "tags": [
+      "sass",
+      "bootstrap"
+    ]
   },
   "11": {
     "id": 11,
     "title": "配列と、ハッシュでは計算量に差が出る。",
-    "created_at": "2021-2-9"
+    "created_at": "2021-2-9",
+    "tags": [
+      "algorithm"
+    ]
   },
   "12": {
     "id": 12,
     "title": "Sass変数が未定義になってしまう",
-    "created_at": "2021-2-10"
+    "created_at": "2021-2-10",
+    "tags": [
+      "css",
+      "sass"
+    ]
   },
   "13": {
     "id": 13,
     "title": "sinatora で get と post 以外の http メソッドを扱う",
-    "created_at": "2021-2-10"
+    "created_at": "2021-2-10",
+    "tags": [
+      "ruby",
+      "sinatra"
+    ]
   },
   "14": {
     "id": 14,
     "title": "コードハイライトを導入してみる",
-    "created_at": "2021-2-10"
+    "created_at": "2021-2-10",
+    "tags": [
+      "javascript",
+      "highlight.js",
+      "prism.js"
+    ]
   },
   "15": {
     "id": 15,
     "title": "Turbolinks は 最初にサイトにアクセスしたときしか load イベントを発しない",
-    "created_at": "2021-2-10"
+    "created_at": "2021-2-10",
+    "tags": [
+      "ruby",
+      "rails",
+      "turbolinks",
+      "javascript"
+    ]
   },
   "16": {
     "id": 16,
     "title": "css ファイルサイズを意識する",
-    "created_at": "2021-2-12"
+    "created_at": "2021-2-12",
+    "tags": [
+      "css"
+    ]
   },
   "17": {
     "id": 17,
     "title": "vscode 拡張機能 \"Live Sass Compiler\"",
-    "created_at": "2021-2-12"
+    "created_at": "2021-2-12",
+    "tags": [
+      "vscode",
+      "sass"
+    ]
   },
   "18": {
     "id": 18,
     "title": "Google の検索結果に表示されるようにしたい",
-    "created_at": "2021-2-13"
+    "created_at": "2021-2-13",
+    "tags": [
+      "seo",
+      "google search console"
+    ]
   },
   "19": {
     "id": 19,
     "title": "Markdown のコードブロックを簡単に書けるようにする",
-    "created_at": "2021-2-14"
+    "created_at": "2021-2-14",
+    "tags": [
+      "ruby",
+      "rails",
+      "redcarpet",
+      "markdown"
+    ]
   },
   "20": {
     "id": 20,
     "title": "このブログは Google のインデックスに登録されているのか",
-    "created_at": "2021-2-15"
+    "created_at": "2021-2-15",
+    "tags": [
+      "seo",
+      "google search console"
+    ]
   },
   "21": {
     "id": 21,
     "title": "Bootstrap5に pl-* のようなクラスは存在しない",
-    "created_at": "2021-2-15"
+    "created_at": "2021-2-15",
+    "tags": [
+      "css",
+      "bootstrap"
+    ]
   },
   "22": {
     "id": 22,
     "title": "twitter の api を使ってみる",
-    "created_at": "2021-2-15"
+    "created_at": "2021-2-15",
+    "tags": [
+      "ruby",
+      "twitter"
+    ]
   },
   "23": {
     "id": 23,
     "title": "Ruby で HTTP セッションを使ういろいろな方法",
-    "created_at": "2021-2-16"
+    "created_at": "2021-2-16",
+    "tags": [
+      "ruby",
+      "rails",
+      "http",
+      "session"
+    ]
   },
   "24": {
     "id": 24,
     "title": "Sinatra の Session について",
-    "created_at": "2021-2-17"
+    "created_at": "2021-2-17",
+    "tags": [
+      "ruby",
+      "sinatra"
+    ]
   },
   "25": {
     "id": 25,
     "title": "PG gem の使い方で知ったこと 2点",
-    "created_at": "2021-2-18"
+    "created_at": "2021-2-18",
+    "tags": [
+      "ruby",
+      "postgresql",
+      "pg"
+    ]
   },
   "26": {
     "id": 26,
     "title": "CSS not 疑似クラス",
-    "created_at": "2021-2-19"
+    "created_at": "2021-2-19",
+    "tags": [
+      "css"
+    ]
   },
   "27": {
     "id": 27,
     "title": "Google のインデックスに登録されないため、サイトマップを生成してみる",
-    "created_at": "2021-2-20"
+    "created_at": "2021-2-20",
+    "tags": [
+      "seo",
+      "google search console"
+    ]
   },
   "28": {
     "id": 28,
     "title": "PHP サイトマップ生成ライブラリ「php-sitemap-generator」について",
-    "created_at": "2021-2-21"
+    "created_at": "2021-2-21",
+    "tags": [
+      "php",
+      "xml",
+      "sitemap"
+    ]
   },
   "29": {
     "id": 29,
     "title": "Javascript のモジュールについて",
-    "created_at": "2021-3-5"
+    "created_at": "2021-3-5",
+    "tags": [
+      "javascript"
+    ]
   },
   "30": {
     "id": 30,
     "title": "SQL インジェクションを意識した Active Record の使い方",
-    "created_at": "2021-3-6"
+    "created_at": "2021-3-6",
+    "tags": [
+      "ruby",
+      "rails",
+      "active record",
+      "sql"
+    ]
   },
   "31": {
     "id": 31,
     "title": "Rake を使ってブログ記事作の雛形生成を自動化してみた",
-    "created_at": "2021-3-7"
+    "created_at": "2021-3-7",
+    "tags": [
+      "ruby",
+      "rails",
+      "rake",
+      "git"
+    ]
   },
   "32": {
     "id": 32,
     "title": "ActiveRecord の Eager Loading を使うと、圧倒的にパフォーマンスが上がる",
-    "created_at": "2021-3-8"
+    "created_at": "2021-3-8",
+    "tags": [
+      "ruby",
+      "rails",
+      "active record"
+    ]
   },
   "33": {
     "id": 33,
     "title": "ActiveRecord: take メソッドと limit メソッドの違い",
-    "created_at": "2021-3-9"
+    "created_at": "2021-3-9",
+    "tags": [
+      "ruby",
+      "rails",
+      "active record"
+    ]
   },
   "34": {
     "id": 34,
     "title": "WSL2 上の postgresql サーバーに windows10  から A5:SQL Mk-2 を使って接続する",
-    "created_at": "2021-03-12"
+    "created_at": "2021-03-12",
+    "tags": [
+      "wsl",
+      "windows",
+      "postgresql",
+      "a5:sql mk-2"
+    ]
   },
   "35": {
     "id": 35,
     "title": "ActiveRecord insert_all の制約",
-    "created_at": "2021-03-18"
+    "created_at": "2021-03-18",
+    "tags": [
+      "ruby",
+      "rails",
+      "active record"
+    ]
   },
   "36": {
     "id": 36,
     "title": "Heroku のデプロイ自動化（github連動）",
-    "created_at": "2021-03-19"
+    "created_at": "2021-03-19",
+    "tags": [
+      "heroku"
+    ]
   },
   "37": {
     "id": 37,
     "title": "Rails with SQLite3 の新規アプリケーション作成チートシート",
-    "created_at": "2021-03-21"
+    "created_at": "2021-03-21",
+    "tags": [
+      "ruby",
+      "rails",
+      "sqlite"
+    ]
   },
   "38": {
     "id": 38,
     "title": "ActiveRecord で取得したレコード群を Json に変換する",
-    "created_at": "2021-03-26"
+    "created_at": "2021-03-26",
+    "tags": [
+      "ruby",
+      "active record"
+    ]
   },
   "39": {
     "id": 39,
     "title": "FlexもGridも使わないレスポンシブなカードデザイン",
-    "created_at": "2021-03-29"
+    "created_at": "2021-03-29",
+    "tags": [
+      "css"
+    ]
   },
   "40": {
     "id": 40,
     "title": "sudoers を編集して、特定のコマンドをパスワードなしで実行する",
-    "created_at": "2021-04-02"
+    "created_at": "2021-04-02",
+    "tags": [
+      "linux",
+      "sudo"
+    ]
   },
   "41": {
     "id": 41,
     "title": "PHP 読み物リスト",
-    "created_at": "2021-04-02"
+    "created_at": "2021-04-02",
+    "tags": [
+      "php"
+    ]
   },
   "42": {
     "id": 42,
     "title": "JS でミュージックプレイヤーを作る",
-    "created_at": "2021-04-11"
+    "created_at": "2021-04-11",
+    "tags": [
+      "javascript"
+    ]
   },
   "43": {
     "id": 43,
     "title": "Docker化してみる",
-    "created_at": "2021-04-15"
+    "created_at": "2021-04-15",
+    "tags": [
+      "docker",
+      "ruby"
+    ]
   },
   "44": {
     "id": 44,
     "title": "Blog を Docker 化してみる",
-    "created_at": "2021-04-16"
+    "created_at": "2021-04-16",
+    "tags": [
+      "docker",
+      "rails",
+      "ruby"
+    ]
   }
 }
