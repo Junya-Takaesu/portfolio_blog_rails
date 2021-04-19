@@ -42,11 +42,12 @@
 @import "./mixins/mixins";
 @import "./common/common";
 @import "./common/navigation";
-@import "./articles/about";
+@import "./about/index";
 @import "./articles/index";
 @import "./articles/show";
 
 @import "./common/responsive";
+@import "./about/responsive";
 @import "./articles/responsive";
 
 @import "./prism/prism";

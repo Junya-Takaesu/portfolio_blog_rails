@@ -1,7 +1,4 @@
 class ArticlesController < ApplicationController
-  def about
-  end
-
   def index
     key = params[:key].nil? ? "created_at" : params[:key]
     order = params[:order].nil? ? "desc" : params[:order]

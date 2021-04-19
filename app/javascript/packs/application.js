@@ -9,7 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 // 自前の js を import していく
-import AboutPage from "../articles/about/AboutPage";
+import AboutPage from "../about/AboutPage";
 import ShowPage from "../articles/show/ShowPage";
 import PrismInitializer from "../prism/PrismInitializer";
 
