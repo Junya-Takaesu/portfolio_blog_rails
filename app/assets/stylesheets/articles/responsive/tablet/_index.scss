@@ -3,6 +3,8 @@
   position: fixed;
   top: 72px;
   right: 0;
+  transform: translateX(100%);
+  transition: transform 0.8s ease;
   z-index: 10;
   width: 50%;
   height: 100%;
@@ -14,12 +16,32 @@
   }
 
   &.active {
+    transform: translateX(0%);
     display: flex !important;
     flex-direction: column;
     align-items: center;
   }
 
+  .filter-header {
+    opacity: 0;
+  }
+
+  .filter-item {
+    opacity: 0;
+  }
+
   .archives {
 
+  }
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
