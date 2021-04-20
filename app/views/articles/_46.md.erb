@@ -1,0 +1,111 @@
+<%= image_tag "46/hamburgermenudemo.gif", style: "width:300px; display:block; margin:0 auto;" %>
+
+ハンバーガーメニューの作り方を勉強したので、実践として、ブログに実装してみました。ハンバーガーメニューを作るにあたって、下記の動画を参考にさせていただきました。
+
+* [Animated Hamburger Menu in CSS/JS | Build a responsive website from scratch (Part 2)](https://www.youtube.com/watch?v=XKehq1w4vfg)
+* [Responsive Navigation Bar Tutorial | HTML CSS JAVASCRIPT](https://www.youtube.com/watch?v=gXkqy0b4M5g)
+
+
+## ハンバーガーのアニメーション
+
+<%= image_tag "46/hamburgerIcon.gif", style: "width:300px; display:block; margin:0 auto;" %>
+
+HTML は下記のようにシンプル。3本のバーを表すdivがあるだけ。
+
+```html
+<aside id="burger" class="d-block d-lg-none">
+  <div></div>
+  <div></div>
+  <div></div>
+</aside>
+```
+
+下記のようなスタイルをハンバーガーアイコンに設定して、ハンバーガーアイコンをクリックしたときに、`active` をハンバーガーアイコンに追加するように js を書きました。
+`&lt;aside id="burger"&gt;` に active クラスがつくと、div の配置が transform します。その transform を transition の対象に指定して、アニメーションされます。
+
+
+```scss
+$silde-animation: transform 0.18s ease;
+
+#burger {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 11;
+  cursor: pointer;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
+  border-radius: 3px;
+
+  div {
+    background-color: #b7c3ce;
+    width: 40px;
+    height: 4px;
+    margin: 6px;
+    border-radius: 10px;
+    transition: $silde-animation;
+  }
+  &.active {
+    div{
+      &:nth-child(1) {
+        transform: rotate(-45deg) translate(-7px, 8px);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: rotate(45deg) translate(-7px, -8px);
+      }
+    }
+  }
+}
+```
+
+## メニューの項目を一つずつフェードインさせるアニメーション
+
+<%= image_tag "46/staggering.gif", style: "width:240px; display:block; margin:0 auto;" %>
+
+アニメーションさせたい要素群をイテレーションして、それぞれ要素にインラインスタイルとして、`animation` を設定させることで、アニメーションを実装しました。
+各要素にただ animation プロパティを設定するだけだと、フェード感がでないので、要素毎にずらした animation-delay プロパティを設定して、徐々に要素が現れるようなアニメーションにしました。
+animation-delay の遅延時間は、要素の `index / 任意の数値` で算出します。(delayGranularity という変数名が分かりづらい・・・・)
+
+```javascript
+  toggleCascadingAnimation(targets, delayGranularity) {
+    targets.forEach((target, index) => {
+      if (target.style.animation) {
+        target.style.animation = "";
+      } else {
+        target.style.animation = `navLinkFade 0.5s ease forwards ${index / delayGranularity}s`;
+      }
+    });
+  }
+```
+
+```scss
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+```
+
+## ハマったところ
+
+### display プロパティはアニメーションできない
+`display` プロパティに対してアニメーションは適用出来ません。これが最初しらなくて、`display:none` から `display:block` にcssを変化させるときにアニメーションしようとして、ハマりました。
+css のアニメーションが適用出来ないプロパティがいくつかあり、`display` もその一つです。
+
+前述の [Animated Hamburger Menu in CSS/JS | Build a responsive website from scratch (Part 2)](https://www.youtube.com/watch?v=XKehq1w4vfg) の動画でも、同じ点で少しハマってました。
+
+### dom の document にイベントリスナーを設定して、予期しない動作がした
+ブログ全体で、ページを遷移するタイミングで、ページ毎に実装された js を読み込んで実行するというようなことをしています。ハンバーガーメニューのクリックイベントを拾うために、document に addEventListner を使って、処理を仕込みました。クリックイベントは、一番トップレベルの dom まで伝搬するはずなので、document にイベントリスナーを設定すれば、その子孫要素であるハンバーガーアイコンのクリックイベントも拾えると思った次第です。
+ハンバーガーアイコンの無いページでもイベントリスナーが生きていて、存在しないハンバーガーアイコンにjsが実行されてエラーになるという事象が発生しました。
+
+原因は特定出来てませんが、document の代わりに body にイベントリスナーを設定したら、ページ移動したときに、イベントリスナーがリセットされ、想定した動きになりました。document のイベントリスナーは、サイト全体で共有されるみたいな仕様があるんでしょうか・・・・？
+
+
