@@ -1,29 +1,14 @@
 #filter {
   position: fixed;
   top: 16%;
-  right: 80%;
-  margin-left: 5%;
+  bottom: 0;
+  right: 78%;
+  margin-left: 8%;
+  padding-bottom: 100px;
+  overflow-y: auto;
   ul {
     list-style-type: none;
     padding-left: 0;
-  }
-}
-
-#burger {
-  position: fixed;
-  bottom: 2%;
-  right: 2%;
-  z-index: 11;
-  cursor: pointer;
-  background: rgba(255,255,255,0.8);
-  box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
-  border-radius: 3px;
-  div {
-    background-color: #b7c3ce;
-    width: 30px;
-    height: 3px;
-    margin: 5px;
-    border-radius: 10px;
   }
 }
 
