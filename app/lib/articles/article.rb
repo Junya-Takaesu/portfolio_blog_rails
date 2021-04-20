@@ -1,14 +1,15 @@
 class Articles::Article
-  attr_reader :id, :title, :created_at
+  attr_reader :id, :title, :created_at, :tags
 
   Properties = [
     "id", "title", "created_at"
   ]
 
-  def initialize(id:, title:, created_at:)
+  def initialize(id:, title:, created_at:, tags:)
     @id = id
     @title = title
     @created_at = Date.parse created_at
+    @tags = tags
   end
 
   def previous_article
