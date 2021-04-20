@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
 
     articles_list = Articles::List.new
     @articles = articles_list.sort(key: key, order: order).articles_hash
+    @tags = articles_list.tags
   end
 
   def show

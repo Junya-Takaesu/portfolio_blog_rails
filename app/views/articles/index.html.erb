@@ -3,21 +3,15 @@
     <p class="filter-header">Tags</p>
     <nav>
       <ul>
-        <li class="filter-item">
-          <a href="?tag=php">php</a>
-        </li>
-        <li class="filter-item">
-          <a href="?tag=ruby">ruby</a>
-        </li>
-        <li class="filter-item">
-          <a href="?tag=rails">rails</a>
-        </li>
-        <li class="filter-item">
-          <a href="?tag=html/css">html/css</a>
-        </li>
+        <% @tags.each do |tag| %>
+          <span class="filter-item">
+            <a href="?tag=<%= tag %>" class="badge rounded-pill mx-1 article-tag-<%= tag %>"><%= tag %></a>
+          </span>
+        <% end %>
       </ul>
     </nav>
   </div>
+
   <div class="archives">
     <p class="filter-header">Archives</p>
     <nav>
