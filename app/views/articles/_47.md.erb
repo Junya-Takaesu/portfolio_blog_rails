@@ -1,0 +1,128 @@
+WSL2 + Docker という環境で、Chrome を開きながら、VScode でプログラミングしていると、メモリがめちゃくちゃ消費されてしまいます。常時メモリ使用率99%です。マウスもまともに動きません。これでは何も作業できないので、WSL2 + Docker の環境でメモリが節約できないか調べました。
+
+いろいろ実施した結果、若干メモリ使用率は改善はしたのですが、期待するほどではなかったです(99% => 89% ~ 94% の間に落ち着いた)。
+
+試した方法を書いていきます。
+
+
+## 環境について
+<%= image_tag "47/winver.png", style: "width:440px;" %>
+*`スタートメニュー` + `r` で winver を実行*
+
+<%= image_tag "47/spec.png", style: "width:540px;" %>
+*メモリとCPU*
+
+## メモリの使用状況を確認
+下記の点でメモリの使用状況を確認します。
+
+* Windows 全体のメモリ
+* WSL2 が使用しているメモリ
+* WSL2 上の Ubuntu18.04 が使用しているメモリ
+* Docker / docker-compose が使用しているメモリ
+
+## Windows 全体のメモリ使用状況をタスクマネージャーで確認
+<%= image_tag "47/taskmanager.png", style: "width:100%;" %>
+*※これは事後に撮ったもの。最初はメモリが99%になっていた*
+
+当初、Vmmem なるタスクが4G~5Gのメモリを専有していました。Vmmem は仮想環境で使用されているメモリとプロセッサを表しているものです。仮想環境とは、WSL2のことです。WSL2がメモリをめっちゃ使っていることがわかったので、WSL2のメモリ使用量が制限できるか調べました。
+
+## WSL2 が使用しているメモリを制限する
+WSL2に関して、`C:\Users\[username]\.wslconfig` を書くことで、いろいろと設定が出来ます。メモリの使用量もこの設定ファイルで設定出来ます。
+
+※ `.wslconfig` の書き方など詳細は [wslのドキュメント](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig) で確認出来ます。
+
+公式ドキュメントによると Windows で使用可能なメモリのうち最大80%を使用すると書いてあります。
+
+>50% of total memory on Windows or 8GB, whichever is less; on builds before 20175: 80% of your total memory on Windows
+
+もっと少ないメモリ量を `.wslconfig` に記載します。
+
+```a:.wslconfig
+memory=1GB
+processors=1
+```
+
+これで、WSL2が使用できるメモリの最大が1Gに制限されると思います。プロセッサーは特に問題を感じていませんでしたが、とりあえず少なく設定しておきます(デフォルトでは、Windows で使用可能なプロセッサをすべて使うそうです。)
+
+**`.wslconfig` を作成・更新したら、wsl の再起動して、設定を反映させます。**
+参考: [wsl2 再起動方法](https://www.how2shout.com/how-to/how-to-reboot-wsl-windows-subsystem-linux-in-windows-10.html)
+
+## WSL2 上の Ubuntu18.04 のメモリを確認
+
+WSL2 のメモリ割り当てを制限したあと、実際に WSL 上で使えるメモリが制限されるか確認してみました。
+
+```
+$ free -h
+              total        used        free      shared  buff/cache   available
+Mem:           6.1G        1.5G        2.8G        413M        1.8G        4.0G
+Swap:          2.0G          0B        2.0G
+```
+
+うーん、`total` が 6.1G、 `free` が 2.8G もあります。何より `used` が wsl2 の設定で制限している 1G を超える 1.5G になっているという・・・
+
+それでも、windows のタスクマネージャー的にメモリ使用量は減っている様子でした。
+
+## Docker / docker-compose が使用できるメモリ量を制限する
+
+Docker は基本的にメモリを無制限で使用します。
+
+> By default, a container has no resource constraints and can use as much of a given resource as the host’s kernel scheduler allows
+
+引用元: https://docs.docker.com/config/containers/resource_constraints/#memory
+
+WSL2では、Docker Desktop を使って Docker を動かすので、Docker Desktop の設定でメモリの使用量の制限ができるか調べました。あくまで、WSL2 でメモリ使用量を制限するしか無いようです。
+
+> The Advanced tab is only available in Hyper-V mode, because in WSL 2 mode and Windows container mode these resources are managed by Windows. In WSL 2 mode, you can configure limits on the memory, CPU, and swap size allocated to the WSL 2 utility VM.
+
+引用元: https://docs.docker.com/docker-for-windows/
+
+調べてみると、docker-compose で起動するコンテナが使用するメモリを制限する設定があったのでそれはとりあえず入れました。`mem_limit` という設定です。下記のように、rails を動かすコンテナと db を動かすコンテナのメモリ上限をそれぞれ 500MB に設定しました。
+
+```yaml:docker-compose.yml
+version: "2.4"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: hogehoge
+    mem_limit: 500m
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    mem_limit: 500m
+```
+
+注意点として、version 2系でしか `mem_limit` の設定が使えません。 これで docker-compose up をして、メモリの確認をします。
+
+```
+$ docker stats junyablog_db_1 junyablog_web_1
+CONTAINER ID   NAME              CPU %     MEM USAGE / LIMIT   MEM %     NET I/O         BLOCK I/O   PIDS
+7bc5211e9318   blog_db_1    0.00%     20.05MiB / 500MiB   4.01%     5.49kB / 12kB   0B / 0B     7
+73285e90db42   blog_web_1   0.02%     101.9MiB / 500MiB   20.37%    146kB / 726kB   0B / 0B     20
+```
+
+コンテナレベルでは、メモリの上限が設定出来ました。
+
+## 最終的に・・・
+
+* Windows 全体のメモリ
+	* Vmmem がメモリをたくさん消費する
+	* Vmmem は wsl2 のメモリ・プロセッサを表す
+* WSL2 が使用しているメモリ
+	* `.wslconfig` でメモリ使用量を設定出来ます。（ドキュメントによると）
+* WSL2 上の Ubuntu18.04 が使用しているメモリ
+	* wsl のメモリ上限設定が反映されていない？？？
+* Docker / docker-compose が使用しているメモリ
+	* `mem_limit` でコンテナが使うメモリ量を制限できた
+
+コンテナを起動して、Chrome で調べ物しながら、VScode でプログラミングをしても、メモリの使用率が90%前後を超えることがなくなりました。（作業の過程で PC を再起動したので、それで改善しただけ？）
+
+いろいろ調べてやってみても、思うほど効果が出ずモヤモヤですが、同じような状況の人がいたら、参考になればと思います。
