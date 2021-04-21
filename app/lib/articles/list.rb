@@ -2,7 +2,7 @@ require "json"
 
 class Articles::List
 
-  attr_reader :articles_hash, :tags
+  attr_reader :all, :tags
 
   Order = ["asc", "desc"]
 
@@ -12,7 +12,7 @@ class Articles::List
       [key.to_i, Articles::Article.new(id: value["id"], title: value["title"], created_at: value["created_at"], tags: value["tags"])]
     end
 
-    @articles_hash = articles_array.to_h
+    @all = articles_array.to_h
     @tags = get_tags
     self
   end
@@ -23,9 +23,9 @@ class Articles::List
       order = "desc"
     end
 
-    @articles_hash = @articles_hash.sort_by {|k, article| article.to_h[key]}
+    @all = @all.sort_by {|k, article| article.to_h[key]}
 
-    @articles_hash.reverse! if order == "desc"
+    @all.reverse! if order == "desc"
     self
   end
 
@@ -33,7 +33,7 @@ class Articles::List
 
     def get_tags
       tags = []
-      @articles_hash.each do |index, article_hash|
+      @all.each do |index, article_hash|
         tags += article_hash.tags
       end
       tags.uniq.sort

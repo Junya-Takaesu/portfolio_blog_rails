@@ -15,13 +15,13 @@ class Articles::Article
   def previous_article
     return false if @id == 1
     article_list = Articles::List.new
-    article_list.articles_hash[@id-1]
+    article_list.all[@id-1]
   end
 
   def next_article
     article_list = Articles::List.new
-    return false if article_list.articles_hash.size <= @id
-    article_list.articles_hash[@id+1]
+    return false if article_list.all.size <= @id
+    article_list.all[@id+1]
   end
 
   def to_h
