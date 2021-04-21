@@ -4,6 +4,7 @@ class Articles::Article
   Properties = [
     "id", "title", "created_at"
   ]
+  ArticlesList = Articles::List
 
   def initialize(id:, title:, created_at:, tags:)
     @id = id
@@ -14,12 +15,12 @@ class Articles::Article
 
   def previous_article
     return false if @id == 1
-    article_list = Articles::List.new
+    article_list = ArticlesList.new
     article_list.all[@id-1]
   end
 
   def next_article
-    article_list = Articles::List.new
+    article_list = ArticlesList.new
     return false if article_list.all.size <= @id
     article_list.all[@id+1]
   end

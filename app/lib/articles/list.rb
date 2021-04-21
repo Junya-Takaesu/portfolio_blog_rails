@@ -5,11 +5,12 @@ class Articles::List
   attr_reader :all, :tags
 
   Order = ["asc", "desc"]
+  Article = Articles::Article
 
   def initialize
     articles_json_parsed = JSON.parse(File.read("#{Rails.root}/app/views/articles/articles.json"))
     articles_array = articles_json_parsed.map do |key, value|
-      [key.to_i, Articles::Article.new(id: value["id"], title: value["title"], created_at: value["created_at"], tags: value["tags"])]
+      [key.to_i, Article.new(id: value["id"], title: value["title"], created_at: value["created_at"], tags: value["tags"])]
     end
 
     @all = articles_array.to_h
@@ -18,7 +19,7 @@ class Articles::List
   end
 
   def sort(key: "created_at", order: "desc")
-    if !Articles::Article::Properties.include?(key) || !Order.include?(order)
+    if !Article::Properties.include?(key) || !Order.include?(order)
       key = "created_at"
       order = "desc"
     end
