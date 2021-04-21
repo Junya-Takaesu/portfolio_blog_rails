@@ -2,7 +2,7 @@ class Articles::Article
   attr_reader :id, :title, :created_at, :tags
 
   Properties = [
-    "id", "title", "created_at"
+    "id", "title", "created_at", "tags"
   ]
   ArticlesList = Articles::List
 
@@ -29,7 +29,8 @@ class Articles::Article
     hash = {
       "id" => @id,
       "title" => @title,
-      "created_at" => @created_at
+      "created_at" => @created_at,
+      "tags" => @tags
     }
   end
 
