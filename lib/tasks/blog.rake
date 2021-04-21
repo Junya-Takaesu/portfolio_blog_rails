@@ -8,12 +8,12 @@ namespace :blog do
 
       puts "ブログのタグをカンマ区切りで入力してください"
       print "> "
-      entry_tags = gets.chomp
+      entry_tags = gets.chomp.downcase
 
       # Todo: ssh key をコンテナにコピーして、fetch もできるようにする
-      # system("git fetch --all")
+      system("git fetch --all")
       system("git checkout write-article")
-      # system("git rebase origin/main")
+      system("git rebase origin/main")
 
       articles_dir = "#{Rails.root.to_s}/app/views/articles/"
       json_path = "#{articles_dir}articles.json"
@@ -41,6 +41,9 @@ namespace :blog do
       puts "[File Name] #{file_name}"
       puts "[File Detail] #{parsed_json[new_id.to_s]}"
 
+      puts "sitemap を生成します"
+      Rake::Task["sitemap:refresh"].invoke
+
       system("code #{file_name}")
 
     rescue => e
@@ -53,20 +56,20 @@ namespace :blog do
 
   # Todo: ssh key をコンテナにコピーして、submit が実行できるようにする
 
-  # desc "git diff を表示し、問題なければ リモートリポジトリの write-article ブランチに push する"
-  # task :submit do
-  #   system("git status")
+  desc "git diff を表示し、問題なければ リモートリポジトリの write-article ブランチに push する"
+  task :submit do
+    system("git status")
 
-  #   puts "submit しますか？"
-  #   print "(Y or n) > "
-  #   user_concent = gets.chomp.strip.gsub(/[[:space:]]/, '')
-  #   cancels = ["n", "no"]
-  #   if user_concent.nil? || cancels.include?(user_concent.downcase)
-  #     puts "submit をキャンセルします"
-  #     exit
-  #   end
-  #   puts "submit します"
+    puts "submit しますか？"
+    print "(Y or n) > "
+    user_concent = gets.chomp.strip.gsub(/[[:space:]]/, '')
+    cancels = ["n", "no"]
+    if user_concent.nil? || cancels.include?(user_concent.downcase)
+      puts "submit をキャンセルします"
+      exit
+    end
+    puts "submit します"
 
-  #   system("git add . && git commit -m \"Write article\" && git push origin write-article")
-  # end
+    system("git add . && git commit -m \"Write article\" && git push origin write-article")
+  end
 end

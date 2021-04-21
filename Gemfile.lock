@@ -165,6 +165,8 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sitemap_generator (6.1.2)
+      builder (~> 3.0)
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -219,6 +221,7 @@ DEPENDENCIES
   rexml
   sass-rails (>= 6)
   selenium-webdriver
+  sitemap_generator
   spring
   turbolinks (~> 5)
   tzinfo-data
