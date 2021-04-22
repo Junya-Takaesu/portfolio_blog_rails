@@ -85,7 +85,19 @@ class Articles::List
       order = "desc"
     end
 
-    @all = @all.sort_by {|k, article| article.to_h[sort_key]}
+    if @last_called_method == :filter
+      if order == "desc"
+        @filtered = @filtered.sort_by {|k, article| article.to_h[sort_key]}.reverse.to_h
+      else
+        @filtered = @filtered.sort_by {|k, article| article.to_h[sort_key]}.to_h
+      end
+    else
+      if order == "desc"
+        @all = @all.sort_by {|k, article| article.to_h[sort_key]}.reverse.to_h
+      else
+        @all = @all.sort_by {|k, article| article.to_h[sort_key]}.to_h
+      end
+    end
 
     @last_called_method = __method__
     self
