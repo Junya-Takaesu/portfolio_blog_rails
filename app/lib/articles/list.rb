@@ -18,13 +18,14 @@ class Articles::List
     self
   end
 
-  def sort(key: "created_at", order: "desc")
-    if !Article::Properties.include?(key) || !Order.include?(order)
-      key = "created_at"
+
+  def sort(sort_key: "created_at", order: "desc")
+    if !Article::Properties.include?(sort_key) || !Order.include?(order)
+      sort_key = "created_at"
       order = "desc"
     end
 
-    @all = @all.sort_by {|k, article| article.to_h[key]}
+    @all = @all.sort_by {|k, article| article.to_h[sort_key]}
 
     @all.reverse! if order == "desc"
     self
