@@ -6,6 +6,8 @@ class Articles::List
 
   Order = ["asc", "desc"]
   Article = Articles::Article
+  CreatedAt = Article::CreatedAt
+  Tags = Article::Tags
 
   def initialize
     articles_json_parsed = JSON.parse(File.read("#{Rails.root}/app/views/articles/articles.json"))

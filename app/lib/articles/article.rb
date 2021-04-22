@@ -1,8 +1,15 @@
 class Articles::Article
   attr_reader :id, :title, :created_at, :tags
 
+  Id = "id"
+  Title = "title"
+  CreatedAt = "created_at"
+  Tags = "tags"
   Properties = [
-    "id", "title", "created_at", "tags"
+    Id,
+    Title,
+    CreatedAt,
+    Tags
   ]
   ArticlesList = Articles::List
 
