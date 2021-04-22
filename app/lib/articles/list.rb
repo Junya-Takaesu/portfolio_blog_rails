@@ -15,6 +15,7 @@ class Articles::List
 
     @all = articles_array.to_h
     @tags = get_tags
+    @last_called_method = __method__
     self
   end
 
@@ -27,7 +28,7 @@ class Articles::List
 
     @all = @all.sort_by {|k, article| article.to_h[sort_key]}
 
-    @all.reverse! if order == "desc"
+    @last_called_method = __method__
     self
   end
 
