@@ -3,9 +3,14 @@
     <p class="filter-header">Tags</p>
     <nav>
       <ul>
-        <% @tags.each do |tag| %>
+        <% @tags.each do |_tag| %>
           <span class="filter-item">
-            <a href="?tags=<%= tag %>" class="badge rounded-pill mx-1 article-tag-<%= tag %>"><%= tag %></a>
+            <a
+              href="?tags=<%= (@param_tags.select {|_param_tag| _param_tag != _tag}+[_tag]).join(",") %>"
+              class="badge rounded-pill mx-1 article-tag-<%= _tag %>"
+            >
+              <%= _tag %>
+            </a>
           </span>
         <% end %>
       </ul>
@@ -16,18 +21,16 @@
     <p class="filter-header">Date</p>
     <nav>
       <ul>
-        <li class="filter-item">
-          <a href="?created_at=2020-04-01">2020-04</a>
-        </li>
-        <li class="filter-item">
-          <a href="?created_at=2020-03-01">2020-03</a>
-        </li>
-        <li class="filter-item">
-          <a href="?created_at=2020-02-01">2020-02</a>
-        </li>
-        <li class="filter-item">
-          <a href="?created_at=2020-01-01">2020-01</a>
-        </li>
+        <% @dates.each do |_date| %>
+          <li class="filter-item">
+            <a
+              href="?created_at=<%= (@param_created_at.select {|_param_created_at| _param_created_at != _date}+[_date]).join(",") %>"
+              class="badge rounded-pill mx-1"
+            >
+              <%= _date %>
+            </a>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>
@@ -40,6 +43,41 @@
 </aside>
 
 <div class="container" id="articles-index">
+
+  <% unless @param_tags.empty? %>
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-6 mb-5 selected-tags">
+        次のタグを含む記事:<br>
+        <% @param_tags.each do |_param_tags| %>
+          <span class="filter-item">
+            <a
+              href="articles?tags=<%= @param_tags.select {|_tag| _tag != _param_tags}.join(",") %>"
+              class="badge rounded-pill mx-1 article-tag-<%= _param_tags %>">
+              <%= _param_tags %><i class="bi bi-x-circle-fill ms-1"></i>
+            </a>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% unless @param_created_at.empty? %>
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-6 mb-5 selected-tags">
+        次の期間に含まれる記事:<br>
+        <% @param_created_at.each do |_param_created_at| %>
+          <span class="filter-item">
+            <a
+              href="articles?created_at=<%= @param_created_at.select {|_date| _date != _param_created_at}.join(",") %>"
+              class="badge rounded-pill mx-1">
+              <%= _param_created_at %><i class="bi bi-x-circle-fill ms-1"></i>
+            </a>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <% @articles.each do |article| %>
     <% id, article = article%>
     <div class="row justify-content-md-center gx-0 mb-5">
