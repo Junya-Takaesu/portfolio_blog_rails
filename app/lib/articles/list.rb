@@ -2,7 +2,7 @@ require "json"
 
 class Articles::List
 
-  attr_reader :all, :filtered, :tags
+  attr_reader :all, :filtered, :tags, :dates
 
   Order = ["asc", "desc"]
   Article = Articles::Article
@@ -18,6 +18,7 @@ class Articles::List
     @all = articles_array.to_h
     @filtered = {}
     @tags = get_tags
+    @dates = get_dates
     @last_called_method = __method__
     self
   end
@@ -111,6 +112,14 @@ class Articles::List
         tags += article_hash.tags
       end
       tags.uniq.sort
+    end
+
+    def get_dates
+      dates = []
+      @all.each do |index, article_hash|
+        dates.append(article_hash.created_at)
+      end
+      dates.uniq.reverse
     end
 
 end
