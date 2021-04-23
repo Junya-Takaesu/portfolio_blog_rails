@@ -1,4 +1,4 @@
-import bootstrap from "../../bootstrap/bootstrap.bundle.min.js"
+import bootstrap from "../bootstrap/bootstrap.bundle.min.js"
 
 export default class AboutPage {
 

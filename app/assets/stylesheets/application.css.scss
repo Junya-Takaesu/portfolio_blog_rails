@@ -34,16 +34,21 @@
 @import "../bootstrap/scss/type";
 @import "../bootstrap/scss/button-group";
 @import "../bootstrap/scss/buttons";
+@import "../bootstrap/scss/utilities";
+@import "../bootstrap/scss/helpers/position";
 
 
 @import "./variables/variables";
 @import "./mixins/mixins";
 @import "./common/common";
-@import "./articles/navigation";
-@import "./articles/about";
+@import "./common/navigation";
+@import "./common/articles-tags";
+@import "./about/index";
 @import "./articles/index";
 @import "./articles/show";
 
-@import "./articles/responsive/responsive";
+@import "./common/responsive";
+@import "./about/responsive";
+@import "./articles/responsive";
 
 @import "./prism/prism";
