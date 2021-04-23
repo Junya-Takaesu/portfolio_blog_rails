@@ -3,6 +3,11 @@
   .container {
     height: 100vh;
     margin-top: -5%;
+
+    .bi.bi-arrow-right-square-fill {
+      display: inline-block;
+      animation: arrowAnimation 0.9s cubic-bezier(0, 0, 0.24, 1.01) infinite alternate;
+    }
   }
 
   #sub-name-header {
@@ -10,3 +15,11 @@
   }
 }
 
+@keyframes arrowAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(10px);
+  }
+}
