@@ -1,6 +1,28 @@
 require_relative "boot"
 
-require "rails/all"
+# -------- Custom Rails Setup start --------
+# Disable all-in-one import,
+# but rather import individual rails-related gems below
+# require "rails/all"
+
+# Commented active_record gem because
+# this blog does not use active_record and database
+# require "active_record/railtie"
+# All these depend on active_record, so they should be excluded also
+# require "active_storage/engine"
+# require "action_mailbox/engine"
+# require "action_text/engine"
+
+# Use below rails-related gems for this rails application
+require "active_model/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "active_job/railtie"
+require "action_cable/engine"
+require "sprockets/railtie"
+require "rails/test_unit/railtie"
+# -------- Custom Rails Setup end --------
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
