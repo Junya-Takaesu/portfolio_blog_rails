@@ -5,7 +5,8 @@
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
+// ActiveStorage is not being used because this blog does not have a db
+// import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 // 自前の js を import していく
@@ -16,7 +17,8 @@ import PrismInitializer from "../prism/PrismInitializer";
 
 Rails.start()
 Turbolinks.start()
-ActiveStorage.start()
+// ActiveStorage is not being used because this blog does not have a db
+// ActiveStorage.start()
 
 const initializers = () => {
   const urlPath = window.location.pathname;
