@@ -9,6 +9,7 @@ RUN bundle install
 COPY . /blog
 RUN rails webpacker:install
 
-EXPOSE 3000
+RUN chmod 700 /blog/entrypoint.sh
+ENTRYPOINT ["/blog/entrypoint.sh"]
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
