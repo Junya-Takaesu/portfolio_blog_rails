@@ -1,25 +1,30 @@
-#about-top {
-  letter-spacing: .3rem;
-  .container {
-    height: 100vh;
-    margin-top: -5%;
+section .container {
+  height: 90vh;
+}
 
+#about-top {
+  letter-spacing: .2rem;
+  #sub-name-header {
+    color: #a5a5a5;
+  }
+  .container {
+    .icon-down {
+      font-size: 50px;
+      text-align: center;
+    }
     .bi.bi-arrow-right-square-fill {
       display: inline-block;
       animation: arrowAnimation 0.9s cubic-bezier(0, 0, 0.24, 1.01) infinite alternate;
+      color: $color-gold;
     }
-  }
-
-  #sub-name-header {
-    color: #a5a5a5;
   }
 }
 
 @keyframes arrowAnimation {
   from {
-    transform: translateX(0);
+    transform: translateX(-5px);
   }
   to {
-    transform: translateX(10px);
+    transform: translateX(8px);
   }
 }
