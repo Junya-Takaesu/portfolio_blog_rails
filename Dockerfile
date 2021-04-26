@@ -11,4 +11,7 @@ RUN rails webpacker:install
 
 EXPOSE 3000
 
+RUN useradd -m myuser
+USER myuser
+
 CMD ["rails", "server", "-b", "0.0.0.0"]
