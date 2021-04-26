@@ -28,7 +28,7 @@
   .row {
     .article-description {
 
-      a {
+      a:not(.badge) {
         font-size: 1.2rem;
         @include hoverable-anchor(
           $before-color: black,

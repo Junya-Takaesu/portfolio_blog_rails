@@ -86,6 +86,17 @@
         <p>
           <%= link_to article.title, "#{articles_path}/#{article.id.to_s}", class: "article-title" %>
         </p>
+        <p class="article-tags">
+          <% article.tags.each do |tag| %>
+            <span class="filter-item">
+              <a
+                href="articles?tags=<%= tag %>"
+                class="badge rounded-pill mx-1 article-tag-<%= tag %>">
+                <%= tag %>
+              </a>
+            </span>
+          <% end %>
+        </p>
       </div>
     </div>
   <% end %>

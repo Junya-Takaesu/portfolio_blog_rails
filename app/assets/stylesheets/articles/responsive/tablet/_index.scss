@@ -91,6 +91,40 @@ $silde-animation: transform 0.18s ease;
     }
   }
 }
+#articles-index .row {
+  .article-description {
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0.1));
+    border-radius: 5px;
+    box-shadow: 0 20px 20px rgba(100,100,100,0.3);
+    position: relative;
+    height: 35vh;
+
+    .publish-date {
+      position: absolute;
+      top: 3%;
+      left: 1vh;
+      z-index: 10;
+    }
+    p {
+      .article-title {
+        top: 0;
+        left: 1vh;
+        position: absolute;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 10px;
+        padding-top: 6vh;
+        border-bottom: initial;
+        outline: none;
+      }
+    }
+    .article-tags {
+      position: absolute;
+      top: 25vh;
+      left: 1vh;
+    }
+  }
+}
 
 @keyframes navLinkFade {
   from {
