@@ -9,6 +9,9 @@ RUN bundle install
 COPY . /blog
 RUN rails webpacker:install
 
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 RUN useradd -m myuser
