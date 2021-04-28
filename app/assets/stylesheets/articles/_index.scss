@@ -1,14 +1,29 @@
 #filter {
   position: fixed;
-  top: 16%;
+  top: 13%;
   bottom: 0;
   right: 78%;
-  margin-left: 8%;
+  margin-left: 5%;
   padding-bottom: 100px;
   overflow-y: auto;
+  height: 92vh;
   ul {
     list-style-type: none;
     padding-left: 0;
+  }
+  .sub-menu {
+    &.tags {
+      nav {
+        height: 42vh;
+        overflow: auto;
+      }
+    }
+    &.archives {
+      nav {
+        height: 20vh;
+        overflow: auto;
+      }
+    }
   }
 }
 

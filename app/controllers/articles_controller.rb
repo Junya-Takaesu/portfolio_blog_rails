@@ -30,5 +30,6 @@ class ArticlesController < ApplicationController
   def show
     articles_list = ArticlesList.new
     @article = articles_list.all[params[:id].to_i]
+    @title = @article.title
   end
 end

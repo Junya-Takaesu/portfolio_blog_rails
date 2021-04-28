@@ -12,7 +12,7 @@ $silde-animation: transform 0.18s ease;
   height: 100%;
   background: $color-background;
   box-shadow: -10px 10px 10px rgba(0,0,0,0.1);
-
+  overflow: hidden;
   &.active {
     transform: translateX(0%);
     display: flex !important;
@@ -36,6 +36,11 @@ $silde-animation: transform 0.18s ease;
       transform: translateX(0%);
       background: $color-background;
       height: 100vh;
+    }
+
+    &.tags nav,
+    &.archives nav {
+      height: initial;
     }
 
     .filter-header {
