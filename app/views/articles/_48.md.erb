@@ -1,0 +1,82 @@
+React のチュートリアルをするために、Docker で環境を作ってみました。備忘のためにやり方を書きたいと思います。
+
+今回開発環境を docker-compose を使用して Docker 化したことで、下記のことができるようになりました。
+
+* docker-compose up で react のサーバーが起動できる
+* port フォワーディングを設定したため、react のサーバーに localhost でアクセスできる
+* アプリのルートディレクトリをコンテナ上の /app に volumes でマウントしたので、コンテナを起動したままソースコードの修正・反映が行える
+
+残念な点は、ホストマシンに nodejs や npm などをインストールする必要があり、今回作った Dockerfile, docker-compose.yml があればすぐに環境が準備できるわけじゃないという点です。
+完全にホストマシンに依存しない Docker イメージを作るのは難しいなと思いました・・・・。
+
+## Dockerfile の内容
+Dockerfile と docker-compose.yml を作成して、ビルド・コンテナ起動を行います。
+まずは、Dockerfile の内容・・・
+
+```Dockerfile
+# alpine の node を ベースイメージとして取り込む
+FROM node:alpine
+
+# イメージのディレクトリを /app に移動する(/app ディレクトリはこのコマンドで作成される)
+WORKDIR /app
+
+# `/app/node_modules/.bin` を 環境変数 PATH に追加する
+ENV PATH /app/node_modules/.bin:$PATH
+
+# package.json をイメージの /app ディレクトリに移す
+COPY package.json ./
+
+# yarn.lock をイメージの /app ディレクトリに移す
+COPY yarn.lock ./
+
+# package.json の内容をインストールする
+RUN yarn
+
+# React アプリのソースコードをイメージの /app ディレクトリに移す
+COPY . ./
+
+# React アプリを開始する
+CMD ["npm", "start"]
+```
+
+この Dockerfile をビルドするにはホストマシン側で、nodejs, npm, yarn をインストールしておく必要があります。ホストマシン上で、npm を使って、package.jsonを用意、yarn で yarn.lock を用意したら、この Dockerfile をビルドできます。
+
+## docker-compose.yml の内容
+
+```yaml
+version: "3.9"
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+```
+
+volumes は `{ホスト側のパス}:{コンテナ側のパス}`　の形式で指定して、ディレクトリをマウントできます。
+
+ports は、⇧と同じ要領でホスト側とコンテナ側のポート番号を対応させます。
+
+
+## ビルド
+
+```
+docker-compose build
+```
+
+これでビルドすると、npm パッケージのインストールなどが行われるのですが、package.json で依存パッケージが不足しているというワーニングが何回か出ました。
+ワーニングで足りないと言われているパッケージを package.json の dependencies に追加したら、ワーニングは解消されました。
+
+
+## コンテナ起動
+
+```
+docker-compose up
+```
+
+
+すべてうまく行けば、localhost:3000 で react のサーバーが起動します。
+
+
+これから react  の勉強ももっとやっていきたいです。

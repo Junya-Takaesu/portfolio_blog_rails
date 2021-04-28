@@ -439,5 +439,16 @@
       "docker",
       "docker-compose"
     ]
+  },
+  "48": {
+    "id": 48,
+    "title": "React の開発環境を docker で構築する",
+    "created_at": "2021-04-28",
+    "tags": [
+      "docker",
+      "docker-compose",
+      "javascript",
+      "react"
+    ]
   }
 }
