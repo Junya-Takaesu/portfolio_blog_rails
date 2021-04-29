@@ -1,5 +1,8 @@
 React のチュートリアルをするために、Docker で環境を作ってみました。備忘のためにやり方を書きたいと思います。
 
+【参考にさせて頂いた記事】
+[Using React.js with Docker](https://www.pluralsight.com/guides/using-react.js-with-docker)
+
 今回開発環境を docker-compose を使用して Docker 化したことで、下記のことができるようになりました。
 
 * docker-compose up で react のサーバーが起動できる
@@ -8,6 +11,43 @@ React のチュートリアルをするために、Docker で環境を作って�
 
 残念な点は、ホストマシンに nodejs や npm などをインストールする必要があり、今回作った Dockerfile, docker-compose.yml があればすぐに環境が準備できるわけじゃないという点です。
 完全にホストマシンに依存しない Docker イメージを作るのは難しいなと思いました・・・・。
+
+## Nodejs, npm をインストールする
+
+React のアプリを作るために、必要な Nodejs と npm をインストールします。
+必要なバージョンはそれぞれ `Node >= 10.16` は `npm >= 5.6` です。
+
+まず、パッケージの情報を更新します。
+
+```
+sudo apt update
+```
+
+nodejs, npm をインストール
+
+```
+sudo apt install nodejs npm
+```
+
+npm のバージョン 5.2  以上をインストールすると npx というツールもついてくるので、それを使って react アプリを作ります。
+
+* npx についての参考記事
+  * https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b
+* npx リリース時のリリースノート
+  * https://github.com/npm/npm/releases/tag/v5.2.0
+
+## npx を使って React アプリを生成する
+
+[公式のインストールガイド](https://reactjs.org/docs/create-a-new-react-app.html) の通りコマンドを実行し、React アプリを作ります。
+
+```
+npx create-react-app my-app
+cd my-app
+npm start
+```
+
+これで my-app という React アプリが生成されます。`npm start` によって、この React アプリを起動します。
+これで、React アプリの雛形自体は準備できました。ここで開発してもいいのですが、Docker も使ってみたかったので、これを docker-compose でコンテナ起動して、開発できるようにします。
 
 ## Dockerfile の内容
 Dockerfile と docker-compose.yml を作成して、ビルド・コンテナ起動を行います。
@@ -38,8 +78,7 @@ COPY . ./
 # React アプリを開始する
 CMD ["npm", "start"]
 ```
-
-この Dockerfile をビルドするにはホストマシン側で、nodejs, npm, yarn をインストールしておく必要があります。ホストマシン上で、npm を使って、package.jsonを用意、yarn で yarn.lock を用意したら、この Dockerfile をビルドできます。
+Dockerfile の内容は、コメントの通りです。
 
 ## docker-compose.yml の内容
 
@@ -66,8 +105,15 @@ docker-compose build
 ```
 
 これでビルドすると、npm パッケージのインストールなどが行われるのですが、package.json で依存パッケージが不足しているというワーニングが何回か出ました。
-ワーニングで足りないと言われているパッケージを package.json の dependencies に追加したら、ワーニングは解消されました。
 
+例えば、下記のようなワーニングです。
+
+```
+warning " > @testing-library/user-event@12.8.3" has unmet peer dependency "@testing-library/dom@>=7.21.4".
+warning "react-scripts > @typescript-eslint/eslint-plugin > tsutils@3.20.0" has unmet peer dependency "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta".
+```
+
+不足している `@testing-library/dom` と `typescript` をそれぞれ package.json に追加して、再度 docker-compose build を実行するとワーニングが消えて、ビルドができました。
 
 ## コンテナ起動
 
@@ -75,8 +121,6 @@ docker-compose build
 docker-compose up
 ```
 
-
-すべてうまく行けば、localhost:3000 で react のサーバーが起動します。
-
+すべてうまく行けば、Docker コンテナ上で React アプリが起動し、それに対して localhost:3000 でアクセスできるようになります。
 
 これから react  の勉強ももっとやっていきたいです。
