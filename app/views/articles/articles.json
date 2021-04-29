@@ -448,7 +448,10 @@
       "docker",
       "docker-compose",
       "javascript",
-      "react"
+      "react",
+      "nodejs",
+      "npm",
+      "npx"
     ]
   },
   "49": {
