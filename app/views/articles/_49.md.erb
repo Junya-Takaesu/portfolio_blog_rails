@@ -1,0 +1,78 @@
+Rails でブログを書く際に、`&lt;%= image_tag %&gt;` というヘルパー関数を使って、img タグを生成しています。この関数を使う際に、引数には画像のファイル名だけでなく、毎回画像までのパス込みで指定しないといけないので、ブログ記事を書くときに手間でした。なので、このメソッドをオーバーライドしてすこしだけ、簡単に書けるようにしました。
+
+オーバーライドの結果、`&lt;%= image_tag %&gt;` の引数に、画像のファイル名だけを指定すれば、所定のフォルダに保存された画像を参照できるようになりました。
+
+* `&lt;%= image_tag %&gt;` の使い方:
+  * **修正前**
+      * `&lt;%= image_tag "99/some_image.png" %&gt;`
+  * **修正後**
+      * `&lt;%= image_tag "some_image.png" %&gt;`
+
+## Ruby におけるモジュールメソッドのオーバーライドのやり方
+stack overflow に載っていた例がわかりやすかったです。
+https://stackoverflow.com/questions/4900167/override-module-method-from-another-module
+
+以下コード丸々引用です。
+
+```ruby
+module A
+  def foo
+    puts 'A'
+  end
+end
+
+module B
+  def foo
+    puts 'B'
+    super
+  end
+end
+
+include A # you need to include module A befor you can override method
+
+A.module_eval { include B }
+
+class C
+  include A
+end
+
+C.new.foo # => B A
+```
+
+モジュール B でメソッドをオーバーライドし、そのメソッドを使うために、メソッドが使われるクラス C で モジュール A をインクルードしています。
+
+image_tag もモジュールメソッドなので、同じようなやり方で、オーバーライドします。
+
+## どのようにオーバーライドしたか
+
+上記の stack overflow の例だと、オーバーライドされたメソッドを使うために、オーバーライド元のクラスを include する必要が有りますが、image_tag を定義している ActionView のライブラリは自動的に rails に include されているので、ここで include については、気にしません。基本的に app ディレクトリ配下であれば、どこでも image_tag をオーバーライドできるはずです。今回は、ビューに関わる機能のメソッドなので、app/helpers ディレクトリでオーバーライドしました。
+
+内容は下記のような感じです。
+
+`app/helpers/articles_helper.rb` のコード
+
+```ruby
+module ArticlesHelper
+  def image_tag(source, options = {})
+    source = resolve_image_path(source) unless options[:prevent_resolve_path]
+    super(source, options)
+  end
+
+  private
+
+    def resolve_image_path(source)
+      "#{request.path.split("/").last}/#{source}"
+    end
+end
+```
+
+
+
+* ArticlesHelper というモジュールを作り、
+  * image_tag メソッドを定義（同名なのでオーバーライドになる）
+  * resolve_image_path メソッドを定義し、指定されたファイル名に、記事のリクエストURLのパスの最後のスラッシュ以降の文字列(記事ID)をプリペンドする
+  * こうすることで、 image_tag メソッドの引数にファイル名だけを指定しても、記事のIDでプリペンドされるようになる
+      * 画像は、`assets/images/{記事ID}` というディレクトリ配下においておけばいい
+  * 最後に super を実行して、加工した source を渡してあげれば、あとは従来どおりのメソッド実行になる
+
+完全なるモンキーパッチですが、これで、ファイル名だけ指定して、image_tag メソッドが使えるようになりました。(ただ、画像は手作業で、所定の記事IDに対応する場所に保存しないと行けないという制約が有りますが・・・トレードオフかなと・・・)
