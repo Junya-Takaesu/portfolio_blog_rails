@@ -28,4 +28,18 @@ module ArticlesHelper
 
     link_to link_label, href, class: class_attributes, role: "button"
   end
+
+  # Monkey-patch to simplify  addition of image to articles
+  # Official image_tag api document is below:
+  #  https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-image_tag
+  def image_tag(source, options = {})
+    source = resolve_image_path(source) unless options[:prevent_resolve_path]
+    super(source, options)
+  end
+
+  private
+
+    def resolve_image_path(source)
+      "#{request.path.split("/").last}/#{source}"
+    end
 end
