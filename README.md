@@ -2,7 +2,7 @@
 
 ## ブログの URL
 
-http://junya-takaesu.site/
+https://junya-takaesu.site/
 
 ## rails コマンド(rake コマンド)
 
