@@ -8,11 +8,11 @@ WSL2 + Docker という環境で、Chrome を開きながら、VScode でプロ�
 
 ### `スタートメニュー` + `r` で winver を実行
 
-<%= image_tag "47/winver.png", style: "max-width:440px" %>
+<%= image_tag "winver.png", style: "max-width:440px" %>
 
 ### メモリとCPU
 
-<%= image_tag "47/spec.png", style: "max-width:540px;" %>
+<%= image_tag "spec.png", style: "max-width:540px;" %>
 
 ## メモリの使用状況を確認
 下記の点でメモリの使用状況を確認します。
@@ -23,7 +23,7 @@ WSL2 + Docker という環境で、Chrome を開きながら、VScode でプロ�
 * Docker / docker-compose が使用しているメモリ
 
 ## Windows 全体のメモリ使用状況をタスクマネージャーで確認
-<%= image_tag "47/taskmanager.png" %>
+<%= image_tag "taskmanager.png" %>
 *※これは事後に撮ったもの。最初はメモリが99%になっていた*
 
 当初、Vmmem なるタスクが4G~5Gのメモリを専有していました。Vmmem は仮想環境で使用されているメモリとプロセッサを表しているものです。仮想環境とは、WSL2のことです。WSL2がメモリをめっちゃ使っていることがわかったので、WSL2のメモリ使用量が制限できるか調べました。

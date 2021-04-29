@@ -1,4 +1,4 @@
-<%= image_tag "46/hamburgermenudemo.gif", style: "max-width:300px;" %>
+<%= image_tag "hamburgermenudemo.gif", style: "max-width:300px;" %>
 
 ハンバーガーメニューの作り方を勉強したので、実践として、ブログに実装してみました。ハンバーガーメニューを作るにあたって、下記の動画を参考にさせていただきました。
 
@@ -8,7 +8,7 @@
 
 ## ハンバーガーのアニメーション
 
-<%= image_tag "46/hamburgerIcon.gif", style: "max-width:300px;" %>
+<%= image_tag "hamburgerIcon.gif", style: "max-width:300px;" %>
 
 HTML は下記のようにシンプル。3本のバーを表すdivがあるだけ。
 
@@ -63,7 +63,7 @@ $silde-animation: transform 0.18s ease;
 
 ## メニューの項目を一つずつフェードインさせるアニメーション
 
-<%= image_tag "46/staggering.gif", style: "max-width:240px;" %>
+<%= image_tag "staggering.gif", style: "max-width:240px;" %>
 
 アニメーションさせたい要素群をイテレーションして、それぞれ要素にインラインスタイルとして、`animation` を設定させることで、アニメーションを実装しました。
 各要素にただ animation プロパティを設定するだけだと、フェード感がでないので、要素毎にずらした animation-delay プロパティを設定して、徐々に要素が現れるようなアニメーションにしました。
