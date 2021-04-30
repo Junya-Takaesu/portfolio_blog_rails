@@ -1,7 +1,8 @@
 @media (max-width: $break-point-mobile) {
+  @import "./mobile/index";
 
 }
 
 @media (max-width: $break-point-tablet) {
-  @import "./responsive/tablet/navigation";
+
 }
