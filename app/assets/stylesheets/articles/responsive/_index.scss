@@ -1,0 +1,9 @@
+@media (max-width: $break-point-mobile) {
+  @import "./mobile/about";
+  @import "./mobile/index";
+  @import "./mobile/show";
+}
+
+@media (max-width: $break-point-tablet) {
+  @import "./tablet/index";
+}

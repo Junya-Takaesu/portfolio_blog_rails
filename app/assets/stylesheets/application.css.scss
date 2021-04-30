@@ -38,18 +38,9 @@
 @import "../bootstrap/scss/helpers/position";
 
 
-@import "./variables/variables";
-@import "./mixins/mixins";
-@import "./common/common";
-@import "./common/navigation";
-@import "./common/articles-tags";
-@import "./about/index";
-@import "./articles/index";
-@import "./articles/show";
-@import "./articles/advertising";
-
-@import "./common/responsive";
-@import "./about/responsive";
-@import "./articles/responsive";
-
-@import "./prism/prism";
+@import "./variables/";
+@import "./mixins/";
+@import "./common/";
+@import "./about/";
+@import "./articles/";
+@import "./prism/";
