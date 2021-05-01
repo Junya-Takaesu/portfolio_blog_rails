@@ -14,6 +14,12 @@
   }
 
   .sub-menu {
+    nav {
+      padding: 4px;
+      background: linear-gradient(to right bottom, #d0d6cd, #b9c1b5);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2)
+    }
+
     &.tags {
       nav {
         height: 42vh;
