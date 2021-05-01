@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :set_title
 
   ArticlesList = Articles::List
   Article = Articles::Article
@@ -16,6 +17,7 @@ class ArticlesController < ApplicationController
 
     @tags = articles_list.tags
     @dates = articles_list.dates.map {|date| "#{date.year}-#{date.month.to_s.rjust(2, "0")}"}.uniq
+    @title = generate_title("記事一覧")
 
     if @param_tags.empty? && @param_created_at.empty?
       @articles = articles_list.sort(sort_key: sort_key, order: order).all
@@ -30,6 +32,6 @@ class ArticlesController < ApplicationController
   def show
     articles_list = ArticlesList.new
     @article = articles_list.all[params[:id].to_i]
-    @title = @article.title
+    @title = generate_title(@article.title)
   end
 end

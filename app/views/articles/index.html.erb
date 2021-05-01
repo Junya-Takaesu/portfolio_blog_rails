@@ -1,6 +1,6 @@
 <aside id="filter" class="d-lg-block">
-  <div class="tags sub-menu">
-    <p class="filter-header">Tags</p>
+  <div class="tags sub-menu" data-nosnippet>
+    <p class="filter-header">Tags で絞る</p>
     <nav>
       <ul>
         <% @tags.each do |_tag| %>
@@ -17,8 +17,8 @@
     </nav>
   </div>
 
-  <div class="archives sub-menu mt-2">
-    <p class="filter-header">Date</p>
+  <div class="archives sub-menu mt-2"　data-nosnippet>
+    <p class="filter-header">Date で絞る</p>
     <nav>
       <ul>
         <% @dates.each do |_date| %>
@@ -45,7 +45,7 @@
 <div class="container" id="articles-index">
 
   <% unless @param_tags.empty? %>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center"　data-nosnippet>
       <div class="col-12 col-md-6 mb-5 selected-tags">
         次のタグを含む記事:<br>
         <% @param_tags.each do |_param_tags| %>
@@ -62,7 +62,7 @@
   <% end %>
 
   <% unless @param_created_at.empty? %>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center"　data-nosnippet>
       <div class="col-12 col-md-6 mb-5 selected-tags">
         次の期間に含まれる記事:<br>
         <% @param_created_at.each do |_param_created_at| %>

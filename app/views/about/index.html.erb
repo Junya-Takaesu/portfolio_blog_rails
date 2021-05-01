@@ -48,16 +48,7 @@
       </div>
     </div>
     <div class="row pt-1 pe-md-5">
-      <p>プログラミングの練習と、勉強を目的として、このブログを Rails で作成しました。ときどき学んだことなどを記事に書いています。</p>
-      <p>
-        私自信わからないことが多いので、記事で誤ったことなど書いているかもしれません。
-        その時は、
-          <%= image_tag "iconmonstr-twitter-5.svg", style: "height: 16px; margin-top: 3px; margin-bottom: -3px; display:inline-block;", prevent_resolve_path: true %>
-          <a href="https://twitter.com/EightTakaesu" target="_blank">
-            Twitterのアカウント
-          </a>
-        までご指摘、ご意見いただけましたら幸いです。
-      </p>
+      <%= "#{parse_markdown(string: (render "introduction.md.erb"), escape_html: false)}".html_safe %>
       <p><i class="bi bi-arrow-right-square-fill"></i><a href="articles" class="ms-2">BLOGはこちら</a></p>
     </div>
   </div>
