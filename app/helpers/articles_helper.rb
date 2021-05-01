@@ -37,6 +37,10 @@ module ArticlesHelper
     super(source, options)
   end
 
+  def to_japanese_date(date)
+    "#{date.year}年 #{date.month}月 #{date.day}日"
+  end
+
   private
 
     def resolve_image_path(source)
