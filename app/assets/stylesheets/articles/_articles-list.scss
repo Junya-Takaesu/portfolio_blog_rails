@@ -1,11 +1,11 @@
 #filter {
   position: fixed;
-  top: 13%;
+  top: 19%;
   bottom: 0;
-  right: 78%;
-  margin-left: 5%;
+  left: 75%;
+  right: 5%;
+  overflow: hidden;
   padding-bottom: 100px;
-  overflow-y: auto;
   height: 92vh;
 
   ul {
@@ -21,6 +21,7 @@
       }
     }
     &.archives {
+      margin-top: 20px;
       nav {
         height: 20vh;
         overflow: auto;
@@ -30,7 +31,6 @@
 }
 
 #articles-index {
-  max-width: 90vw;
   margin-top: 80px;
 
   p {

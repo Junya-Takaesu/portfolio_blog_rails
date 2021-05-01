@@ -1,0 +1,141 @@
+$silde-animation: transform 0.18s ease;
+
+#filter {
+  max-height: 100%;
+  position: fixed;
+  top: 72px;
+  right: 0;
+  left: initial;
+  transform: translateX(100%);
+  transition: $silde-animation;
+  z-index: 10;
+  width: 50%;
+  height: 100%;
+  background: $color-background;
+  box-shadow: -10px 10px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  &.active {
+    transform: translateX(0%);
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sub-menu {
+    width: 100%;
+    position: absolute;
+    transform: translateX(100%);
+    transition: $silde-animation;
+    overflow: auto;
+    padding-bottom: 100px;
+
+    &.active {
+      transform: translateX(0%);
+      background: $color-background;
+      height: 100vh;
+    }
+
+    &.tags nav,
+    &.archives nav {
+      height: initial;
+      text-align: center;
+    }
+
+    .filter-header {
+      opacity: 0;
+      text-align: center;
+    }
+
+    .filter-item {
+      opacity: 0;
+      line-height: 2.3;
+    }
+  }
+
+  .top-level-menu-item {
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    border-bottom: rgba(0,0,0,0.1) solid 1px;
+    cursor: pointer;
+  }
+}
+
+#burger {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 11;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(190, 190, 190, 1));
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  border-radius: 3px;
+
+  div {
+    background-color: #acb1b6;
+    width: 40px;
+    height: 4px;
+    margin: 6px;
+    border-radius: 10px;
+    transition: $silde-animation;
+  }
+  &.active {
+    div{
+      &:nth-child(1) {
+        transform: rotate(-45deg) translate(-7px, 8px);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: rotate(45deg) translate(-7px, -8px);
+      }
+    }
+  }
+}
+#articles-index .row {
+  .article-description {
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0.1));
+    border-radius: 5px;
+    box-shadow: 0 20px 20px rgba(100,100,100,0.3);
+    position: relative;
+    height: 35vh;
+
+    .publish-date {
+      position: absolute;
+      top: 3%;
+      left: 1vh;
+    }
+    p {
+      .article-title {
+        top: 0;
+        left: 0;
+        padding-left: 1vh;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        padding-top: 6vh;
+        border-bottom: initial;
+        outline: none;
+      }
+    }
+    .article-tags {
+      position: absolute;
+      bottom: 1vh;
+      left: 1vh;
+    }
+  }
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
