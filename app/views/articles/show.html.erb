@@ -5,7 +5,7 @@
       <h1 class="text-center mt-0"><%= @article.title %></h1>
       <p class="article-tags">
         <% @article.tags.each do |tag| %>
-          <span class="filter-item">
+          <span class="filter-item" data-nosnippet>
             <a
               href="/articles?tags=<%= tag %>"
               class="badge rounded-pill mx-1 article-tag-<%= tag %>">
