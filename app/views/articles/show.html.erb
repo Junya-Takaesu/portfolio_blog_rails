@@ -3,7 +3,7 @@
     <div class="col-md-11 col-lg-8 col-xl-9 px-lg-5" id="article-body">
       <h1 class="text-center mt-5 mt-0"><%= @article.title %></h1>
       <p class="text-center mb-0"><%= "投稿日: #{to_japanese_date(@article.created_at)}" %></p>
-      <p class="article-tags">
+      <p class="article-tags d-flex justify-content-end flex-wrap">
         <% @article.tags.each do |tag| %>
           <span class="filter-item" data-nosnippet>
             <a

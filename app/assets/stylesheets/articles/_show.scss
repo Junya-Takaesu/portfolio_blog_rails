@@ -1,12 +1,11 @@
 #article-show {
-  max-width: 90vw;
   overflow-wrap: break-word;
 
   #article-body {
     box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
     background: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0.1));
     border-radius: 5px;
-    width: 1000px;
+    width: $max-width-article-show;
 
     h1, h2, h3, h4, h5, h6 {
       color: black;
@@ -26,7 +25,6 @@
 
     p {
       width: 100%;
-      font-size: 1.1rem;
       margin: 2.5rem 0;
     }
 
@@ -64,7 +62,7 @@
 
     :not(pre) > code[class*="language-"] {
       word-wrap: break-word;
-      font-size: 0.8rem;
+      box-shadow:0px 0px 8px #81787e;
       padding: 2px 4px;
     }
 
