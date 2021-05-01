@@ -23,8 +23,13 @@ export default class ArticlesIndexPage {
         this.burgerIcon.classList.toggle("active");
         this.toggleFilterMenu();
       } else if (this.isOutsideOfMenuClicked()) {
-        this.burgerIcon.classList.remove("active");
-        this.hideFilterMenu();
+        if(this.eventTarget.className == "filter-header") {
+          this.hideFilterMenu();
+          this.toggleFilterMenu();
+        } else {
+          this.burgerIcon.classList.remove("active");
+          this.hideFilterMenu();
+        }
       }
     });
   }
@@ -65,8 +70,14 @@ export default class ArticlesIndexPage {
       subHeader.parentElement.classList.remove("active");
     });
 
-    this.filterHeaders.forEach(filterHeader => filterHeader.style.animation = "");
     this.filterItems.forEach(filterItem => filterItem.style.animation = "");
+    this.filterHeaders.forEach(filterHeader => {
+      const chevronLeftIcon = filterHeader.querySelector(".bi-chevron-compact-left");
+      if(chevronLeftIcon) {
+        chevronLeftIcon.remove();
+      }
+      filterHeader.style.animation = "";
+    });
   }
 
   removeTopLevelMenuHeaders() {
@@ -77,12 +88,15 @@ export default class ArticlesIndexPage {
 
   createTopLevelMenuHeader(subHeader) {
     const topLevelMenuParagraph = document.createElement("p");
-    topLevelMenuParagraph.innerHTML = `${subHeader.innerText} <i class="bi bi-chevron-compact-right"></i>`;
+    topLevelMenuParagraph.innerHTML = `${subHeader.innerHTML} <i class="bi bi-chevron-compact-right"></i>`;
     topLevelMenuParagraph.classList.add("top-level-menu-item");
 
     topLevelMenuParagraph.addEventListener("click", () => {
       const filterHeader = subHeader.parentElement.querySelector(".filter-header") ;
       const filterItems = subHeader.parentElement.querySelectorAll(".filter-item");
+
+      filterHeader.innerHTML = `<i class="bi bi-chevron-compact-left"></i>${filterHeader.innerHTML}`
+
       let delayGranularityForHeader = 1;
       let delayGranularityForItems = 40;
 
