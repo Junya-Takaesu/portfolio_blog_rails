@@ -1,24 +1,24 @@
 <aside id="filter" class="d-lg-block">
   <div class="tags sub-menu" data-nosnippet>
-    <p class="filter-header">Tags で絞る</p>
+    <p class="filter-header">タグで絞る</p>
     <nav>
       <ul>
         <% @tags.each do |_tag| %>
-          <span class="filter-item">
+          <li class="filter-item">
             <a
               href="?tags=<%= (@param_tags.select {|_param_tag| _param_tag != _tag}+[_tag]).join(",") %>"
               class="badge rounded-pill mx-1 article-tag-<%= _tag %>"
             >
               <%= _tag %>
             </a>
-          </span>
+          </li>
         <% end %>
       </ul>
     </nav>
   </div>
 
   <div class="archives sub-menu mt-2"　data-nosnippet>
-    <p class="filter-header">Date で絞る</p>
+    <p class="filter-header">投稿月で絞る</p>
     <nav>
       <ul>
         <% @dates.each do |_date| %>
