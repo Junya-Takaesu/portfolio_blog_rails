@@ -41,6 +41,10 @@ $silde-animation: transform 0.18s ease;
       text-align: center;
     }
 
+    &.archives {
+      margin-top: initial;
+    }
+
     .filter-header {
       opacity: 0;
       text-align: center;
