@@ -4,6 +4,8 @@ section .container {
 
 #about-top {
   letter-spacing: .2rem;
+  margin: -2vh auto 0 auto;
+  max-width: $max-width-about;
   #sub-name-header {
     color: #a5a5a5;
   }
