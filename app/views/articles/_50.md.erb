@@ -1,0 +1,33 @@
+![Image](https://i.imgur.com/Q4mWKcr.png)
+
+**vscode-imgur という VSCODE の拡張機能が便利です。**
+これを使うと、github のエディタに画像をペーストしたら、自動的に URL に置き換えてくれるあの感じで、vscode 上でも画像の貼り付けができるようになります。
+
+クリップボードの画像を vscode 上の markdown に貼りつけると、その画像が imgur にアップロードされます。imgur にアップロードされると、markdown にはパブリックな url が設定されるので、markdown に書いた画像がどこでも見れるようになります。自分でサーバーにアップロードしたり、ウェブサイトの特定のフォルダなどで画像を管理する必要がなくなるのでとても楽です。
+
+詳細は、vscode の[説明ページ](https://marketplace.visualstudio.com/items?itemName=MaxfieldWalker.vscode-imgur)で確認できます。
+
+## 使い方
+
+1. imgur でアプリケーション登録して、api トークンを発行する(vscode-imgur が imgur の api にリクエストするようなので、必要)
+   * アプリケーション登録フォーム: https://api.imgur.com/oauth2/addclient
+2. vscode に `vscode-imgur` をインストール
+3. 下記のような、設定を追加する
+
+    ```json
+    "vscode-imgur.client_id": "385318520325f93", // Must be set to upload to imgur
+    "vscode-imgur.client_secret": "${env:IMGUR_CLIENT_SECRET}", // Neaded for User upload. Not neaded for anonymous mode.
+    "vscode-imgur.preferUserUpload": true,
+    ```
+    * `1.` のアプリ登録が完了したときに、`client_id` と `client_secret` がもらえます。
+    * アップロードした画像が自分の imgur アカウントに紐付かなくても良い場合、anonymous upload ができます。この場合、`client_secret` と `preferUserUpload` の行は不要。
+    * 自分の imgur アカウントに対して画像を投稿するには、user upload をします。その場合、`client_secret` と `preferUserUpload` の指定が必須です。
+    * client_secret は 環境変数に設定して、それを読み取るようにしました。
+      * settings.json で `${env:variableName}` という書き方で、環境変数を使うことができます。
+      * 詳細は公式のドキュメントでも確認できます。
+          * https://code.visualstudio.com/docs/editor/variables-reference#_environment-variables
+          * ※環境変数が使えるのは launch.json と tasks.json と書いていますが、**settings.json** で試したら使えました！
+4. 設定が済んだら画像をコピーして、`Ctrl` + `Alt` + `v` で貼り付けるだけ。
+    * ※初回は、vscode 上で、imgur アカウントのパスワードか、client_secret の入力が求められるので、入力する。
+
+これで、vscode でのブロク執筆も捗りそう・・・😎️
