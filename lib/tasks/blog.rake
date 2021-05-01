@@ -11,7 +11,7 @@ namespace :blog do
       entry_tags = gets.chomp.downcase
 
       # Todo: ssh key をコンテナにコピーして、fetch もできるようにする
-      system("git fetch --all")
+      system("git fetch origin")
       system("git checkout write-article")
       system("git rebase origin/main")
 
