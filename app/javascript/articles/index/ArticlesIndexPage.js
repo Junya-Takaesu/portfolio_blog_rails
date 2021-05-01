@@ -77,7 +77,7 @@ export default class ArticlesIndexPage {
 
   createTopLevelMenuHeader(subHeader) {
     const topLevelMenuParagraph = document.createElement("p");
-    topLevelMenuParagraph.innerHTML = `${subHeader.innerText} <i class="bi bi-chevron-compact-right"></i>`;
+    topLevelMenuParagraph.innerHTML = `${subHeader.innerHTML} <i class="bi bi-chevron-compact-right"></i>`;
     topLevelMenuParagraph.classList.add("top-level-menu-item");
 
     topLevelMenuParagraph.addEventListener("click", () => {
