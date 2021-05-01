@@ -1,7 +1,7 @@
 $silde-animation: transform 0.18s ease;
 
 #filter {
-  $max-height: 100%;
+  max-height: 100%;
   position: fixed;
   top: 72px;
   right: 0;
@@ -70,12 +70,12 @@ $silde-animation: transform 0.18s ease;
   right: 2%;
   z-index: 11;
   cursor: pointer;
-  background: rgba(255,255,255,0.8);
-  box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(190, 190, 190, 1));
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
   border-radius: 3px;
 
   div {
-    background-color: #b7c3ce;
+    background-color: #acb1b6;
     width: 40px;
     height: 4px;
     margin: 6px;
@@ -118,7 +118,6 @@ $silde-animation: transform 0.18s ease;
         height: 100%;
         width: 100%;
         overflow: hidden;
-        border-radius: 10px;
         padding-top: 6vh;
         border-bottom: initial;
         outline: none;
