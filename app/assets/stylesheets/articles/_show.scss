@@ -26,7 +26,6 @@
 
     p {
       width: 100%;
-      font-size: 1.1rem;
       margin: 2.5rem 0;
     }
 
@@ -64,7 +63,7 @@
 
     :not(pre) > code[class*="language-"] {
       word-wrap: break-word;
-      font-size: 0.8rem;
+      box-shadow:0px 0px 8px #81787e;
       padding: 2px 4px;
     }
 
