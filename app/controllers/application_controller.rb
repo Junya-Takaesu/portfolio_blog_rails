@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
-  before_action :set_title
   def set_title
-    @title = controller_name.capitalize
+    @title = generate_title
+  end
+
+  def generate_title(title = "")
+    title = title.empty? ? "📚" : title
+    "#{title} | JunyaBlog"
   end
 end
