@@ -1,5 +1,10 @@
 module MetaTagsHelper
 
+  def description_meta_tag
+    content = page_description
+    "<meta name=\"description\" content=\"#{content}\">".html_safe
+  end
+
   def json_ld_meta_tag
     json_ls = {
       "@context": "https://schema.org",
