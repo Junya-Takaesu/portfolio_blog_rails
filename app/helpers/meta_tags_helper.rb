@@ -35,7 +35,7 @@ module MetaTagsHelper
     when articles_path
       content = "Webプログラミングに関する備忘録、情報共有を目的とした内容の記事を発信しています。🙋‍♂️️"
     else
-      content = "#{parse_markdown(string: (render "#{@article.id}.md.erb"), escape_html: false)}".html_safe
+      content = "#{parse_markdown(string: (render "articles/markdowns/#{@article.id}.md.erb"), escape_html: false)}".html_safe
     end
 
     content = ActionView::Base.full_sanitizer.sanitize content
