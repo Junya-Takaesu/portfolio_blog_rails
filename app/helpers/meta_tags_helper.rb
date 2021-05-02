@@ -11,7 +11,7 @@ module MetaTagsHelper
       "@type": "BlogPosting",
       "headline": page_description,
       "image": [
-        "https://imgur.com/3P88u6M"
+        "https://i.imgur.com/3P88u6M.jpg"
       ],
       "datePublished": "2021-01-01T00:00:00+09:00"
     }
