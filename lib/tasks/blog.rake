@@ -26,15 +26,15 @@ namespace :blog do
         "id" => new_id,
         "title" => "#{entry_title}",
         "created_at" => today.iso8601,
-        "tags" => entry_tags.split(",")
+        "tags" => entry_tags.split(","),
+        "published" => false
       }
 
-      File.write json_path, parsed_json.to_json
+      File.write json_path, JSON.pretty_generate(parsed_json)
 
-      system("cat #{json_path} | jq . > #{articles_dir}temp_articles.json")
       system("mv #{articles_dir}temp_articles.json #{json_path}")
 
-      file_name = "#{articles_dir}_#{parsed_json[new_id.to_s]["id"]}.md.erb"
+      file_name = "#{articles_dir}/markdowns/_#{parsed_json[new_id.to_s]["id"]}.md.erb"
       File.write file_name, ""
 
       puts "[Success] 以下のブログを作成しました"
