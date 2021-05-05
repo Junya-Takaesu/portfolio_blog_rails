@@ -41,6 +41,32 @@ module ArticlesHelper
     "#{date.year}年 #{date.month}月 #{date.day}日"
   end
 
+  # Check these links for available icons:
+  # https://devicon.dev/
+  # https://fontawesome.com/
+  # https://ionicons.com/
+  def icon(type)
+    icon = ""
+    type = type.downcase
+
+    case type
+    when "css"
+      icon = '<i class="devicon-css3-plain colored"></i>'
+    when "windows"
+      icon = '<i class="devicon-windows8-original colored"></i>'
+    when "sql"
+      icon = '<i class="fas fa-database"></i>'
+    when "markdown"
+      icon = '<ion-icon name="logo-markdown"></ion-icon>'
+    when "vscode"
+      icon = '<i class="devicon-visualstudio-plain"></i>'
+    else
+      type = "javascript" if type.include? ".js"
+      icon = "<i class=\"devicon-#{type}-plain colored\"></i>"
+    end
+    icon.html_safe
+  end
+
   private
 
     def resolve_image_path(source)

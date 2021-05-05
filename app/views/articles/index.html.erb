@@ -7,8 +7,9 @@
           <li class="filter-item">
             <a
               href="?tags=<%= (@param_tags.select {|_param_tag| _param_tag != _tag}+[_tag]).join(",") %>"
-              class="badge rounded-pill mx-1"
+              class="filter-tag badge rounded-pill mx-1"
             >
+              <%= icon _tag %>
               <%= _tag %>
             </a>
           </li>
@@ -25,7 +26,7 @@
           <li class="filter-item">
             <a
               href="?created_at=<%= (@param_created_at.select {|_param_created_at| _param_created_at != _date}+[_date]).join(",") %>"
-              class="badge rounded-pill mx-1"
+              class="filter-tag badge rounded-pill mx-1"
             >
               <%= _date %>
             </a>
@@ -52,8 +53,10 @@
           <span class="filter-item">
             <a
               href="articles?tags=<%= @param_tags.select {|_tag| _tag != _param_tags}.join(",") %>"
-              class="badge rounded-pill mx-1">
-              <%= _param_tags %><i class="bi bi-x-circle-fill ms-1"></i>
+              class="filter-tag badge rounded-pill mx-1">
+              <%= icon _param_tags %>
+              <%= _param_tags %>
+              <i class="bi bi-x-circle-fill ms-1"></i>
             </a>
           </span>
         <% end %>
@@ -69,7 +72,7 @@
           <span class="filter-item">
             <a
               href="articles?created_at=<%= @param_created_at.select {|_date| _date != _param_created_at}.join(",") %>"
-              class="badge rounded-pill mx-1">
+              class="filter-tag badge rounded-pill mx-1">
               <%= _param_created_at %><i class="bi bi-x-circle-fill ms-1"></i>
             </a>
           </span>
@@ -91,7 +94,8 @@
             <span class="filter-item">
               <a
                 href="articles?tags=<%= tag %>"
-                class="badge rounded-pill mx-1">
+                class="filter-tag badge rounded-pill mx-1">
+                <%= icon tag %>
                 <%= tag %>
               </a>
             </span>
