@@ -7,50 +7,11 @@
   outline: none;
 }
 
-[class*="article-tag-"] {
+.filter-tag {
   height: initial;
+  color: rgb(48, 47, 47);
   &:hover {
     border-bottom: initial;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
-}
-
-.article-tag-sql {
-  background-color: rgb(34, 32, 32);
-  color: white;
-}
-
-.article-tag-excel {
-  background-color: rgb(1,110,56);
-  color: white;
-}
-
-.article-tag-php {
-  background-color: #6674b3;
-  color: black;
-}
-
-.article-tag-mysql {
-  background-color: #42759c;
-  color: white;
-}
-
-.article-tag-postgresql {
-  background-color: #2d608c;
-  color: white;
-}
-
-.article-tag-javascript, [class*=".js"] {
-  background-color: #ffe100;
-  color: black;
-}
-
-.article-tag-ruby, .article-tag-rails {
-  background-color: rgb(179, 24, 24);
-  color: white;
-}
-
-.article-tag-css {
-  background-color: #1a0dab;
-  color: white;
 }
