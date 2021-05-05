@@ -7,7 +7,7 @@
           <li class="filter-item">
             <a
               href="?tags=<%= (@param_tags.select {|_param_tag| _param_tag != _tag}+[_tag]).join(",") %>"
-              class="badge rounded-pill mx-1 article-tag-<%= _tag %>"
+              class="badge rounded-pill mx-1"
             >
               <%= _tag %>
             </a>
@@ -52,7 +52,7 @@
           <span class="filter-item">
             <a
               href="articles?tags=<%= @param_tags.select {|_tag| _tag != _param_tags}.join(",") %>"
-              class="badge rounded-pill mx-1 article-tag-<%= _param_tags %>">
+              class="badge rounded-pill mx-1">
               <%= _param_tags %><i class="bi bi-x-circle-fill ms-1"></i>
             </a>
           </span>
@@ -91,7 +91,7 @@
             <span class="filter-item">
               <a
                 href="articles?tags=<%= tag %>"
-                class="badge rounded-pill mx-1 article-tag-<%= tag %>">
+                class="badge rounded-pill mx-1">
                 <%= tag %>
               </a>
             </span>
