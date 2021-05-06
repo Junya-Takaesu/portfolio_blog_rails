@@ -83,25 +83,27 @@
 
   <% @articles.each do |article| %>
     <% id, article = article%>
-    <div class="row justify-content-md-center gx-0 mb-5">
-      <div class="col-md-8 col-lg-6 mx-md-3 article-description">
-        <span class="publish-date"><%= "#{article.created_at}" %></span>
-        <p>
-          <%= link_to article.title, "#{articles_path}/#{article.id.to_s}", class: "article-title" %>
-        </p>
-        <p class="article-tags">
-          <% article.tags.each do |tag| %>
-            <span class="filter-item">
-              <a
-                href="articles?tags=<%= tag %>"
-                class="filter-tag badge rounded-pill mx-1">
-                <%= icon tag %>
-                <%= tag %>
-              </a>
-            </span>
-          <% end %>
-        </p>
+    <% if article.is_published %>
+      <div class="row justify-content-md-center gx-0 mb-5">
+        <div class="col-md-8 col-lg-6 mx-md-3 article-description">
+          <span class="publish-date"><%= "#{article.created_at}" %></span>
+          <p>
+            <%= link_to article.title, "#{articles_path}/#{article.id.to_s}", class: "article-title" %>
+          </p>
+          <p class="article-tags">
+            <% article.tags.each do |tag| %>
+              <span class="filter-item">
+                <a
+                  href="articles?tags=<%= tag %>"
+                  class="filter-tag badge rounded-pill mx-1">
+                  <%= icon tag %>
+                  <%= tag %>
+                </a>
+              </span>
+            <% end %>
+          </p>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

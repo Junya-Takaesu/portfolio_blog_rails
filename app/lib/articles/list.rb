@@ -12,7 +12,16 @@ class Articles::List
   def initialize
     articles_json_parsed = JSON.parse(File.read("#{Rails.root}/app/views/articles/articles.json"))
     articles_array = articles_json_parsed.map do |key, value|
-      [key.to_i, Article.new(id: value["id"], title: value["title"], created_at: value["created_at"], tags: value["tags"])]
+      [
+        key.to_i,
+        Article.new(
+          id: value["id"],
+          title: value["title"],
+          created_at: value["created_at"],
+          tags: value["tags"],
+          is_published: value["is_published"]
+        )
+      ]
     end
 
     @all = articles_array.to_h

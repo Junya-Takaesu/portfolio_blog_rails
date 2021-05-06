@@ -7,7 +7,7 @@
       "ruby",
       "rails"
     ],
-    "published": true
+    "is_published": true
   },
   "2": {
     "id": 2,
@@ -17,7 +17,7 @@
       "javascript",
       "webpack"
     ],
-    "published": true
+    "is_published": true
   },
   "3": {
     "id": 3,
@@ -27,7 +27,7 @@
       "ruby",
       "rails"
     ],
-    "published": true
+    "is_published": true
   },
   "4": {
     "id": 4,
@@ -36,7 +36,7 @@
     "tags": [
       "ruby"
     ],
-    "published": true
+    "is_published": true
   },
   "5": {
     "id": 5,
@@ -46,7 +46,7 @@
       "css",
       "bootstrap"
     ],
-    "published": true
+    "is_published": true
   },
   "6": {
     "id": 6,
@@ -57,7 +57,7 @@
       "postgresql",
       "pg"
     ],
-    "published": true
+    "is_published": true
   },
   "7": {
     "id": 7,
@@ -67,7 +67,7 @@
       "css",
       "bootstrap"
     ],
-    "published": true
+    "is_published": true
   },
   "8": {
     "id": 8,
@@ -77,7 +77,7 @@
       "css",
       "flex"
     ],
-    "published": true
+    "is_published": true
   },
   "9": {
     "id": 9,
@@ -89,7 +89,7 @@
       "markdown",
       "redcarpet"
     ],
-    "published": true
+    "is_published": true
   },
   "10": {
     "id": 10,
@@ -99,7 +99,7 @@
       "sass",
       "bootstrap"
     ],
-    "published": true
+    "is_published": true
   },
   "11": {
     "id": 11,
@@ -108,7 +108,7 @@
     "tags": [
       "algorithm"
     ],
-    "published": true
+    "is_published": true
   },
   "12": {
     "id": 12,
@@ -118,7 +118,7 @@
       "css",
       "sass"
     ],
-    "published": true
+    "is_published": true
   },
   "13": {
     "id": 13,
@@ -128,7 +128,7 @@
       "ruby",
       "sinatra"
     ],
-    "published": true
+    "is_published": true
   },
   "14": {
     "id": 14,
@@ -139,7 +139,7 @@
       "highlight.js",
       "prism.js"
     ],
-    "published": true
+    "is_published": true
   },
   "15": {
     "id": 15,
@@ -151,7 +151,7 @@
       "turbolinks",
       "javascript"
     ],
-    "published": true
+    "is_published": true
   },
   "16": {
     "id": 16,
@@ -160,7 +160,7 @@
     "tags": [
       "css"
     ],
-    "published": true
+    "is_published": true
   },
   "17": {
     "id": 17,
@@ -171,7 +171,7 @@
       "vscode extension",
       "sass"
     ],
-    "published": true
+    "is_published": true
   },
   "18": {
     "id": 18,
@@ -181,7 +181,7 @@
       "seo",
       "google search console"
     ],
-    "published": true
+    "is_published": true
   },
   "19": {
     "id": 19,
@@ -193,7 +193,7 @@
       "redcarpet",
       "markdown"
     ],
-    "published": true
+    "is_published": true
   },
   "20": {
     "id": 20,
@@ -203,7 +203,7 @@
       "seo",
       "google search console"
     ],
-    "published": true
+    "is_published": true
   },
   "21": {
     "id": 21,
@@ -213,7 +213,7 @@
       "css",
       "bootstrap"
     ],
-    "published": true
+    "is_published": true
   },
   "22": {
     "id": 22,
@@ -223,7 +223,7 @@
       "ruby",
       "twitter"
     ],
-    "published": true
+    "is_published": true
   },
   "23": {
     "id": 23,
@@ -235,7 +235,7 @@
       "http",
       "session"
     ],
-    "published": true
+    "is_published": true
   },
   "24": {
     "id": 24,
@@ -245,7 +245,7 @@
       "ruby",
       "sinatra"
     ],
-    "published": true
+    "is_published": true
   },
   "25": {
     "id": 25,
@@ -256,7 +256,7 @@
       "postgresql",
       "pg"
     ],
-    "published": true
+    "is_published": true
   },
   "26": {
     "id": 26,
@@ -265,7 +265,7 @@
     "tags": [
       "css"
     ],
-    "published": true
+    "is_published": true
   },
   "27": {
     "id": 27,
@@ -275,7 +275,7 @@
       "seo",
       "google search console"
     ],
-    "published": true
+    "is_published": true
   },
   "28": {
     "id": 28,
@@ -286,7 +286,7 @@
       "xml",
       "sitemap"
     ],
-    "published": true
+    "is_published": true
   },
   "29": {
     "id": 29,
@@ -295,7 +295,7 @@
     "tags": [
       "javascript"
     ],
-    "published": true
+    "is_published": true
   },
   "30": {
     "id": 30,
@@ -307,7 +307,7 @@
       "active record",
       "sql"
     ],
-    "published": true
+    "is_published": true
   },
   "31": {
     "id": 31,
@@ -319,7 +319,7 @@
       "rake",
       "git"
     ],
-    "published": true
+    "is_published": true
   },
   "32": {
     "id": 32,
@@ -330,7 +330,7 @@
       "rails",
       "active record"
     ],
-    "published": true
+    "is_published": true
   },
   "33": {
     "id": 33,
@@ -341,7 +341,7 @@
       "rails",
       "active record"
     ],
-    "published": true
+    "is_published": true
   },
   "34": {
     "id": 34,
@@ -353,7 +353,7 @@
       "postgresql",
       "a5:sql mk-2"
     ],
-    "published": true
+    "is_published": true
   },
   "35": {
     "id": 35,
@@ -364,7 +364,7 @@
       "rails",
       "active record"
     ],
-    "published": true
+    "is_published": true
   },
   "36": {
     "id": 36,
@@ -373,7 +373,7 @@
     "tags": [
       "heroku"
     ],
-    "published": true
+    "is_published": true
   },
   "37": {
     "id": 37,
@@ -384,7 +384,7 @@
       "rails",
       "sqlite"
     ],
-    "published": true
+    "is_published": true
   },
   "38": {
     "id": 38,
@@ -394,7 +394,7 @@
       "ruby",
       "active record"
     ],
-    "published": true
+    "is_published": true
   },
   "39": {
     "id": 39,
@@ -403,7 +403,7 @@
     "tags": [
       "css"
     ],
-    "published": true
+    "is_published": true
   },
   "40": {
     "id": 40,
@@ -413,7 +413,7 @@
       "linux",
       "sudo"
     ],
-    "published": true
+    "is_published": true
   },
   "41": {
     "id": 41,
@@ -422,7 +422,7 @@
     "tags": [
       "php"
     ],
-    "published": true
+    "is_published": true
   },
   "42": {
     "id": 42,
@@ -431,7 +431,7 @@
     "tags": [
       "javascript"
     ],
-    "published": true
+    "is_published": true
   },
   "43": {
     "id": 43,
@@ -441,7 +441,7 @@
       "docker",
       "ruby"
     ],
-    "published": true
+    "is_published": true
   },
   "44": {
     "id": 44,
@@ -452,7 +452,7 @@
       "rails",
       "ruby"
     ],
-    "published": true
+    "is_published": true
   },
   "45": {
     "id": 45,
@@ -463,7 +463,7 @@
       "keyframes",
       "animation"
     ],
-    "published": true
+    "is_published": true
   },
   "46": {
     "id": 46,
@@ -475,7 +475,7 @@
       "javascript",
       "css"
     ],
-    "published": true
+    "is_published": true
   },
   "47": {
     "id": 47,
@@ -486,7 +486,7 @@
       "docker",
       "docker-compose"
     ],
-    "published": true
+    "is_published": true
   },
   "48": {
     "id": 48,
@@ -501,7 +501,7 @@
       "npm",
       "npx"
     ],
-    "published": true
+    "is_published": true
   },
   "49": {
     "id": 49,
@@ -512,7 +512,7 @@
       "ruby",
       "image_tag"
     ],
-    "published": true
+    "is_published": true
   },
   "50": {
     "id": 50,
@@ -523,6 +523,6 @@
       "markdown",
       "vscode extension"
     ],
-    "published": true
+    "is_published": true
   }
 }
