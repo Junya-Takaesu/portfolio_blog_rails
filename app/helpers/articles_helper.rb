@@ -67,6 +67,22 @@ module ArticlesHelper
     icon.html_safe
   end
 
+  def advertising_anchors(articles_tags)
+    ad_types = ["ruby", "php", "python","javascript", "ruby on rails", "css", "linux", "docker", "react.js", "vue.js", "node.js"]
+    match = false
+    articles_tags.each {|tag| match = true if ad_types.include? tag}
+    if match
+      while true
+        type = articles_tags.sample
+        if ad_types.include? type
+          return "articles/ad_snippets/#{type}.html"
+        end
+      end
+    else
+      return "articles/ad_snippets/#{ad_types.sample}.html"
+    end
+  end
+
   private
 
     def resolve_image_path(source)
