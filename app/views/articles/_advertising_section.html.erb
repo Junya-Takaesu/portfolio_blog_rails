@@ -1,17 +1,6 @@
 <div class="container-fluid mt-5" id="advertising">
   <h2>プログラミングに関するオススメ書籍</h2>
   <section class="d-flex flex-row flex-wrap bd-highlight mb-3 justify-content-center justify-content-md-start">
-    <div class="text-center me-2 mb-2">
-      <a href="//af.moshimo.com/af/c/click?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616&amp;url=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F16371381%2F&amp;m=http%3A%2F%2Fm.rakuten.co.jp%2Fbook%2Fi%2F20055321%2F" rel="nofollow" referrerpolicy="no-referrer-when-downgrade"><img class="d-inline-block shadow-lg rounded border border-3" src="//thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/4688/9784297114688.jpg?_ex=128x128" alt="" style="border: none;" /></a><img src="//i.moshimo.com/af/i/impression?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616" alt="" width="1" height="1" style="border: 0px;" />
-    </div>
-    <div class="text-center me-2 mb-2">
-      <a href="//af.moshimo.com/af/c/click?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616&amp;url=https%3A%2F%2Fitem.rakuten.co.jp%2Frakutenkobo-ebooks%2Fbec24c3950b63bc392948ded7a88c766%2F&amp;m=http%3A%2F%2Fm.rakuten.co.jp%2Frakutenkobo-ebooks%2Fi%2F19400751%2F" rel="nofollow" referrerpolicy="no-referrer-when-downgrade"><img class="d-inline-block shadow-lg rounded border border-3" src="//thumbnail.image.rakuten.co.jp/@0_mall/rakutenkobo-ebooks/cabinet/6090/2000008786090.jpg?_ex=128x128" alt="" style="border: none;" /></a><img src="//i.moshimo.com/af/i/impression?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616" alt="" width="1" height="1" style="border: 0px;" />
-    </div>
-    <div class="text-center me-2 mb-2">
-      <a href="//af.moshimo.com/af/c/click?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616&amp;url=https%3A%2F%2Fitem.rakuten.co.jp%2Frakutenkobo-ebooks%2Fc5e506a3cfbb39b5bdb13e3b6c790177%2F&amp;m=http%3A%2F%2Fm.rakuten.co.jp%2Frakutenkobo-ebooks%2Fi%2F19365378%2F" rel="nofollow" referrerpolicy="no-referrer-when-downgrade"><img class="d-inline-block shadow-lg rounded border border-3" src="//thumbnail.image.rakuten.co.jp/@0_mall/rakutenkobo-ebooks/cabinet/5422/2000008745422.jpg?_ex=128x128" alt="" style="border: none;" /></a><img src="//i.moshimo.com/af/i/impression?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616" alt="" width="1" height="1" style="border: 0px;" />
-    </div>
-    <div class="text-center me-2 mb-2">
-      <a href="//af.moshimo.com/af/c/click?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616&amp;url=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F15570632%2F&amp;m=http%3A%2F%2Fm.rakuten.co.jp%2Fbook%2Fi%2F19239248%2F" rel="nofollow" referrerpolicy="no-referrer-when-downgrade"><img class="d-inline-block shadow-lg rounded border border-3" src="//thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0339/9784297100339.jpg?_ex=128x128" alt="" style="border: none;" /></a><img src="//i.moshimo.com/af/i/impression?a_id=2585462&amp;p_id=54&amp;pc_id=54&amp;pl_id=616" alt="" width="1" height="1" style="border: 0px;" />
-    </div>
+    <%= render advertising_anchors(@article.tags) %>
   </section>
 </div>
