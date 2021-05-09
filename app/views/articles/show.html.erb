@@ -1,5 +1,5 @@
 <div class="container-fluid mt-5" id="article-show">
-  <div class="row justify-content-md-center lh-lg">
+  <div class="row lh-lg flex-column align-items-center">
     <div class="col-md-11 col-lg-8 col-xl-9 px-lg-5" id="article-body">
       <h1 class="text-center mt-5 mt-0"><%= @article.title %></h1>
       <p class="text-center mb-0"><%= "投稿日: #{to_japanese_date(@article.created_at)}" %></p>
@@ -17,8 +17,6 @@
         <% end %>
       </p>
       <%= "#{parse_markdown(string: (render "articles/markdowns/#{@article.id}.md.erb"), escape_html: false)}".html_safe %>
-      <div class="mt-5 py-5 g-0 d-flex justify-content-md-around">
-      </div>
     </div>
     <%= render "advertising_section" %>
     <%= render "footer_navigation" %>
