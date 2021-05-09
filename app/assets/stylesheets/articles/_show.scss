@@ -13,10 +13,20 @@
 
     h1 {
       margin-bottom: 2rem;
+      font-size: calc(0.8rem + 1.4vw);;
     }
 
     h2 {
       border-bottom: $color-gold solid 2px;
+      font-size: calc(0.7em + 1.4vw);
+    }
+
+    h3 {
+      font-size: calc(0.6rem + 1.4vw);
+    }
+
+    h4 {
+      font-size: calc(0.5rem + 1.4vw);
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -26,6 +36,7 @@
     p {
       width: 100%;
       margin: 2.5rem 0;
+      font-size: 0.9rem;
     }
 
     img {
@@ -36,9 +47,11 @@
 
     ol, ul {
       padding-left: 2.5rem;
+      font-size: 0.9rem;
     }
 
     table {
+      font-size: 0.9rem;
       display: block;
       overflow: scroll;
       white-space: nowrap;
@@ -58,6 +71,10 @@
     pre {
       box-shadow:0px 0px 8px #81787e;
       border-radius: 10px;
+      * {
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+        font-family: 'JetBrains Mono', monospace !important;
+      }
     }
 
     :not(pre) > code[class*="language-"] {
@@ -72,5 +89,6 @@
   }
   footer {
     margin: 40px 0;
+    width: $max-width-article-show;
   }
 }

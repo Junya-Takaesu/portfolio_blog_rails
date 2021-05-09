@@ -1,8 +1,8 @@
 #article-show {
   max-width: 94vw;
   #article-body {
-    p {
-      font-size: 0.9rem;
+    ol, ul, p, table, pre {
+      font-size: 0.8rem;
     }
   }
 }
