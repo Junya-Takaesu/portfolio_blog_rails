@@ -59,6 +59,8 @@ $silde-animation: transform 0.18s ease;
   }
 
   .top-level-menu-item {
+    height: 20%;
+    padding-top: 9%;
     font-size: 1.2rem;
     width: 100%;
     text-align: center;
@@ -79,7 +81,7 @@ $silde-animation: transform 0.18s ease;
   border-radius: 3px;
 
   div {
-    background-color: #acb1b6;
+    background-color: #8a8e92;
     width: 40px;
     height: 4px;
     margin: 6px;

@@ -10,7 +10,9 @@
 .filter-tag {
   height: initial;
   color: rgb(48, 47, 47);
+
   &:hover {
+    color: rgb(90, 86, 86);
     border-bottom: initial;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
