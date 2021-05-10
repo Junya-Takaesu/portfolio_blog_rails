@@ -27,7 +27,7 @@ namespace :blog do
         "title" => "#{entry_title}",
         "created_at" => today.iso8601,
         "tags" => entry_tags.split(","),
-        "published" => false
+        "is_published" => false
       }
 
       File.write json_path, JSON.pretty_generate(parsed_json)
