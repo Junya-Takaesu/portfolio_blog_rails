@@ -17,6 +17,10 @@ module MetaTagsHelper
       "datePublished": @article.created_at.to_time.strftime('%Y-%m-%dT%H:%M:%S%:z')
     }
 
+    if @article.images && !@article.images.empty?
+      json_ls[:image] = @article.images
+    end
+
     %(
       <script type="application/ld+json">
         #{json_ls.to_json}

@@ -1,4 +1,5 @@
 class Articles::Article
+  include Markdown::MarkdownParser
   attr_reader :id, :title, :created_at, :tags, :is_published
 
   Id = "id"
@@ -57,4 +58,11 @@ class Articles::Article
     }
   end
 
+  def images
+    return @images if @images
+    markdown_file = File.read("#{Rails.root}/app/views/articles/markdowns/_#{@id}.md.erb")
+    html = parse_markdown(string: markdown_file)
+    document = Nokogiri::HTML.parse(html)
+    @images = document.css("img").map {|img| img[:src]}
+  end
 end
