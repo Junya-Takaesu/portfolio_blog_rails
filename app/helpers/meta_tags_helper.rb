@@ -6,19 +6,16 @@ module MetaTagsHelper
   end
 
   def json_ld_meta_tag
+    return unless /\/articles\/\d+\z/.match(request.path)
     json_ls = {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": page_description,
+      "headline": @article.title,
       "image": [
         "https://i.imgur.com/3P88u6M.jpg"
       ],
-      "datePublished": "2021-01-01T00:00:00+09:00"
+      "datePublished": @article.created_at.to_time.strftime('%Y-%m-%dT%H:%M:%S%:z')
     }
-
-    unless @article.nil?
-      json_ls["datePublished"] = @article.created_at.to_time.to_s
-    end
 
     %(
       <script type="application/ld+json">
