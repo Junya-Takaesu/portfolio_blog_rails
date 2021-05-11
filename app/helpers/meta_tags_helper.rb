@@ -30,7 +30,7 @@ module MetaTagsHelper
     when root_path
       content = "#{parse_markdown(string: (render "introduction.md.erb"), escape_html: false)}".html_safe
     when articles_path
-      content = "Webプログラミングに関する備忘録、情報共有を目的とした内容の記事を発信しています。🙋‍♂️️"
+      content = "#{parse_markdown(string: (render "synopsis.md.erb"), escape_html: false)}".html_safe
     else
       content = "#{parse_markdown(string: (render "articles/markdowns/#{@article.id}.md.erb"), escape_html: false)}".html_safe
     end
