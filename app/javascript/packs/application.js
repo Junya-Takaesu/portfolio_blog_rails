@@ -22,11 +22,11 @@ Turbolinks.start()
 
 const initializers = () => {
   const urlPath = window.location.pathname;
-
-  if (/^\/$/.test(urlPath)) {
-    const aboutPage =  new AboutPage();
+  
+  if (/^\/about$/.test(urlPath)) {
+    const aboutPage = new AboutPage();
     aboutPage.initialize();
-  } else if (/^\/articles$/.test(urlPath)) {
+  } else if (/^\/articles$/.test(urlPath) || /^\/$/.test(urlPath)) {
     const articlesIndexPage = new ArticlesIndexPage();
     articlesIndexPage.initialize();
   } else if (/^\/articles\/\d+$/.test(urlPath)) {
