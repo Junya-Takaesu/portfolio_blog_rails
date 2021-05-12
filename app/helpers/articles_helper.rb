@@ -51,9 +51,9 @@ module ArticlesHelper
 
     case type
     when "css"
-      icon = '<i class="devicon-css3-plain colored"></i>'
+      icon = '<i class="devicon-css3-plain"></i>'
     when "windows"
-      icon = '<i class="devicon-windows8-original colored"></i>'
+      icon = '<i class="devicon-windows8-original"></i>'
     when "sql"
       icon = '<i class="fas fa-database"></i>'
     when "markdown"
@@ -62,7 +62,7 @@ module ArticlesHelper
       icon = '<i class="devicon-visualstudio-plain"></i>'
     else
       type = "javascript" if type.include? ".js"
-      icon = "<i class=\"devicon-#{type}-plain colored\"></i>"
+      icon = "<i class=\"devicon-#{type}-plain\"></i>"
     end
     icon.html_safe
   end

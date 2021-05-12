@@ -45,6 +45,6 @@ module JTBlog
     config.add_autoload_paths_to_load_path = false
 
     # Custom configuration
-    config.site_name = "JT BLOG"
+    config.site_name = "JtBLOG"
   end
 end

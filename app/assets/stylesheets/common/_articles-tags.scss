@@ -2,7 +2,6 @@
   letter-spacing: 0;
   height: 1.5rem;
   background: rgba(255, 255, 255, 0.5);
-  color: black;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   outline: none;
 }
@@ -14,6 +13,7 @@
   &:hover {
     color: rgb(90, 86, 86);
     border-bottom: initial;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+      2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 }

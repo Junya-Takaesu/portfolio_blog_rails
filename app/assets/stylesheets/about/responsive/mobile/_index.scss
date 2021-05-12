@@ -3,8 +3,13 @@ section .container {
 }
 
 #about-top {
-  letter-spacing: .1rem;
-  #sub-name-header {
-    font-size: 0.9rem;
+  .container {
+    letter-spacing: 0.1rem;
+    #sub-name-header {
+      font-size: 0.9rem;
+    }
+    .section-header {
+      border-bottom: none;
+    }
   }
 }

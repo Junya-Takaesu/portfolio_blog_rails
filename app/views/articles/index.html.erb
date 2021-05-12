@@ -48,7 +48,8 @@
   <section id="articles-container">
 
     <section id="articles-list-hero">
-
+      <h1><%= Rails.configuration.site_name %></h1>
+      <p><%= "#{parse_markdown(string: (render "synopsis.md.erb"), escape_html: false)}".html_safe %></p>
     </section>
 
     <% unless @param_tags.empty? %>

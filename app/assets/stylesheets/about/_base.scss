@@ -3,17 +3,32 @@ section .container {
 }
 
 #about-top {
-  letter-spacing: .2rem;
-  margin: -2vh auto 0 auto;
-  max-width: $max-width-about;
+  letter-spacing: 0.2rem;
+  margin: 0vh auto 0 auto;
+  max-width: 1000px;
+
+  :not(a) {
+    color: #3e3e3e;
+  }
+  a {
+    font-weight: bold;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+
   #sub-name-header {
     color: #a5a5a5;
   }
   .container {
+    .section-header {
+      border-bottom: 1px #a5a5a5 solid;
+    }
+
     .bi.bi-arrow-right-square-fill {
       display: inline-block;
-      animation: arrowAnimation 0.9s cubic-bezier(0, 0, 0.24, 1.01) infinite alternate;
-      color: $color-gold;
+      animation: arrowAnimation 0.9s cubic-bezier(0, 0, 0.24, 1.01) infinite
+        alternate;
     }
     .filter-tag {
       i {
