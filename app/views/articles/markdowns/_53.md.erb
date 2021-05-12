@@ -1,0 +1,71 @@
+![Image](https://i.imgur.com/Xm7xx2Q.png)
+
+
+ブログの記事一覧に上記のようなヒーロー画像を入れてみました。なにか画像とか無いと寂しい感じだったので・・・
+このヒーロー画像は css の `background` プロパティで設定しました。一括指定で、ちょっとハマったので、メモを残します。
+
+## background プロパティの一括指定の例
+
+ある要素（例えば div など) に背景画像をつけるときに、`background` プロパティの一括指定ができます。
+例えば下記のようにできます。
+
+```css
+div {
+  background: url(https://i.imgur.com/2UXN54Z.jpg) center center / cover no-repeat;
+}
+```
+
+詳しい仕様などは mdn で確認できます。
+https://developer.mozilla.org/ja/docs/Web/CSS/background
+
+上記の一括指定を分解すると・・・
+
+* `url(https://i.imgur.com/2UXN54Z.jpg)`
+  * background-image の値。url() を使って、画像の URL を指定しています。
+* `center center`
+  * background-position-x の値(最初の center)。画像の水平位置を中心に指定しています。
+  * background-position-y の値(２つ目の center)。画像の垂直位置を中心に指定しています。
+  * ※それぞれ 60% や 60px といった値も指定できる。ただし、キーワード(center, top, bttom, right, left) との併用はできない。
+* `cover`
+  * background-size の値。 画像のサイズを cover にすると、縦横比を維持して、可能な限り拡大してくれる(要素いっぱいに画像が拡がる)
+* `no-repeat`
+  * 背景画像が設定されている要素より、背景画像が小さい場合、要素を埋め尽くすように画像が繰り返されるので、画像の繰り返しをしないように指定している。
+
+というふうになります。これらをバラバラにそれぞれ css を書くこともできますが、一括で書くことで css がスッキリします。
+
+## 間違った一括指定の書き方
+background を一括指定で書こうとして、間違えました。
+
+```css
+/* background-position の指定の仕方が間違っている！ */
+div {
+  background: url(https://i.imgur.com/2UXN54Z.jpg) top 20% left 10% / cover no-repeat;
+}
+```
+
+HTML 要素の位置を絶対位置(position:absolute;)で指定するかのように、画像の位置も指定できる？と思いましたがこのような書き方はうまく行きませんでした。
+この書き方の意図としては、画像の位置を top から、20% の位置に、left から 10% の位置にオフセットしたいというものでした。
+背景画像(background-position) の指定は、
+
+* **キーワードのみで、x軸、y軸  を指定**
+* **もしくは、数値(px, %) を使って、それぞれの軸の値を指定**
+
+する必要がありました。
+
+また、background の指定の仕方を調べていたら、background-position について下記の点について初めて知りました。
+
+> If you only specify one keyword, the other value will be "center"
+https://www.w3schools.com/cssref/pr_background-position.asp
+
+background の一括指定で省略されていたり、されていなかったりするときがあったので、謎だなーと思っていたのですが、省略したら、自動で、center になるということでした。
+
+## 一括指定をいろいろ試してみる。
+
+<p class="codepen" data-height="471" data-theme-id="dark" data-default-tab="css,result" data-user="pachipachi" data-slug-hash="ZEeQpBa" style="height: 471px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Cats flying">
+  <span>See the Pen <a href="https://codepen.io/pachipachi/pen/ZEeQpBa">
+  Cats flying</a> by pachijun (<a href="https://codepen.io/pachipachi">@pachipachi</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+やっと、background の 一括指定の仕方がわかったような気がします。
