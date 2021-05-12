@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
 
   def generate_title(title = "")
     title = title.empty? ? "📚" : title
-    "#{title} | JunyaBlog"
+    "#{title} | #{Rails.configuration.site_name}"
   end
 end

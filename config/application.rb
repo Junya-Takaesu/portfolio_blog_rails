@@ -28,7 +28,7 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Junyablog
+module JTBlog
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
@@ -43,5 +43,8 @@ module Junyablog
 
     # Disable it so the autoload paths for Zeitwerk are not gonna added to the $LOAD_PATH for ruby
     config.add_autoload_paths_to_load_path = false
+
+    # Custom configuration
+    config.site_name = "JT BLOG"
   end
 end

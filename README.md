@@ -1,4 +1,4 @@
-# junyablog の README.md
+# Blog の README.md
 
 ## ブログの URL
 
