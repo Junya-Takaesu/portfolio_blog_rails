@@ -543,5 +543,14 @@
       "javascript"
     ],
     "is_published": false
+  },
+  "53": {
+    "id": 53,
+    "title": "css background プロパティの一括指定について",
+    "created_at": "2021-05-12",
+    "tags": [
+      "css"
+    ],
+    "is_published": true
   }
 }
