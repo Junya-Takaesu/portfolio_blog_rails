@@ -1,0 +1,59 @@
+React の勉強を最近はじめました。
+以前作ったポートフォリオを React で再作成してみて、React の使い方を覚えていこうとしているところです。
+
+React について、勉強したことをまとめていきます。まずは、コンポーネントと Props についてまとめていこうかと思います。
+
+## コンポーネントとは
+コンポーネントとは React アプリの UI を表す部品。ボタンやナビゲーションなどの UI を、コンポーネントとして表すと、独立した再利用可能な部品として扱うことができるようになります。部品化すると、その後、繰り返し同じ要素をレンダーしたいときに再利用できるのは便利だと思いました（ただの感想）。
+
+### コンポーネント使用例
+めちゃくちゃ簡単な例。
+日付を表示する `Calendar` コンポーネントを作り、それをページに表示する。
+
+```javascript
+import React from "react";
+import ReactDOM from "react-dom";
+
+const Calendar = () => {
+  return (
+    <div style={{ backgroundColor: "orange" }}>
+      <h2>2021 / 05 / 17</h2>
+      <p>Hello!!!</p>
+    </div>
+  );
+};
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Calendar />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+
+```
+
+これでアプリを開くと、下記のような感じになる。
+![Image](https://i.imgur.com/BLNolJh.png)
+
+最初の 1~2 行目
+
+* React の機能を使うための パッケージをインポート
+
+関数コンポーネント `Calendar` を定義
+
+* 関数コンポーネントは return に jsx という記法で html の内容を書く
+* jsx で書かれた return によって、React 要素なるものが返されるらしい。これのおかげで、差分で DOM の更新などができるっぽい。
+* jsx の中で、インラインのスタイルを書く場合、オブジェクトで書いて渡す必要がある。
+  * ※ケバブケースの css プロパティの場合、キャメルケースに直す。
+
+最後、`ReactDOM.render()` で、コンポーネントをレンダーする
+
+### コンポーネントを再利用する
+
+
+## Props とは
+
+### Props を使って、呼び出すコンポーネントごとに、動作を変える
+
+
+Props を使って、コンポーネントのレンダー内容を変えることができる。
