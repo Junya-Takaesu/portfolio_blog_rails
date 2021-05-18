@@ -33,27 +33,71 @@ ReactDOM.render(
 ```
 
 これでアプリを開くと、下記のような感じになる。
+
 ![Image](https://i.imgur.com/BLNolJh.png)
 
 最初の 1~2 行目
 
 * React の機能を使うための パッケージをインポート
 
-関数コンポーネント `Calendar` を定義
+関数コンポーネントとして、 `Calendar` を定義
 
 * 関数コンポーネントは return に jsx という記法で html の内容を書く
 * jsx で書かれた return によって、React 要素なるものが返されるらしい。これのおかげで、差分で DOM の更新などができるっぽい。
 * jsx の中で、インラインのスタイルを書く場合、オブジェクトで書いて渡す必要がある。
   * ※ケバブケースの css プロパティの場合、キャメルケースに直す。
 
-最後、`ReactDOM.render()` で、コンポーネントをレンダーする
+最後、`ReactDOM.render()` で、`Calendar` コンポーネントをレンダーする
 
 ### コンポーネントを再利用する
+上記の例でコンポーネントを作ったので、これを繰り返し呼び出せば、たくさんの `Calendar` コンポーネントをレンダー出来ます。上記例で、`ReactDOM.render()`　を実行している箇所を変更します。
 
+```javascript
+ReactDOM.render(
+  <React.StrictMode>
+    <Calendar />
+    <Calendar />
+    <Calendar />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+```
 
-## Props とは
+↓結果
+
+![Image](https://i.imgur.com/rzE46wH.png)
+
+ただ、繰り返しコンポーネントを呼び出せても、全く同じ内容が繰り返されるだけなのであまり意味がありません。そこで、**Props** と呼ばれる関数の引数のようなものを使って、コンポーネントの動作を呼び出しごとに変えるようにします。
+
 
 ### Props を使って、呼び出すコンポーネントごとに、動作を変える
+props とは関数の引数のようなものですが、普通の関数の引数とは異なり、jsx 内のコンポーネントの属性として、props を書きます。コンポーネント側では、引数にpropsを定義して、呼び出し側では、コンポーネントの属性として props を指定するようにソースコードを書き換えます。
 
+```javascript
+const Calendar = ({ date }) => {
+  return (
+    <div style={{ backgroundColor: "orange" }}>
+      <h2>{date}</h2>
+      <p>Hello!!!</p>
+    </div>
+  );
+};
 
-Props を使って、コンポーネントのレンダー内容を変えることができる。
+ReactDOM.render(
+  <React.StrictMode>
+    <Calendar date="2021/05/17" />
+    <Calendar date="2021/05/18" />
+    <Calendar date="2021/05/19" />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+```
+
+`Calendar` コンポーネントの引数に `{ date }` を追加、`Calendar` コンポーネントを呼び出すときの属性に `date="2021/05/17"` のような日付の文字列を指定するように変更しました。こうすることで、表示が固定化されず、呼び出しごとに `Calendar` コンポーネントがレンダーする内容を変えられるようになりました。（↓が結果）
+
+![Image](https://i.imgur.com/HZDzH84.png)
+
+他にも、動作を変えたい要素があれば、それも Props としてコンポーネントの引数に定義してあげれば、他にもいろいろ出来ます。（例えば、 `Hello!!` と固定担っている箇所を日別の予定の内容に変えるなど。）
+
+以上です。
+全然大したことではないですが、React 勉強した内容をまとめました。
