@@ -1,0 +1,74 @@
+![Image](https://i.imgur.com/NAoGSZo.png)
+
+今日、開発を行っていると、急に MySQL に接続できなくなり困りました。
+ローカルホストのウェブサイトは、`MySQL server has gone away` になってしまい、MySQL workbench や cli からも mysql に接続できなかったです。
+
+## 原因を調べる
+
+MAMP を使って、mysql を動かしていたので、まず、MAMP でインストールした mysql のログの内容を確認してみました。
+
+```
+$ tail -f /Applications/MAMP/logs/mysql_error_log.err
+```
+
+MAMP を使うと、mysql のログは上記の場所にあります。
+tail コマンドを使って中身を見ると下記の様な内容が。
+
+```
+︙
+[Warning] File Descriptor 1043 exceedeed FD_SETSIZE=1024
+[Warning] File Descriptor 1043 exceedeed FD_SETSIZE=1024
+[Warning] File Descriptor 1043 exceedeed FD_SETSIZE=1024
+︙
+```
+
+これは、mysql が作成したファイルディスクリプタの数が多すぎて、OS が設定しているプロセスごとのファイルディスクリプタの上限を超えてしまったために出ている Warning です。
+
+Warning のメッセージでそのままググると、下記のMySQLの公式と思われるバグレポートのスレッドがありました。
+
+https://bugs.mysql.com/bug.php?id=79125
+
+スレッドを読むと、下記のような投稿が。
+
+> FD_SETSIZE is a constant. Any fd whose numerical value is greater than FD_SETSIZE cannot be used with select(). It appears select() is used in Mac OS X.
+
+MacOS が使っている `FD_SETSIZE` という定数がファイルディスクリプタの数の上限を決めており、その数が 1024 なので、それを超えると、mysql が動作しなくなるようです。
+
+別の人の投稿で、この問題の回避策も提示されていました。
+
+>  However I have found that if I limit the open table cache size then I no longer have this issue.
+
+なるほど、MySQL のテーブルキャッシュが多いと、すぐにファイルディスクリプタの上限を超えてしまうので、テーブルキャッシュの上限値を設定してあげ、ファイルディスクリプタが無駄に作られることがないようにしてあげると良いようです。
+
+確信を得るため、更にぐぐってみると、下記のブログ記事を見つけました。
+
+[mac osx におけるファイルディスクリプタの上限](https://zudoh.com/mysql/mac-osx-file-descriptor-limit)
+
+このブログの人も私と同じような問題に直面したようで、テーブルキャッシュの寿命を短く設定して解決（回避）出来たようです。
+
+解決策がわかったので、自分もやってみます。
+
+## MAMP の MySQL の設定を変えて、テーブルキャッシュの数を制限する
+[mysql のマニュアルにかかれている table_open_cache の説明](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_table_open_cache) にある通り、この数を増やすと、mysql が必要とするファイルディスクリプタの数も増えます。デフォルト値は2000なので、この時点で MacOS のファイルディスクリプタの上限を超えてしまっています。そのため、この table_open_cache の数を低く設定します。
+
+設定ファイルの場所は `/Applications/MAMP/conf/my.cnf` です。（MAMP を使って mysql をインストールしている場合）
+
+```
+[mysqld]
+table_open_cache=400
+```
+
+これで、mysql は 400個以上 テーブルのキャッシュを作らないので、ファイルディスクリプタの数も400くらいに収まるはずです。たぶん、mysql はテーブルキャッシュ以外にも、いろいろなファイルディスクリプタを作ると思うので、単純に mysql が作るファイルディスクリプタの数という意味では 400超えると思います。
+
+## 注意点
+テーブルキャッシュの数を制限すると、その分キャッシュが利用できなくなるので、パフォーマンスが落ちる可能性があります。なので、本番のサーバーとかではしっかりこの数値の検討をしたほうが良いです。
+[mysql のマニュアル](https://dev.mysql.com/doc/refman/5.7/en/table-cache.html)にかかれていることの引用ですが、下記の SQL で "これまで開かれてきたテーブルの累計" を確認して、その数があまりに大きい、もしくは定期的に確認して、その数が増えるペースが早い場合は、キャッシュの数を増やしたほうが良いようです。（キャッシュの数が増える事によって、頻繁にテーブルを開くというオペレーションが減らせて、結果的にパフォーマンス改善する？）
+
+```sql
+mysql> SHOW GLOBAL STATUS LIKE 'Opened_tables';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| Opened_tables | 2741  |
++---------------+-------+
+```
