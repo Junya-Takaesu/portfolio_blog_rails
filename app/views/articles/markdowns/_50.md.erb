@@ -11,7 +11,9 @@
 
 1. imgur でアプリケーション登録して、api トークンを発行する(vscode-imgur が imgur の api にリクエストするようなので、必要)
    * アプリケーション登録フォーム: https://api.imgur.com/oauth2/addclient
+
 2. vscode に `vscode-imgur` をインストール
+
 3. 下記のような、設定を追加する
 
     ```json
@@ -27,7 +29,13 @@
       * 詳細は公式のドキュメントでも確認できます。
           * https://code.visualstudio.com/docs/editor/variables-reference#_environment-variables
           * ※環境変数が使えるのは launch.json と tasks.json と書いていますが、**settings.json** で試したら使えました！
-4. 設定が済んだら画像をコピーして、`Ctrl` + `Alt` + `v` で貼り付けるだけ。
-    * ※初回は、vscode 上で、imgur アカウントのパスワードか、client_secret の入力が求められるので、入力する。
 
-これで、vscode でのブロク執筆も捗りそう・・・😎️
+4. 設定が済んだら画像をコピーして、`Ctrl` + `Alt` + `v` で貼り付けるだけ。
+    * 初回は、imgur アカウントの認証を行うため、imgur のページがブラウザで開く
+    * 1の工程で登録したアプリケーションを使って、画像をアップロードすることを許可(Allow)する
+    * 許可(Allow)すると、一時的な PIN コードが発行されるので、vscode に戻り、vscode のプロンプトにその PIN コードを貼り付け ENTER する。
+    * 画像がアップロードされ、markdown ファイル上にアップロードされた画像の url が入力される。
+
+## 注意
+imgur の client_secret は一度しか使えないっぽい？。なので、PC A でこの拡張機能を使えるように設定した後、PC A を買い替えて PC B　にしたとき、同じ用に `vscode-imgur` の設定をすると、認証に失敗する。PC 買い替え時などは、client_secret を imgur のウェブサイトで再発行する必要がある。(もしくは別の imgur アプリを作っても良い？)
+

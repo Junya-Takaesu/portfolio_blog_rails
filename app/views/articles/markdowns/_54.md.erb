@@ -38,18 +38,18 @@ MacOS が使っている `FD_SETSIZE` という定数がファイルディスク
 
 >  However I have found that if I limit the open table cache size then I no longer have this issue.
 
-なるほど、MySQL のテーブルキャッシュが多いと、すぐにファイルディスクリプタの上限を超えてしまうので、テーブルキャッシュの上限値を設定してあげ、ファイルディスクリプタが無駄に作られることがないようにしてあげると良いようです。
+なるほど、open table cache を制限すればいいのですね・・・。
 
-確信を得るため、更にぐぐってみると、下記のブログ記事を見つけました。
+なんとなくわかってきたので、確信を得るため、更にぐぐってみると、下記のブログ記事を見つけました。
 
 [mac osx におけるファイルディスクリプタの上限](https://zudoh.com/mysql/mac-osx-file-descriptor-limit)
 
-このブログの人も私と同じような問題に直面したようで、テーブルキャッシュの寿命を短く設定して解決（回避）出来たようです。
+このブログの人も私と同じような問題に直面したようで、テーブルキャッシュの作られる数を少なく設定して解決（回避）出来たようです。
 
 解決策がわかったので、自分もやってみます。
 
 ## MAMP の MySQL の設定を変えて、テーブルキャッシュの数を制限する
-[mysql のマニュアルにかかれている table_open_cache の説明](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_table_open_cache) にある通り、この数を増やすと、mysql が必要とするファイルディスクリプタの数も増えます。デフォルト値は2000なので、この時点で MacOS のファイルディスクリプタの上限を超えてしまっています。そのため、この table_open_cache の数を低く設定します。
+[mysql のマニュアルにかかれている table_open_cache の説明](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_table_open_cache) にある通り、この数を増やすと、mysql が必要とするファイルディスクリプタの数も増えます。デフォルト値は2000なので、<big style="color:red;">この時点で MacOS のファイルディスクリプタの上限を超えてしまっています</big>。そのため、この table_open_cache の数を低く設定します。
 
 設定ファイルの場所は `/Applications/MAMP/conf/my.cnf` です。（MAMP を使って mysql をインストールしている場合）
 
@@ -72,3 +72,5 @@ mysql> SHOW GLOBAL STATUS LIKE 'Opened_tables';
 | Opened_tables | 2741  |
 +---------------+-------+
 ```
+
+いやー、Linux とかデータベースって難しい・・・
