@@ -1,0 +1,5 @@
+{
+    "vscode-imgur.client_id": "385318520325f93", // Must be set to upload to imgur
+    "vscode-imgur.client_secret": "${env:IMGUR_CLIENT_SECRET}", // Neaded for User upload. Not neaded for anonymous mode.
+    "vscode-imgur.preferUserUpload": true,
+}
