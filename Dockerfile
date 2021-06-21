@@ -7,7 +7,7 @@ COPY Gemfile /blog/Gemfile
 COPY Gemfile.lock /blog/Gemfile.lock
 RUN bundle install
 COPY . /blog
-RUN rails webpacker:install && yarn add -D webpack-cli
+RUN rails webpacker:install && yarn add -D webpack-cli && yarn
 
 EXPOSE 3000
 
