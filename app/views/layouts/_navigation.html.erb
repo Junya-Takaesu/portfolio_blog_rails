@@ -1,21 +1,21 @@
 <nav class="sticky-top">
   <div class="container">
-    <div class="row text-center">
-      <div class="col">
+    <div class="d-flex justify-content-between text-center">
+      <div class="d-flex flex-column justify-content-center">
         <a href="<%= articles_path %>" class="text-decoration-none text-reset">
           <%= Rails.configuration.site_name %>
         </a>
       </div>
-      <div class="col">
-        <a href="<%= about_path %>" class="text-decoration-none text-reset">ABOUT</a>
-      </div>
-      <div class="col">
+      <div class="">
         <div class="external-links flex-row justify-content-center">
-          <a class="col ms-2" href="https://github.com/Junya-Takaesu" target="_blank">
+          <a class="col ms-2" href="https://github.com/Junya-Takaesu" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
             <%= image_tag "GitHub-Mark-32px.png", style: "width: 20px; height: 20px", prevent_resolve_path: true %>
           </a>
           <a class="col ms-2" href="https://twitter.com/EightTakaesu" target="_blank">
             <%= image_tag "iconmonstr-twitter-5.svg", style: "width: 20px; height: 20px", prevent_resolve_path: true %>
+          </a>
+          <a class="col ms-2" href="<%= about_path %>">
+            <%= image_tag "info-icon-23835.png", style: "width: 20px; height: 20px", prevent_resolve_path: true %>
           </a>
         </div>
       </div>
