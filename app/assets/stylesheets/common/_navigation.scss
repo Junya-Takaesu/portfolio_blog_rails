@@ -7,42 +7,12 @@ nav.sticky-top {
   );
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 
-  .col {
-    height: 50px;
-    line-height: 50px;
-    padding: 0;
-
-    & > a {
-      display: inline-block;
-      height: 100%;
-      width: 100%;
-      font-weight: bold;
-      position: relative;
-
-      &:before {
-        position: absolute;
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: linear-gradient(
-          to right bottom,
-          rgba(255, 255, 255, 0.1),
-          rgba(255, 255, 255, 0.9),
-          rgba(255, 255, 255, 0.1)
-        );
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.2s ease-out;
-      }
-
-      &:hover:before {
-        opacity: 1;
-      }
+  .d-flex.justify-content-between.text-center {
+    margin-left: 50px;
+    .col {
+      line-height: 50px;
     }
   }
-
   *:hover {
     border-bottom: initial;
   }
