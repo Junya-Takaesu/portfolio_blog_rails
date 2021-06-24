@@ -7,10 +7,12 @@ nav.sticky-top {
   );
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 
-  .col {
-    line-height: 50px;
+  .d-flex.justify-content-between.text-center {
+    margin-left: 50px;
+    .col {
+      line-height: 50px;
+    }
   }
-
   *:hover {
     border-bottom: initial;
   }
