@@ -1,57 +1,82 @@
+require "zeitwerk"
+loader = Zeitwerk::Loader.new
+loader.push_dir("#{Rails.root.to_s}/app/lib")
+loader.setup
+
+def ask_for_user_input(message, downcase=false)
+  puts message
+  print ">>> "
+  input = gets.chomp.strip
+  puts "\n"
+  return input
+end
+
+def git_pull_latest
+  puts "================================================================\n\n"
+  system("git fetch origin")
+  system("git checkout write-article")
+  system("git rebase origin/main")
+  puts "================================================================\n\n"
+end
+
+# namespace :hoge do
+#   task :foo do
+#     puts Articles::List.new.all.length
+#   end
+# end
+
 namespace :blog do
   desc "gitリポジトリと同期し、articles.json にエントリを追加し、対応する views/articles/_*.md.erb を作成する"
   task :new do
-    begin
-      puts "ブログのタイトルを入力してください"
-      print "> "
-      entry_title = gets.chomp
+      entry_title = ask_for_user_input(message="ブログのタイトルを入力してください")
+      entry_tags = ask_for_user_input(message="ブログのタグをカンマ区切りで入力してください", true)
 
-      puts "ブログのタグをカンマ区切りで入力してください"
-      print "> "
-      entry_tags = gets.chomp.downcase
+      git_pull_latest
 
-      # Todo: ssh key をコンテナにコピーして、fetch もできるようにする
-      system("git fetch origin")
-      system("git checkout write-article")
-      system("git rebase origin/main")
+      # articles_dir = "#{Rails.root.to_s}/app/views/articles/"
+      # json_path = "#{articles_dir}articles.json"
+      # json = File.read json_path
+      # parsed_json = JSON.parse json
 
-      articles_dir = "#{Rails.root.to_s}/app/views/articles/"
-      json_path = "#{articles_dir}articles.json"
-      json = File.read json_path
-      parsed_json = JSON.parse json
+      new_id = Articles::List.new.all.length+1
+      today = Date.today.iso8601
+      # parsed_json[new_id.to_s] = {
+      #   "id" => new_id,
+      #   "title" => "#{entry_title}",
+      #   "created_at" => today,
+      #   "tags" => entry_tags.split(","),
+      #   "is_published" => false
+      # }
+      
+      article = Articles::Article.new(
+        id: new_id, 
+        title: "#{entry_title}", 
+        created_at: today, 
+        tags: entry_tags.split(","), 
+        is_published: false
+      )
+      article.save
 
-      new_id = parsed_json.length+1
-      today = Date.today
-      parsed_json[new_id.to_s] = {
-        "id" => new_id,
-        "title" => "#{entry_title}",
-        "created_at" => today.iso8601,
-        "tags" => entry_tags.split(","),
-        "is_published" => false
-      }
+      # File.write json_path, JSON.pretty_generate(parsed_json)
 
-      File.write json_path, JSON.pretty_generate(parsed_json)
+      # file_name = "#{articles_dir}/markdowns/_#{parsed_json[new_id.to_s]["id"]}.md.erb"
+      # File.write file_name, ""
 
-      system("mv #{articles_dir}temp_articles.json #{json_path}")
+      # puts "[Success] 以下のブログを作成しました"
+      # puts "[File Name] #{file_name}"
+      # puts "[File Detail] #{parsed_json[new_id.to_s]}"
 
-      file_name = "#{articles_dir}/markdowns/_#{parsed_json[new_id.to_s]["id"]}.md.erb"
-      File.write file_name, ""
-
-      puts "[Success] 以下のブログを作成しました"
-      puts "[File Name] #{file_name}"
-      puts "[File Detail] #{parsed_json[new_id.to_s]}"
-
-      puts "sitemap を生成します"
-      Rake::Task["sitemap:refresh"].invoke
-
-      system("code #{file_name}")
-
-    rescue => e
-      puts "[Failed] ブログの作成に失敗しました"
-      puts "#{e.message}"
-      system("cat #{json_path} | jq . > #{articles_dir}temp_articles.json")
-      system("mv #{articles_dir}temp_articles.json #{json_path}")
-    end
+      puts "サイトマップを生成しますか？"
+      print "(Y or n) > "
+      confirm = gets.chomp.downcase.strip
+      if confirm == "y"
+        puts "サイトマップを生成します"
+        Rake::Task["sitemap:refresh"].invoke
+      else
+        puts "サイトマップを生成しませんでした"
+        puts "下記のコマンドでいつでもサイトマップの生成と、検索エンジンに PING することが出来ます"
+        puts "rake sitemap:refresh"
+      end
   end
 
   # Todo: ssh key をコンテナにコピーして、submit が実行できるようにする
