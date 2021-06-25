@@ -10,7 +10,4 @@ COPY . .
 RUN rails webpacker:install && yarn add -D webpack-cli && yarn
 EXPOSE 3000
 
-RUN useradd -m myuser
-USER myuser
-
 CMD ["rails", "server", "-b", "0.0.0.0"]
