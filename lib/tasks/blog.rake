@@ -1,7 +1,9 @@
-require "zeitwerk"
-loader = Zeitwerk::Loader.new
-loader.push_dir("#{Rails.root.to_s}/app/lib")
-loader.setup
+def load_libraries
+  require "zeitwerk"
+  loader = Zeitwerk::Loader.new
+  loader.push_dir("#{Rails.root.to_s}/app/lib")
+  loader.setup
+end
 
 def ask_for_user_input(message, downcase=false)
   puts message
@@ -22,6 +24,8 @@ end
 namespace :blog do
   desc "gitリポジトリと同期し、articles.json にエントリを追加し、対応する views/articles/_*.md.erb を作成する"
   task :new do
+    load_libraries
+
     entry_title = ask_for_user_input(message="ブログのタイトルを入力してください")
     entry_tags = ask_for_user_input(message="ブログのタグをカンマ区切りで入力してください", true)
 
