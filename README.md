@@ -10,13 +10,20 @@ https://junya-takaesu.site/
 
 ```
 rails blog:new
+docker exec -it portfolio_blog_rails_web_1 rails blog:new
 ```
+* コマンド実行の前に:
+  * docker-compose の web サービス から git push するため、ssh の鍵ファイルが必要
+  * .ssh ディレクトリを web サービスにマウントすることで、web サービスから git 操作を行えるようにする
+  * .ssh ディレクトリを web サービスにマウントするために、.ssh ディレクトリのパスを、`.env` ファイルに `SSH_DIR_PATH` という名前の変数で定義する 
+    * `SSH_DIR_PATH` に代入するパスの末尾にスラッシュは不要
+  * `SSH_DIR_PATH` を使って docker-compose.yml が マウントする
 
 * このコマンドにより `lib/tasks/blog.rake` の `task :new`　が実行される
 * `app/views/articles` ディレクトリに、空の Markdown ファイルが作成され、ブログを書き始められる。
-* `app/views/articles/articles.json` に、ブログ記事のメタ情報が記録される（作成日など）
+* `app/views/articles/articles.json` に、ブログ記事のメタ情報が記録される（作成日,タグなど）
 
-### 作成したブログをコミットする
+### 作成したブログをコミットする(WIP)
 
 ```
 rails blog:submit
