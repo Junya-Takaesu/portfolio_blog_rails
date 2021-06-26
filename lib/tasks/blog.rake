@@ -5,7 +5,7 @@ def load_libraries
   loader.setup
 end
 
-def ask_for_user_input(message, downcase=false)
+def ask_for_user_input(message, downcase = false)
   puts message
   print ">>> "
   input = gets.chomp.strip
@@ -26,20 +26,20 @@ namespace :blog do
   task :new do
     load_libraries
 
-    entry_title = ask_for_user_input(message="ブログのタイトルを入力してください")
-    entry_tags = ask_for_user_input(message="ブログのタグをカンマ区切りで入力してください", true)
+    entry_title = ask_for_user_input(message = "ブログのタイトルを入力してください")
+    entry_tags = ask_for_user_input(message = "ブログのタグをカンマ区切りで入力してください", true)
 
     git_pull_latest
 
-    new_id = Articles::List.new.all.length+1
+    new_id = Articles::List.new.all.length + 1
     today = Date.today.iso8601
-    
+
     article = Articles::Article.new(
-      id: new_id, 
-      title: "#{entry_title}", 
-      created_at: today, 
-      tags: entry_tags.split(","), 
-      is_published: false
+      id: new_id,
+      title: "#{entry_title}",
+      created_at: today,
+      tags: entry_tags.split(","),
+      is_published: false,
     )
     article.save
 
@@ -62,7 +62,7 @@ namespace :blog do
 
     puts "submit しますか？"
     print "(Y or n) > "
-    user_concent = gets.chomp.strip.gsub(/[[:space:]]/, '')
+    user_concent = gets.chomp.strip.gsub(/[[:space:]]/, "")
     cancels = ["n", "no"]
     if user_concent.nil? || cancels.include?(user_concent.downcase)
       puts "submit をキャンセルします"
