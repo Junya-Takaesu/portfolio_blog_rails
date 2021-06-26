@@ -12,9 +12,10 @@ class Articles::Article
     Title,
     CreatedAt,
     Tags,
-    IsPublished
+    IsPublished,
   ]
   ArticlesList = Articles::List
+  ARTICLES_VIEW_FILE_PATH = "#{Rails.root.to_s}/app/views/articles"
 
   def initialize(id:, title:, created_at:, tags:, is_published:)
     @id = id
@@ -22,6 +23,24 @@ class Articles::Article
     @created_at = Date.parse created_at
     @tags = tags
     @is_published = is_published
+  end
+
+  def save
+    json_path = "#{ARTICLES_VIEW_FILE_PATH}/articles.json"
+    json = File.read json_path
+    parsed_json = JSON.parse json
+
+    new_id = parsed_json.length + 1
+    today = Date.today.iso8601
+    new_entry = [@id, @title, @created_at, @tags, @is_published]
+    parsed_json[new_id.to_s] = Properties.zip(new_entry).to_h
+
+    File.write json_path, JSON.pretty_generate(parsed_json)
+
+    new_file = "#{ARTICLES_VIEW_FILE_PATH}/markdowns/_#{new_id}.md.erb"
+    File.write new_file, ""
+
+    @file_name = new_file
   end
 
   def previous_article
@@ -54,7 +73,7 @@ class Articles::Article
       "title" => @title,
       "created_at" => @created_at,
       "tags" => @tags,
-      "is_published" => @is_published
+      "is_published" => @is_published,
     }
   end
 
@@ -63,6 +82,6 @@ class Articles::Article
     markdown_file = File.read("#{Rails.root}/app/views/articles/markdowns/_#{@id}.md.erb")
     html = parse_markdown(string: markdown_file)
     document = Nokogiri::HTML.parse(html)
-    @images = document.css("img").map {|img| img[:src]}
+    @images = document.css("img").map { |img| img[:src] }
   end
 end
