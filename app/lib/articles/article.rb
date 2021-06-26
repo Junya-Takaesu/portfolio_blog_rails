@@ -12,7 +12,7 @@ class Articles::Article
     Title,
     CreatedAt,
     Tags,
-    IsPublished
+    IsPublished,
   ]
   ArticlesList = Articles::List
   ARTICLES_VIEW_FILE_PATH = "#{Rails.root.to_s}/app/views/articles"
@@ -73,7 +73,7 @@ class Articles::Article
       "title" => @title,
       "created_at" => @created_at,
       "tags" => @tags,
-      "is_published" => @is_published
+      "is_published" => @is_published,
     }
   end
 
@@ -82,6 +82,6 @@ class Articles::Article
     markdown_file = File.read("#{Rails.root}/app/views/articles/markdowns/_#{@id}.md.erb")
     html = parse_markdown(string: markdown_file)
     document = Nokogiri::HTML.parse(html)
-    @images = document.css("img").map {|img| img[:src]}
+    @images = document.css("img").map { |img| img[:src] }
   end
 end
