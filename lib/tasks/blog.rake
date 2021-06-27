@@ -43,17 +43,8 @@ namespace :blog do
     )
     article.save
 
-    puts "サイトマップを生成しますか？"
-    print "(Y or n) > "
-    confirm = gets.chomp.downcase.strip
-    if confirm == "y"
-      puts "サイトマップを生成します"
-      Rake::Task["sitemap:refresh"].invoke
-    else
-      puts "サイトマップを生成しませんでした"
-      puts "下記のコマンドでいつでもサイトマップの生成と、検索エンジンに PING することが出来ます"
-      puts "rake sitemap:refresh"
-    end
+    puts "下記のコマンドでいつでもサイトマップの生成と、検索エンジンに PING することが出来ます"
+    puts "rake sitemap:refresh"
   end
 
   desc "git diff を表示し、問題なければ リモートリポジトリの write-article ブランチに push する"
