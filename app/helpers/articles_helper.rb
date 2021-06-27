@@ -50,6 +50,8 @@ module ArticlesHelper
     type = type.downcase
 
     case type
+    when "html"
+      icon = '<i class="devicon-html5-plain"></i>'
     when "css"
       icon = '<i class="devicon-css3-plain"></i>'
     when "windows"
@@ -59,7 +61,9 @@ module ArticlesHelper
     when "markdown"
       icon = '<ion-icon name="logo-markdown"></ion-icon>'
     when "vscode"
-      icon = '<i class="devicon-visualstudio-plain"></i>'
+      icon = '<i class="devicon-vscode-plain"></i>'
+    when "mac"
+      icon = '<i class="devicon-apple-original"></i>'
     else
       type = "javascript" if type.include? ".js"
       icon = "<i class=\"devicon-#{type}-plain\"></i>"
