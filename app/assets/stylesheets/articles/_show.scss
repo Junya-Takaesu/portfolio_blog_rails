@@ -22,11 +22,13 @@
 
     h1 {
       margin-bottom: 2rem;
-      font-size: calc(0.8rem + 1.4vw);
+      font-size: calc(1rem + 1.4vw);
     }
 
     h2 {
+      background: linear-gradient(to right bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.7));
       border-bottom: $color-gold solid 2px;
+      padding: 0.9rem 0.4rem;
       font-size: calc(0.7em + 1.4vw);
     }
 
