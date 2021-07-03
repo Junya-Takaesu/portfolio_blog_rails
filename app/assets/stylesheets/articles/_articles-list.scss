@@ -33,8 +33,8 @@
   margin-bottom: 50px;
   padding: 30px 0 0 10px;
   position: relative;
-  color: rgb(252, 249, 249);
-  text-shadow: 1px 1px rgba(0,0,0,0.4);
+  color: rgb(244, 243, 243);
+  text-shadow: 1px 1px $color-gold;
   &::after {
     content: "";
     position: absolute;
@@ -42,9 +42,8 @@
     bottom: 0px;
     left: 0px;
     right: 0px;
-    background: url(https://i.imgur.com/3P88u6M.jpg) top left / cover
-      no-repeat;
-    filter: brightness(75%);
+    background: url(https://i.imgur.com/3P88u6M.jpg) center / cover no-repeat;
+    filter: brightness(80%);
     z-index: -1;
   }
 }

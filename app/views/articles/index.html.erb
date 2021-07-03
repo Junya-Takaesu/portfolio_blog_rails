@@ -5,8 +5,10 @@
 </aside>
 
 <section id="articles-list-hero">
-  <h1><img src="/favicon.ico" class="image-fluid"><%= Rails.configuration.site_name %></h1>
-  <p><%= "#{parse_markdown(string: (render "synopsis.md.erb"), escape_html: false)}".html_safe %></p>
+  <div class="container">
+    <h1><img src="/favicon.ico" class="image-fluid"><%= Rails.configuration.site_name %></h1>
+    <p><%= "#{parse_markdown(string: (render "synopsis.md.erb"), escape_html: false)}".html_safe %></p>
+  </div>
 </section>
 
 <div class="container" id="articles-index">
