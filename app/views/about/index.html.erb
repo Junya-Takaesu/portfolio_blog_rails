@@ -62,7 +62,7 @@
     </div>
     <div class="row pe-md-5 fw-light">
       <%= "#{parse_markdown(string: (render "introduction.md.erb"), escape_html: false)}".html_safe %>
-      <p><i class="bi bi-arrow-right-square-fill"></i><a href="articles" class="ms-2">HOME/記事一覧</a></p>
+      <p><i class="bi bi-arrow-right-square-fill"></i><a href="<%= root_path %>" class="ms-2">HOME/記事一覧</a></p>
     </div>
   </div>
 </section>
