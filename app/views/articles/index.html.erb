@@ -14,7 +14,7 @@
 <div class="container" id="articles-index">
 
   <div class="row">
-    <section id="articles-container" class="col-12 col-lg-8">
+    <section id="articles-container" class="col-12 col-lg-9">
 
       <% unless @param_tags.empty? %>
         <div class="row justify-content-md-center"　data-nosnippet>
@@ -65,7 +65,7 @@
                 <% article.tags.each do |tag| %>
                   <span class="filter-item">
                     <a
-                      href="?tags=<%= tag %>"
+                      href="?tags=<%= (@param_tags.select {|_param_tag| _param_tag != tag}+[tag]).join(",") %>"
                       class="filter-tag badge rounded-pill mx-1">
                       <%= icon tag %>
                       <%= tag %>
@@ -79,7 +79,7 @@
       <% end %>
     </section>
     
-    <aside id="filter" class="col-lg-4">
+    <aside id="filter" class="col-lg-3">
       <div class="tags sub-menu" data-nosnippet>
         <p class="filter-header"><i class="bi bi-tags-fill"></i> タグで絞る</p>
         <nav>
