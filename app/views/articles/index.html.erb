@@ -1,118 +1,121 @@
-<aside id="filter" class="d-lg-block">
-  <div class="tags sub-menu" data-nosnippet>
-    <p class="filter-header"><i class="bi bi-tags-fill"></i> タグで絞る</p>
-    <nav>
-      <ul class="d-flex flex-column">
-        <% @tags.each do |_tag| %>
-          <li class="filter-item">
-            <a
-              href="?tags=<%= (@param_tags.select {|_param_tag| _param_tag != _tag}+[_tag]).join(",") %>"
-              class="filter-tag badge rounded-pill mx-1"
-            >
-              <%= icon _tag %>
-              <%= _tag %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-  </div>
-
-  <div class="archives sub-menu"　data-nosnippet>
-    <p class="filter-header"><i class="bi bi-calendar-week-fill"></i> 投稿月で絞る</p>
-    <nav>
-      <ul>
-        <% @dates.each do |_date| %>
-          <li class="filter-item">
-            <a
-              href="?created_at=<%= (@param_created_at.select {|_param_created_at| _param_created_at != _date}+[_date]).join(",") %>"
-              class="filter-tag badge rounded-pill mx-1"
-            >
-              <%= _date %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-  </div>
-</aside>
-
 <aside id="burger" class="d-block d-lg-none">
   <div></div>
   <div></div>
   <div></div>
 </aside>
 
+<section id="articles-list-hero">
+  <div class="container">
+    <h1><img src="/favicon.ico" class="image-fluid"><%= Rails.configuration.site_name %></h1>
+    <p><%= "#{parse_markdown(string: (render "synopsis.md.erb"), escape_html: false)}".html_safe %></p>
+  </div>
+</section>
+
 <div class="container" id="articles-index">
 
-  <section id="articles-container">
+  <div class="row">
+    <section id="articles-container" class="col-12 col-lg-8">
 
-    <section id="articles-list-hero">
-      <h1><img src="/favicon.ico" class="image-fluid"><%= Rails.configuration.site_name %></h1>
-      <p><%= "#{parse_markdown(string: (render "synopsis.md.erb"), escape_html: false)}".html_safe %></p>
-    </section>
-
-    <% unless @param_tags.empty? %>
-      <div class="row justify-content-md-center"　data-nosnippet>
-        <div class="col-12 col-md-6 mb-5 selected-tags">
-          <i class="bi bi-tags-fill"></i> 次のタグを含む記事:<br>
-          <% @param_tags.each do |_param_tags| %>
-            <span class="filter-item">
-              <a
-                href="articles?tags=<%= @param_tags.select {|_tag| _tag != _param_tags}.join(",") %>"
-                class="filter-tag badge rounded-pill mx-1">
-                <%= icon _param_tags %>
-                <%= _param_tags %>
-                <i class="bi bi-x-circle-fill ms-1"></i>
-              </a>
-            </span>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
-    <% unless @param_created_at.empty? %>
-      <div class="row justify-content-md-center"　data-nosnippet>
-        <div class="col-12 col-md-6 mb-5 selected-tags">
-          <i class="bi bi-calendar-week-fill"></i> 次の期間に含まれる記事:<br>
-          <% @param_created_at.each do |_param_created_at| %>
-            <span class="filter-item">
-              <a
-                href="articles?created_at=<%= @param_created_at.select {|_date| _date != _param_created_at}.join(",") %>"
-                class="filter-tag badge rounded-pill mx-1">
-                <%= _param_created_at %><i class="bi bi-x-circle-fill ms-1"></i>
-              </a>
-            </span>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
-    <% @articles.each do |article| %>
-      <% id, article = article%>
-      <% if article.is_published %>
-        <div class="row justify-content-md-center gx-0 mb-5">
-          <div class="col-md-12 col-lg-11 mx-md-3 article-description">
-            <span class="publish-date"><%= "#{article.created_at}" %></span>
-            <p>
-              <%= link_to article.title, "#{articles_path}/#{article.id.to_s}", class: "article-title" %>
-            </p>
-            <p class="article-tags">
-              <% article.tags.each do |tag| %>
-                <span class="filter-item">
-                  <a
-                    href="articles?tags=<%= tag %>"
-                    class="filter-tag badge rounded-pill mx-1">
-                    <%= icon tag %>
-                    <%= tag %>
-                  </a>
-                </span>
-              <% end %>
-            </p>
+      <% unless @param_tags.empty? %>
+        <div class="row justify-content-md-center"　data-nosnippet>
+          <div class="col-12 col-md-6 mb-5 selected-tags">
+            <i class="bi bi-tags-fill"></i> 次のタグを含む記事:<br>
+            <% @param_tags.each do |_param_tags| %>
+              <span class="filter-item">
+                <a
+                  href="?tags=<%= @param_tags.select {|_tag| _tag != _param_tags}.join(",") %>"
+                  class="filter-tag badge rounded-pill mx-1">
+                  <%= icon _param_tags %>
+                  <%= _param_tags %>
+                  <i class="bi bi-x-circle-fill ms-1"></i>
+                </a>
+              </span>
+            <% end %>
           </div>
         </div>
       <% end %>
-    <% end %>
-  </section>
 
+      <% unless @param_created_at.empty? %>
+        <div class="row justify-content-md-center"　data-nosnippet>
+          <div class="col-12 col-md-6 mb-5 selected-tags">
+            <i class="bi bi-calendar-week-fill"></i> 次の期間に含まれる記事:<br>
+            <% @param_created_at.each do |_param_created_at| %>
+              <span class="filter-item">
+                <a
+                  href="?created_at=<%= @param_created_at.select {|_date| _date != _param_created_at}.join(",") %>"
+                  class="filter-tag badge rounded-pill mx-1">
+                  <%= _param_created_at %><i class="bi bi-x-circle-fill ms-1"></i>
+                </a>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% @articles.each do |article| %>
+        <% id, article = article%>
+        <% if article.is_published %>
+          <div class="row justify-content-md-center gx-0 mb-5">
+            <div class="col-md-12 col-lg-11 mx-md-3 article-description">
+              <span class="publish-date"><%= "#{article.created_at}" %></span>
+              <p>
+                <%= link_to article.title, "articles/#{article.id.to_s}", class: "article-title" %>
+              </p>
+              <p class="article-tags">
+                <% article.tags.each do |tag| %>
+                  <span class="filter-item">
+                    <a
+                      href="?tags=<%= tag %>"
+                      class="filter-tag badge rounded-pill mx-1">
+                      <%= icon tag %>
+                      <%= tag %>
+                    </a>
+                  </span>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </section>
+    
+    <aside id="filter" class="col-lg-4">
+      <div class="tags sub-menu" data-nosnippet>
+        <p class="filter-header"><i class="bi bi-tags-fill"></i> タグで絞る</p>
+        <nav>
+          <ul class="d-flex flex-column">
+            <% @tags.each do |_tag| %>
+              <li class="filter-item">
+                <a
+                  href="?tags=<%= (@param_tags.select {|_param_tag| _param_tag != _tag}+[_tag]).join(",") %>"
+                  class="filter-tag badge rounded-pill mx-1"
+                >
+                  <%= icon _tag %>
+                  <%= _tag %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="archives sub-menu"　data-nosnippet>
+        <p class="filter-header"><i class="bi bi-calendar-week-fill"></i> 投稿月で絞る</p>
+        <nav>
+          <ul>
+            <% @dates.each do |_date| %>
+              <li class="filter-item">
+                <a
+                  href="?created_at=<%= (@param_created_at.select {|_param_created_at| _param_created_at != _date}+[_date]).join(",") %>"
+                  class="filter-tag badge rounded-pill mx-1"
+                >
+                  <%= _date %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+  </div>
 </div>

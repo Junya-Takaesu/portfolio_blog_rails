@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
   def show
     articles_list = ArticlesList.new
     @article = articles_list.all[params[:id].to_i]
-    redirect_to articles_path unless @article.is_published
+    redirect_to root_path unless @article.is_published
 
     @title = generate_title(@article.title)
   end
