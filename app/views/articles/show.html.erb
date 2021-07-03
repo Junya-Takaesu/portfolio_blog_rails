@@ -8,7 +8,7 @@
         <% @article.tags.each do |tag| %>
           <span class="filter-item" data-nosnippet>
             <a
-              href="/articles?tags=<%= tag %>"
+              href="<%= "#{root_path}?tags=#{tag}" %>"
               class="filter-tag badge rounded-pill mx-1">
               <%= icon tag%>
               <%= tag %>

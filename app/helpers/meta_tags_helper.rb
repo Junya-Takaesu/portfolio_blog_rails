@@ -33,7 +33,7 @@ module MetaTagsHelper
     case request.path
     when about_path
       content = "#{parse_markdown(string: (render "introduction.md.erb"), escape_html: false)}".html_safe
-    when root_path, articles_path
+    when root_path
       content = "#{parse_markdown(string: (render "synopsis.md.erb"), escape_html: false)}".html_safe
     else
       content = "#{parse_markdown(string: (render "articles/markdowns/#{@article.id}.md.erb"), escape_html: false)}".html_safe

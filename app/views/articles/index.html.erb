@@ -23,7 +23,7 @@
             <% @param_tags.each do |_param_tags| %>
               <span class="filter-item">
                 <a
-                  href="articles?tags=<%= @param_tags.select {|_tag| _tag != _param_tags}.join(",") %>"
+                  href="?tags=<%= @param_tags.select {|_tag| _tag != _param_tags}.join(",") %>"
                   class="filter-tag badge rounded-pill mx-1">
                   <%= icon _param_tags %>
                   <%= _param_tags %>
@@ -42,7 +42,7 @@
             <% @param_created_at.each do |_param_created_at| %>
               <span class="filter-item">
                 <a
-                  href="articles?created_at=<%= @param_created_at.select {|_date| _date != _param_created_at}.join(",") %>"
+                  href="?created_at=<%= @param_created_at.select {|_date| _date != _param_created_at}.join(",") %>"
                   class="filter-tag badge rounded-pill mx-1">
                   <%= _param_created_at %><i class="bi bi-x-circle-fill ms-1"></i>
                 </a>
@@ -59,13 +59,13 @@
             <div class="col-md-12 col-lg-11 mx-md-3 article-description">
               <span class="publish-date"><%= "#{article.created_at}" %></span>
               <p>
-                <%= link_to article.title, "#{articles_path}/#{article.id.to_s}", class: "article-title" %>
+                <%= link_to article.title, "articles/#{article.id.to_s}", class: "article-title" %>
               </p>
               <p class="article-tags">
                 <% article.tags.each do |tag| %>
                   <span class="filter-item">
                     <a
-                      href="articles?tags=<%= tag %>"
+                      href="?tags=<%= tag %>"
                       class="filter-tag badge rounded-pill mx-1">
                       <%= icon tag %>
                       <%= tag %>
