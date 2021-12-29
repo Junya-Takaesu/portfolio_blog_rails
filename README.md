@@ -2,7 +2,13 @@
 
 ## ブログの URL
 
-https://junya-takaesu.site/
+https://junya-takaesu.s
+
+## 開発の始め方
+### Docker を使う
+```
+docker-compose up -d
+```
 
 ## rails コマンド(rake コマンド)
 
@@ -15,7 +21,7 @@ docker exec -it portfolio_blog_rails_web_1 rails blog:new
 * コマンド実行の前に:
   * docker-compose の web サービス から git push するため、ssh の鍵ファイルが必要
   * .ssh ディレクトリを web サービスにマウントすることで、web サービスから git 操作を行えるようにする
-  * .ssh ディレクトリを web サービスにマウントするために、.ssh ディレクトリのパスを、`.env` ファイルに `SSH_DIR_PATH` という名前の変数で定義する 
+  * .ssh ディレクトリを web サービスにマウントするために、.ssh ディレクトリのパスを、`.env` ファイルに `SSH_DIR_PATH` という名前の変数で定義する
     * `SSH_DIR_PATH` に代入するパスの末尾にスラッシュは不要
   * `SSH_DIR_PATH` を使って docker-compose.yml が マウントする
 
