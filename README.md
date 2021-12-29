@@ -1,8 +1,16 @@
 # Blog の README.md
 
+![](./images/1.png)
+![](./images/2.png)
+![](./images/3.png)
+![](./images/4.png)
+![](./images/5.png)
+![](./images/6.png)
+
+
 ## ブログの URL
 
-https://junya-takaesu.s
+https://junya-takaesu.site/
 
 ## 開発の始め方
 ### Docker を使う
